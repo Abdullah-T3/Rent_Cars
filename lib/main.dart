@@ -1,3 +1,4 @@
+import 'package:bookingcars/MVVM/Views/HomePage_View.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,7 +11,7 @@ import 'MVVM/View%20Model/user_view_model.dart';
 import 'MVVM/Views/Login_View.dart';
 import 'MVVM/Views/add_task_view.dart';
 import 'MVVM/Views/cars_data_view.dart';
-import 'MVVM/Views/homePage_View.dart';
+import 'MVVM/Views/Tasks_View.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,11 +53,12 @@ class MyApp extends StatelessWidget {
         canvasColor: MyColors.secondaryColor,
       ),
       home: userViewModel.token.isNotEmpty
-          ? const HomepageView()
+          ? const HomePageView()
           : const LoginView(),
       routes: {
         '/login': (context) => const LoginView(),
-        '/home': (context) => const HomepageView(),
+        '/tasks': (context) => const TasksView(),
+        '/home': (context) => const HomePageView(),
         '/cars_data': (context) => CarsDataView(),
         '/add_task': (context) => const AddTaskView(),
       },

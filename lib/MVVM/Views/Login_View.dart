@@ -1,3 +1,4 @@
+import 'package:bookingcars/Responsive/enums/DeviceType.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,7 +15,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  bool isLoggedIn = false;
+  late String isLoggedIn ;
   bool isPressed = true;
   GlobalKey formKey = GlobalKey();
   TextEditingController usernameController = TextEditingController();
@@ -32,10 +33,10 @@ class _LoginViewState extends State<LoginView> {
   Future<void> _checkLoginState() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+      isLoggedIn = prefs.getString('token')!;
     });
 
-    if (isLoggedIn) {
+    if (isLoggedIn.isNotEmpty) {
       // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, '/home');
     }
@@ -46,7 +47,7 @@ class _LoginViewState extends State<LoginView> {
       return Container(
         padding: EdgeInsets.symmetric(
             horizontal: deviceInfo.screenWidth * 0.05,
-            vertical: deviceInfo.screenHeight * 0.03),
+            vertical: deviceInfo.screenHeight * 0.02),
         child: const Column(
           children: [
             Text(
@@ -149,18 +150,18 @@ class _LoginViewState extends State<LoginView> {
           height: deviceInfo.screenHeight,  
           width: deviceInfo.screenWidth,
           child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(), // Enable scrolling in all orientations
+            physics: deviceInfo.deviceType == DeviceType.mobile ? const NeverScrollableScrollPhysics()  : AlwaysScrollableScrollPhysics(), // Enable scrolling in all orientations
               child: Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: deviceInfo.screenWidth * 0.05,
-                  vertical: deviceInfo.screenHeight * 0.03,
+                  vertical: deviceInfo.screenHeight * 0.02,
                 ),
                 child: Column(
                   children: [
                     buildHeader(context),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                          vertical: deviceInfo.screenHeight * 0.08),
+                          vertical: deviceInfo.screenHeight * 0.07),
                       child: buildTextField(),
                     ),
                     Padding(

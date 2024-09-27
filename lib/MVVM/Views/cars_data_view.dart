@@ -19,7 +19,7 @@ class _CarsDataViewState extends State<CarsDataView> {
       Provider.of<CarsViewModel>(context, listen: false).fetchCars();
     });
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Infowidget(builder: (context, deviceInfo) {

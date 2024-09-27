@@ -27,7 +27,6 @@ if (response.statusCode == 200) {
   var strings = await response.stream.bytesToString();
   List jsonData = json.decode(strings);
       _cars = jsonData.map((json) => CarsDataModel.fromJson(json)).toList();
-      print('Cars fetched successfully: $cars');
       _errorMessage = '';
 }
 else {

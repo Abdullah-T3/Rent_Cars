@@ -62,7 +62,6 @@ request.body = json.encode({
 request.headers.addAll(headers);
 
 http.StreamedResponse response = await request.send();
-print("in requst");
       if (response.statusCode == 200) {
         var json = await response.stream.bytesToString();
         Map<String, dynamic> data = jsonDecode(json);
