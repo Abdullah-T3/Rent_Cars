@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../Constants/Colors.dart';
-import '../View%20Model/task_view_model.dart';
-import '../models/task_model.dart';
-import '../../Responsive/UiComponanets/InfoWidget.dart';
+import '../../../Constants/Colors.dart';
+import '../../View%20Model/task_view_model.dart';
+import '../../models/task_model.dart';
+import '../../../Responsive/UiComponanets/InfoWidget.dart';
 
 class AddTaskView extends StatefulWidget {
   const AddTaskView({super.key});

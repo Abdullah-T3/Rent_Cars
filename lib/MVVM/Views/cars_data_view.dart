@@ -6,6 +6,7 @@ import '../Models/cars_data_model.dart';
 import '../View Model/cars_data_view_model.dart';
 
 class CarsDataView extends StatefulWidget {
+  const CarsDataView({super.key});
   @override
   State<CarsDataView> createState() => _CarsDataViewState();
 }
@@ -15,11 +16,61 @@ class _CarsDataViewState extends State<CarsDataView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Fetch car data when the widget is first built
-      Provider.of<CarsViewModel>(context, listen: false).fetchCars();
+      // Fetch data from local cache first
+      Provider.of<CarsViewModel>(context, listen: false).fetchLocalCars();
+      // Then, try to fetch fresh data from the API
+      if(Provider.of<CarsViewModel>(context, listen: false).cars.isEmpty) {
+              Provider.of<CarsViewModel>(context, listen: false).fetchCars();
+      }
     });
   }
-  
+
+Widget buildTable(CarsViewModel carsDataViewModel) {
+  return Infowidget(builder: (context, deviceInfo) {
+    return SizedBox(
+      width: deviceInfo.screenWidth,
+      height: deviceInfo.screenHeight,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: SingleChildScrollView(
+          child: DataTable(
+            columns: const <DataColumn>[
+              DataColumn(label: Text('Plate Number')),
+              DataColumn(label: Text('Brand')),
+              DataColumn(label: Text('Model')),
+              DataColumn(label: Text('Year of Manufacture')),
+              DataColumn(label: Text('Odometer Reading')),
+              DataColumn(label: Text('Next Oil Change')),
+              DataColumn(label: Text('Actions')),
+            ],
+            rows: carsDataViewModel.cars.map<DataRow>((car) { // Explicitly cast to DataRow
+              return DataRow(
+                cells: <DataCell>[
+                  DataCell(Text(car.license_plate ?? 'N/A')),
+                  DataCell(Text(car.brand ?? 'N/A')),
+                  DataCell(Text(car.model ?? 'N/A')),
+                  DataCell(Text(car.yearOfManufacture?.toString() ?? 'N/A')),
+                  DataCell(Text(car.odometerReading?.toString() ?? 'N/A')),
+                  DataCell(Text(car.nextOilChange?.toString() ?? 'N/A')),
+                  DataCell(
+                    IconButton(
+                      icon: const Icon(Icons.edit),
+                      onPressed: () {
+                        _showEditDialog(context, car, carsDataViewModel);
+                      },
+                    ),
+                  ),
+                ],
+              );
+            }).toList(), // Ensure this converts to List<DataRow>
+          ),
+        ),
+      ),
+    );
+  });
+}
+
+
   @override
   Widget build(BuildContext context) {
     return Infowidget(builder: (context, deviceInfo) {
@@ -42,66 +93,23 @@ class _CarsDataViewState extends State<CarsDataView> {
               if (carsDataViewModel.isLoading) {
                 return Image.asset("assets/images/Progress.gif");
               }
-   if (carsDataViewModel.errorMessage!.isNotEmpty) {
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    if (carsDataViewModel.errorMessage != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(carsDataViewModel.errorMessage!)),
-      );
-    }
-  });
-  
-  // Return an error indicator or empty widget
-  return SizedBox(
-    height: deviceInfo.screenHeight * 0.2,
-    width: deviceInfo.screenWidth * 0.2,
-    child: Image.asset("assets/images/no-wifi.png"),
-  );
-}
-              return SizedBox(
-                width: deviceInfo.screenWidth ,
-                height: deviceInfo.screenHeight ,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: SingleChildScrollView(
-                    child: DataTable(
-                      columns: const <DataColumn>[
-                        DataColumn(label: Text('Plate Number')),
-                        DataColumn(label: Text('Brand')),
-                        DataColumn(label: Text('Model')),
-                        DataColumn(label: Text('Year of Manufacture')),
-                        DataColumn(label: Text('Odometer Reading')),
-                        DataColumn(label: Text('Next Oil Change')),
-                        DataColumn(label: Text('Actions')),
-                      ],
-                      rows: carsDataViewModel.cars.map((car) {
-                        return DataRow(
-                          cells: <DataCell>[
-                            DataCell(Text(car.license_plate ?? 'N/A')),
-                            DataCell(Text(car.brand ?? 'N/A')),
-                            DataCell(Text(car.model ?? 'N/A')),
-                            DataCell(
-                                Text(car.yearOfManufacture?.toString() ?? 'N/A')),
-                            DataCell(
-                                Text(car.odometerReading?.toString() ?? 'N/A')),
-                            DataCell(
-                                Text(car.nextOilChange?.toString() ?? 'N/A')),
-                            DataCell(
-                              IconButton(
-                                icon: const Icon(Icons.edit),
-                                onPressed: () {
-                                  _showEditDialog(
-                                      context, car, carsDataViewModel);
-                                },
-                              ),
-                            ),
-                          ],
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ),
-              );
+              if (carsDataViewModel.errorMessage!.isNotEmpty) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  if (carsDataViewModel.errorMessage != null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text("Check your internet connection")),
+                    );
+                  }
+                });
+                // Return an error indicator or empty widget
+                return carsDataViewModel.cars.isEmpty ?  SizedBox(
+                  height: deviceInfo.screenHeight * 0.2,
+                  width: deviceInfo.screenWidth * 0.2,
+                  child: Image.asset("assets/images/no-wifi.png"),
+                ): buildTable(carsDataViewModel);
+              }
+              return buildTable(carsDataViewModel);
             },
           ),
         ),

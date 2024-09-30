@@ -3,8 +3,8 @@ import 'package:bookingcars/MVVM/View%20Model/task_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../Responsive/UiComponanets/InfoWidget.dart';
-import '../../widgets/myDrawer.dart';
+import '../../../Responsive/UiComponanets/InfoWidget.dart';
+import '../../../widgets/myDrawer.dart';
 
 class TasksView extends StatefulWidget {
   const TasksView({super.key});
@@ -20,10 +20,10 @@ class _TasksViewtate extends State<TasksView> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Fetch car data when the widget is first built
-      Provider.of<TaskViewModel>(context, listen: false)
-          .fetchTasks();
+      Provider.of<TaskViewModel>(context, listen: false).fetchTasks();
     });
   }
+
   Widget buildHeader() {
     return Infowidget(builder: (context, deviceInfo) {
       return Row(
@@ -88,12 +88,15 @@ class _TasksViewtate extends State<TasksView> {
       deviceInfo,
     ) {
       return Container(
+        margin: EdgeInsets.only(bottom: deviceInfo.screenHeight * 0.01),
         padding: EdgeInsets.symmetric(
           horizontal: deviceInfo.screenWidth * 0.02,
         ),
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, "/Edit_task");
+          },
           child: Card(
             elevation: 8,
             color: Colors.blue[400],
@@ -110,7 +113,10 @@ class _TasksViewtate extends State<TasksView> {
                 style: TextStyle(
                     color: Colors.white.withOpacity(0.7), fontSize: 15),
               ),
-              trailing: Text(trailing.toString(),style: const TextStyle(color: Colors.white,fontSize: 14),),
+              trailing: Text(
+                trailing.toString(),
+                style: const TextStyle(color: Colors.white, fontSize: 14),
+              ),
             ),
           ),
         ),
@@ -139,45 +145,43 @@ class _TasksViewtate extends State<TasksView> {
     final notesViewModel = Provider.of<TaskViewModel>(context);
     return Infowidget(builder: (context, deviceInfo) {
       return Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.notifications))
-          ],
-          title: Padding(
-            padding: EdgeInsets.only(left: deviceInfo.screenWidth * 0.23),
-            child: const Text("Home"),
-          ),
-        ),
-        drawer: const Mydrawer(),
-        body: Column(
-          children: [
-            buildHeader(),
-            buildDivider(),
-            Expanded(
-              child: notesViewModel.isLoading
-                  ? Center(child: Image.asset("assets/images/Progress.gif"))
-                  : ListView.builder(
-                      itemCount: notesViewModel.tasks.length,
-                      itemBuilder: (context, index) {
-                        return buildTask(
-                          notesViewModel.tasks[index].taskTitle,
-                          notesViewModel.tasks[index].taskDescription,
-                          notesViewModel.tasks[index].deadline.toString().substring(0, 10),
-                        );
-                      }),
-
+          appBar: AppBar(
+            actions: [
+              IconButton(
+                  onPressed: () {}, icon: const Icon(Icons.notifications))
+            ],
+            title: Padding(
+              padding: EdgeInsets.only(left: deviceInfo.screenWidth * 0.23),
+              child: const Text("Home"),
             ),
-    
-          ],
-        
-        ),
-        floatingActionButton: FloatingActionButton(
-              child:const Icon(Icons.refresh),
+          ),
+          drawer: const Mydrawer(),
+          body: Column(
+            children: [
+              buildHeader(),
+              buildDivider(),
+              Expanded(
+                child: notesViewModel.isLoading
+                    ? Center(child: Image.asset("assets/images/Progress.gif"))
+                    : ListView.builder(
+                        itemCount: notesViewModel.tasks.length,
+                        itemBuilder: (context, index) {
+                          return buildTask(
+                            notesViewModel.tasks[index].taskTitle,
+                            notesViewModel.tasks[index].taskDescription,
+                            notesViewModel.tasks[index].deadline
+                                .toString()
+                                .substring(0, 10),
+                          );
+                        }),
+              ),
+            ],
+          ),
+          floatingActionButton: FloatingActionButton(
+              child: const Icon(Icons.refresh),
               onPressed: () {
-                     Provider.of<TaskViewModel>(context, listen: false)
-          .fetchTasks();
-            })   
-      );
+                Provider.of<TaskViewModel>(context, listen: false).fetchTasks();
+              }));
     });
   }
 }

@@ -33,7 +33,7 @@ class _LoginViewState extends State<LoginView> {
   Future<void> _checkLoginState() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      isLoggedIn = prefs.getString('token')!;
+      isLoggedIn = prefs.getString('token') ?? '';
     });
 
     if (isLoggedIn.isNotEmpty) {
@@ -150,7 +150,7 @@ class _LoginViewState extends State<LoginView> {
           height: deviceInfo.screenHeight,  
           width: deviceInfo.screenWidth,
           child: SingleChildScrollView(
-            physics: deviceInfo.deviceType == DeviceType.mobile ? const NeverScrollableScrollPhysics()  : AlwaysScrollableScrollPhysics(), // Enable scrolling in all orientations
+            physics: deviceInfo.orientation == Orientation.landscape ? const NeverScrollableScrollPhysics()  : AlwaysScrollableScrollPhysics(), // Enable scrolling in all orientations
               child: Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: deviceInfo.screenWidth * 0.05,

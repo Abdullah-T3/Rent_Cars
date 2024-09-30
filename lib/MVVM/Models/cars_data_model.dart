@@ -1,45 +1,51 @@
-// To parse this JSON data, do
-//
-//     final carsDataModel = carsDataModelFromJson(jsonString);
+import 'package:hive/hive.dart';
 
-import 'dart:convert';
+part 'cars_data_model.g.dart'; // Ensure this part is added for code generation
 
-List<CarsDataModel> carsDataModelFromJson(String str) => List<CarsDataModel>.from(json.decode(str).map((x) => CarsDataModel.fromJson(x)));
-
-String carsDataModelToJson(List<CarsDataModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
+@HiveType(typeId: 1)
 class CarsDataModel {
-    String? license_plate;
-    String? brand;
-    String? model;
-    int? yearOfManufacture;
-    int? odometerReading;
-    int? nextOilChange;
+  @HiveField(0)
+  String? license_plate;
 
-    CarsDataModel({
-        this.license_plate,
-        this.model,
-        this.brand,
-        this.yearOfManufacture,
-        this.odometerReading,
-        this.nextOilChange,
-    });
+  @HiveField(1)
+  String? brand;
 
-    factory CarsDataModel.fromJson(Map<String, dynamic> json) => CarsDataModel(
+  @HiveField(2)
+  String? model;
+
+  @HiveField(3)
+  int? yearOfManufacture;
+
+  @HiveField(4)
+  int? odometerReading;
+
+  @HiveField(5)
+  int? nextOilChange;
+
+  CarsDataModel({
+    this.license_plate,
+    this.model,
+    this.brand,
+    this.yearOfManufacture,
+    this.odometerReading,
+    this.nextOilChange,
+  });
+
+  factory CarsDataModel.fromJson(Map<String, dynamic> json) => CarsDataModel(
         license_plate: json["license_plate"],
         brand: json["brand"],
         model: json["model"],
         yearOfManufacture: json["year_of_manufacture"],
         odometerReading: json["odometer_reading"],
         nextOilChange: json["next_oil_change"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "license_plate": license_plate,
         "brand": brand,
         "model": model,
         "year_of_manufacture": yearOfManufacture,
         "odometer_reading": odometerReading,
         "next_oil_change": nextOilChange,
-    };
+      };
 }
