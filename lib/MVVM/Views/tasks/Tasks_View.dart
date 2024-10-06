@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:bookingcars/MVVM/View%20Model/task_view_model.dart';
+import 'package:bookingcars/MVVM/Views/tasks/edit_task.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -87,7 +88,7 @@ class _TasksViewtate extends State<TasksView> {
     });
   }
 
-  Widget buildTask(title, description, trailing) {
+  Widget buildTask(title, description, trailing, index, notesViewModel) {
     return Infowidget(builder: (
       context,
       deviceInfo,
@@ -100,7 +101,11 @@ class _TasksViewtate extends State<TasksView> {
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () {
-            Navigator.pushNamed(context, "/Edit_task");
+            Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => EditTaskScreen(task: notesViewModel.tasks[index]),
+    ),);
           },
           child: Card(
             elevation: 8,
@@ -177,6 +182,8 @@ class _TasksViewtate extends State<TasksView> {
                             notesViewModel.tasks[index].deadline
                                 .toString()
                                 .substring(0, 10),
+                            index,
+                            notesViewModel,
                           );
                         }),
               ),

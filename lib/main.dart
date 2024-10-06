@@ -35,7 +35,8 @@ void main() async {
 
   // Open Hive boxes
   await Hive.openBox<CarsDataModel>('carsBox');
-  await Hive.openBox('tasksBox'); // Open generic box for tasks
+
+  await Hive.openBox('tasksBox'); 
 
   // Load environment variables
   await dotenv.load(fileName: ".env");
@@ -98,7 +99,6 @@ class MyApp extends StatelessWidget {
           : const LoginView(),
       routes: {
         '/login': (context) => const LoginView(),
-        '/Edit_task': (context) => const EditTask(),
         '/tasks': (context) => const TasksView(),
         '/home': (context) => const BottomNavScreen(),
         '/cars_data': (context) => const CarsDataView(),

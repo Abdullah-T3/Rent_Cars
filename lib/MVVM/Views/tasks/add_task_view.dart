@@ -174,6 +174,7 @@ class _AddTaskViewState extends State<AddTaskView> {
                   )  );
                   
                   if (taskViewModel.errorMessage != null) {
+                    print(taskViewModel.errorMessage);
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
