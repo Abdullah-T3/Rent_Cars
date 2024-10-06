@@ -1,4 +1,4 @@
-import 'package:bookingcars/Responsive/enums/DeviceType.dart';
+import 'package:bookingcars/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -80,7 +80,7 @@ class _LoginViewState extends State<LoginView> {
               },
               controller: usernameController,
               decoration: InputDecoration(
-                labelText: "Username",
+                labelText: S.of(context).username,
                 labelStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
                 enabledBorder: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -106,7 +106,7 @@ class _LoginViewState extends State<LoginView> {
                 return null;
               },
               decoration: InputDecoration(
-                labelText: "Password",
+                labelText: S.of(context).password,
                 labelStyle: TextStyle(color: Colors.white.withOpacity(0.8)),
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(color: Colors.white),

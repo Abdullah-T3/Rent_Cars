@@ -19,8 +19,13 @@ class _TasksViewtate extends State<TasksView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Fetch car data when the widget is first built
-      Provider.of<TaskViewModel>(context, listen: false).fetchTasks();
+      // Fetch data from local cache first
+    Provider.of<TaskViewModel>(context, listen: false).fetchTasksFromLocal();
+      // Then, try to fetch fresh data from the API
+    if(Provider.of<TaskViewModel>(context, listen: false).tasks.isEmpty) {
+       Provider.of<TaskViewModel>(context, listen: false).fetchTasks();
+    }
+   
     });
   }
 

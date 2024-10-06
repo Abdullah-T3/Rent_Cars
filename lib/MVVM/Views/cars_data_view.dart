@@ -35,7 +35,9 @@ Widget buildTable(CarsViewModel carsDataViewModel) {
         child: SingleChildScrollView(
           child: DataTable(
             columns: const <DataColumn>[
-              DataColumn(label: Text('Plate Number')),
+              DataColumn(label: Text('Plate Number'),
+              
+              ),
               DataColumn(label: Text('Brand')),
               DataColumn(label: Text('Model')),
               DataColumn(label: Text('Year of Manufacture')),
