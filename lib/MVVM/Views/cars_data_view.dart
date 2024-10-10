@@ -34,6 +34,7 @@ Widget buildTable(CarsViewModel carsDataViewModel) {
         scrollDirection: Axis.horizontal,
         child: SingleChildScrollView(
           child: DataTable(
+            headingRowColor: MaterialStateProperty.all(Colors.blue),
             columns: const <DataColumn>[
               DataColumn(label: Text('Plate Number'),
               

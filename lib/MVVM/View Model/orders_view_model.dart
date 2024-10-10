@@ -1,132 +1,153 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:bookingcars/MVVM/Models/orders_model.dart';
+import 'package:bookingcars/MVVM/Models/upadte_order_model.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart'; // Import dotenv
 
 class OrdersViewModel extends ChangeNotifier {
-  final String _baseUrl = dotenv.env['apiUrl']!; // Load from env
-  final String _token =
-      dotenv.env['jwt_Secret']!; // Bearer token for authentication
   List<OrdersModel> _orders = [];
+  bool _isLoading = false;
+  String? _errorMessage;
+
 
   List<OrdersModel> get orders => _orders;
-
-  bool _isLoading = false;
   bool get isLoading => _isLoading;
-
-  String? _errorMessage;
   String? get errorMessage => _errorMessage;
+  final String apiUrl = dotenv.env['apiUrl'] ?? '';
+  final String token = dotenv.env['jwt_Secret'] ?? '';
+  // Base URL of your API
 
+  // Fetch all orders
   Future<void> fetchOrders() async {
     _isLoading = true;
-    _errorMessage = null; // Reset error message
-    notifyListeners(); // Notify listeners about loading state
+    notifyListeners();
 
     try {
       final response = await http.get(
-        Uri.parse('${_baseUrl}orders'),
+        Uri.parse("${apiUrl}orders"),
         headers: {
-          'Authorization': 'Bearer $_token',
+          'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
         },
       );
 
       if (response.statusCode == 200) {
-        _orders = ordersModelFromJson(response.body);
-        notifyListeners(); // Notify listeners about state changes
+        final List<dynamic> jsonData = json.decode(response.body);
+        _orders = jsonData.map((item) => OrdersModel.fromJson(item)).toList();
+        _errorMessage = null;
       } else {
-        _orders = [];
-        throw Exception(response.body);
+        print(response.body);
+        _errorMessage = 'Failed to load orders';
       }
     } catch (e) {
-      _errorMessage = e.toString(); // Set error message
+      print(e);
+      _errorMessage = 'An error occurred: $e';
     } finally {
-      _isLoading = false; // End loading state
-      notifyListeners(); // Notify listeners about state changes
+      _isLoading = false;
+      notifyListeners();
     }
   }
 
-  Future<void> addBooking(OrdersModel order) async {
+  // Add a new order
+  Future<void> addOrder(OrdersModel order) async {
     _isLoading = true;
-    _errorMessage = null; // Reset error message
-    notifyListeners(); // Notify listeners about loading state
+    notifyListeners();
 
     try {
-      var headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $_token',
-      };
-      var request = http.Request('POST', Uri.parse('${_baseUrl}orders'));
-      request.body = ordersModelToJson([order]);
-      request.headers.addAll(headers);
-      http.StreamedResponse response = await request.send();
+      final response = await http.post(
+        Uri.parse("${apiUrl}orders"),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+        body: json.encode(order.toJson()),
+      );
 
       if (response.statusCode == 201) {
-        print(await response.stream.bytesToString());
+        _orders.add(order);
+        _errorMessage = null;
       } else {
-        print(response.statusCode);
-        print("=============================");
+        _errorMessage = 'Failed to add order';
       }
     } catch (e) {
-      print("------------------------------"+e.toString());
-      _errorMessage = e.toString(); // Set error message
+      _errorMessage = 'An error occurred: $e';
     } finally {
-      _isLoading = false; // End loading state
-      notifyListeners(); // Notify listeners about state changes
+      _isLoading = false;
+      notifyListeners();
     }
   }
 
-  Future<void> updateBooking(int id, OrdersModel order) async {
+  // Update an existing order
+
+  Future<void> updateOrder(OrdersModel order) async {
     _isLoading = true;
-    _errorMessage = null; // Reset error message
-    notifyListeners(); // Notify listeners about loading state
+    notifyListeners();
+    final updatedOrder =UpdateOrdersModel (
+      customerName: order.customerName,
+      customerMobile: order.customerMobile,
+      carName: order.carName,
+      carLicensePlate: order.carLicensePlate,
+      rentalDays: order.rentalDays,
+      rentalAmount: order.rentalAmount,
+      carKmAtRental: order.carKmAtRental,
+      rentalDate: order.rentalDate,
+    );
 
     try {
       final response = await http.put(
-        Uri.parse('${_baseUrl}orders/$id'),
+        Uri.parse('${apiUrl}orders/${order.orderId}'),
         headers: {
-          'Authorization': 'Bearer $_token',
+          'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
         },
-        body: ordersModelToJson([order]),
+        body:updateOrdersModelToJson(updatedOrder),
       );
 
       if (response.statusCode == 200) {
-        await fetchOrders(); // Refresh bookings after updating
+        final index = _orders.indexWhere((o) => o.orderId == order.orderId);
+        if (index != -1) {
+          _orders[index] = order;
+        }
+        _errorMessage = null;
       } else {
-        throw Exception('Failed to update booking');
+        print(response.body);
+        _errorMessage = 'Failed to update order';
       }
     } catch (e) {
-      _errorMessage = e.toString(); // Set error message
+      print(e);
+      _errorMessage = 'An error occurred: $e';
     } finally {
-      _isLoading = false; // End loading state
-      notifyListeners(); // Notify listeners about state changes
+      _isLoading = false;
+      notifyListeners();
     }
   }
 
-  Future<void> deleteBooking(int id) async {
+  // Delete an order
+  Future<void> deleteOrder(int orderId) async {
     _isLoading = true;
-    _errorMessage = null; // Reset error message
-    notifyListeners(); // Notify listeners about loading state
+    notifyListeners();
 
     try {
       final response = await http.delete(
-        Uri.parse('${_baseUrl}orders/$id'),
+        Uri.parse('${apiUrl}orders/$orderId'),
         headers: {
-          'Authorization': 'Bearer $_token',
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
         },
       );
 
       if (response.statusCode == 200) {
-        await fetchOrders(); // Refresh bookings after deleting
+        _orders.removeWhere((order) => order.orderId == orderId);
+        _errorMessage = null;
       } else {
-        throw Exception('Failed to delete booking');
+        _errorMessage = 'Failed to delete order';
       }
     } catch (e) {
-      _errorMessage = e.toString(); // Set error message
+      _errorMessage = 'An error occurred: $e';
     } finally {
-      _isLoading = false; // End loading state
-      notifyListeners(); // Notify listeners about state changes
+      _isLoading = false;
+      notifyListeners();
     }
   }
 }

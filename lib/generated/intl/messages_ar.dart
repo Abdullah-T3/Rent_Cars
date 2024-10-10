@@ -25,6 +25,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Tasks": MessageLookupByLibrary.simpleMessage("المهام"),
         "WelcomeMassage":
             MessageLookupByLibrary.simpleMessage("مرحبا بك في تطبيق الحجوزات"),
+        "active_order":
+            MessageLookupByLibrary.simpleMessage("الحجوزات الجارية"),
         "booking_date": MessageLookupByLibrary.simpleMessage("تاريخ الحجز"),
         "brand": MessageLookupByLibrary.simpleMessage("الماركة"),
         "cars": MessageLookupByLibrary.simpleMessage("سيارات"),
@@ -34,6 +36,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("حذف"),
         "description": MessageLookupByLibrary.simpleMessage("الوصف"),
         "edit": MessageLookupByLibrary.simpleMessage("تعديل"),
+        "expired_order":
+            MessageLookupByLibrary.simpleMessage("الحجوزات المنتهية"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "login_error":
             MessageLookupByLibrary.simpleMessage("خطأ في تسجيل الدخول"),

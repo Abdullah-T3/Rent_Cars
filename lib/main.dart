@@ -2,8 +2,7 @@ import 'package:bookingcars/MVVM/Models/cars_data_model.dart';
 import 'package:bookingcars/MVVM/Models/task_model.dart';
 import 'package:bookingcars/MVVM/View%20Model/orders_view_model.dart';
 import 'package:bookingcars/MVVM/Views/bottom_nav_view.dart';
-import 'package:bookingcars/MVVM/Views/orders/add_rental_view.dart';
-import 'package:bookingcars/MVVM/Views/tasks/edit_task.dart';
+import 'package:bookingcars/MVVM/Views/orders/order_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -35,16 +34,12 @@ void main() async {
 
   // Open Hive boxes
   await Hive.openBox<CarsDataModel>('carsBox');
-
   await Hive.openBox('tasksBox'); 
-
   // Load environment variables
   await dotenv.load(fileName: ".env");
-
   // Create user view model and check login status
   final userViewModel = UserViewModel();
   await userViewModel.isLoggedIn();
-
   runApp(
     MultiProvider(
       providers: [
@@ -69,23 +64,41 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // Locale state
+  Locale _locale = const Locale('en'); // Default is English
+
+  // Function to toggle language
+  void toggleLanguage() {
+    setState(() {
+      if (_locale.languageCode == 'en') {
+        _locale = const Locale('ar');
+      } else {
+        _locale = const Locale('en');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final userViewModel = Provider.of<UserViewModel>(context);
+    
     return MaterialApp(
-      locale: const Locale('en'),
-       localizationsDelegates: const [
-                S.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: S.delegate.supportedLocales,
-            // builder: DevicePreview.appBuilder,
-
+      locale: _locale, // Use the _locale variable
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Admin Panel',
       theme: ThemeData.dark().copyWith(
@@ -95,15 +108,15 @@ class MyApp extends StatelessWidget {
         canvasColor: MyColors.secondaryColor,
       ),
       home: userViewModel.token.isNotEmpty
-          ? const BottomNavScreen()
+          ? BottomNavScreen(toggleLanguage: toggleLanguage) // Pass the toggleLanguage function
           : const LoginView(),
       routes: {
         '/login': (context) => const LoginView(),
         '/tasks': (context) => const TasksView(),
-        '/home': (context) => const BottomNavScreen(),
+        '/home': (context) => BottomNavScreen(toggleLanguage: toggleLanguage), // Pass here too
         '/cars_data': (context) => const CarsDataView(),
         '/add_task': (context) => const AddTaskView(),
-        '/add_order': (context) => const AddRentalView(),
+        '/orders': (context) => OrdersView(),
       },
     );
   }

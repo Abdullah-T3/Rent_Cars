@@ -30,6 +30,8 @@
     "customer_id" : "رقم العميل",
     "description" : "الوصف",
     "rental_days" : "عدد الايام",
-    "rental_kilometers" : "تسليم كم"
+    "rental_kilometers" : "تسليم كم",
+    "active_order" : "الحجوزات الجارية",
+    "expired_order" :"الحجوزات المنتهية"
 
 }

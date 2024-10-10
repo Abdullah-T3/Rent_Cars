@@ -30,7 +30,9 @@
     "customer_id" : " Customer ID",
     "description" : "Description",
     "rental_days" : " Rental Days",
-    "rental_kilometers" : " Rental Kilometers"
+    "rental_kilometers" : " Rental Kilometers",
+    "active_order" : "Active Order",
+    "expired_order" : "Expired Order"
 
 
 }

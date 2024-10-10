@@ -1,12 +1,14 @@
-import 'package:bookingcars/MVVM/Views/orders/rental_view.dart';
+import 'package:bookingcars/MVVM/Views/orders/order_view.dart';
+import 'package:bookingcars/MVVM/Views/setting_view.dart';
 import 'package:bookingcars/MVVM/Views/tasks/Tasks_View.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 const Color inActiveIconColor = Color(0xFFB6B6B6);
-
 class BottomNavScreen extends StatefulWidget {
-  const BottomNavScreen({super.key});
+  final VoidCallback toggleLanguage; // Accept the toggleLanguage function
+
+  const BottomNavScreen({super.key, required this.toggleLanguage});
 
   @override
   State<BottomNavScreen> createState() => _BottomNavScreenState();
@@ -21,14 +23,14 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     });
   }
 
-  final pages = [
-    const TasksView(),
-    const OrdersDataView(),
-    const SettingsPage(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final pages = [
+      const TasksView(),
+      OrdersView(),
+      SettingsPage(toggleLanguage: widget.toggleLanguage), // Pass the function to SettingsPage
+    ];
+
     return Scaffold(
       body: pages[currentSelectedIndex],
       bottomNavigationBar: SafeArea(
@@ -108,17 +110,6 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text("Settings Page"),
     );
   }
 }

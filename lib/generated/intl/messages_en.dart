@@ -25,6 +25,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Tasks": MessageLookupByLibrary.simpleMessage("Tasks"),
         "WelcomeMassage":
             MessageLookupByLibrary.simpleMessage(" Welcome to Cars"),
+        "active_order": MessageLookupByLibrary.simpleMessage("Active Order"),
         "booking_date": MessageLookupByLibrary.simpleMessage(" Rental Date"),
         "brand": MessageLookupByLibrary.simpleMessage("Brand"),
         "cars": MessageLookupByLibrary.simpleMessage("Cars"),
@@ -34,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
+        "expired_order": MessageLookupByLibrary.simpleMessage("Expired Order"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "login_error": MessageLookupByLibrary.simpleMessage("Login Error"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),

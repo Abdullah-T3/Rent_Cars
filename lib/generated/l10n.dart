@@ -345,6 +345,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Active Order`
+  String get active_order {
+    return Intl.message(
+      'Active Order',
+      name: 'active_order',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Expired Order`
+  String get expired_order {
+    return Intl.message(
+      'Expired Order',
+      name: 'expired_order',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
