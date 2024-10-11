@@ -11,6 +11,7 @@
     "register_error" : "خطأ في التسجيل",
     "register_success" : "تم التسجيل بنجاح",
     "Tasks" : "المهام",
+    "AddTask" : "اضافة مهمة",
     "WelcomeMassage" : "مرحبا بك في تطبيق الحجوزات",
     "plate_number" : "رقم اللوحة",
     "brand" : "الماركة",
@@ -32,6 +33,22 @@
     "rental_days" : "عدد الايام",
     "rental_kilometers" : "تسليم كم",
     "active_order" : "الحجوزات الجارية",
-    "expired_order" :"الحجوزات المنتهية"
+    "expired_order" :"الحجوزات المنتهية",
+    "please_enter_your_password" : " الرجاء ادخال كلمة المرور",
+    "please_enter_your_username" : " الرجاء ادخال اسم المستخدم",
+    "please_enter_your_email" : " الرجاء ادخال البريد الالكتروني",
+    "please_enter_your_name" : " الرجاء ادخال الاسم",
+    "please_enter_your_phone" : " الرجاء ادخال رقم الهاتف",
+    "Continue_to_login" : "اكمل الباينات لتسجيل الدخول",
+    "Invalid_username_or_password": "اسم المستخدم او كلمة المرور غير صحيحة",
+    "Switch_to_Arabic": "تبديل للعربي",
+    "Settings_Page" : "صفحة الاعدادات",
+    "change_language" : "تغيير اللغة",
+    "Settings" : "الاعدادات"
+
+
+
+
+
 
 }

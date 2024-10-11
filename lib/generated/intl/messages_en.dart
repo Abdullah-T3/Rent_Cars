@@ -22,6 +22,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "AddTask": MessageLookupByLibrary.simpleMessage("Add Task"),
+        "Continue_to_login":
+            MessageLookupByLibrary.simpleMessage("Continue to login"),
+        "Invalid_username_or_password": MessageLookupByLibrary.simpleMessage(
+            "Invalid username or password"),
+        "Settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "Settings_Page": MessageLookupByLibrary.simpleMessage("Settings Page"),
+        "Switch_to_Arabic":
+            MessageLookupByLibrary.simpleMessage("Switch to Arabic"),
         "Tasks": MessageLookupByLibrary.simpleMessage("Tasks"),
         "WelcomeMassage":
             MessageLookupByLibrary.simpleMessage(" Welcome to Cars"),
@@ -29,6 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "booking_date": MessageLookupByLibrary.simpleMessage(" Rental Date"),
         "brand": MessageLookupByLibrary.simpleMessage("Brand"),
         "cars": MessageLookupByLibrary.simpleMessage("Cars"),
+        "change_language":
+            MessageLookupByLibrary.simpleMessage("Change Language"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
         "customer_id": MessageLookupByLibrary.simpleMessage(" Customer ID"),
         "customer_name": MessageLookupByLibrary.simpleMessage(" Customer Name"),
@@ -43,6 +54,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage(" Password"),
         "pickup_date": MessageLookupByLibrary.simpleMessage(" Pickup Date"),
         "plate_number": MessageLookupByLibrary.simpleMessage("Plate Number"),
+        "please_enter_your_email":
+            MessageLookupByLibrary.simpleMessage(" Please Enter Your Email"),
+        "please_enter_your_name":
+            MessageLookupByLibrary.simpleMessage(" Please Enter Your Name"),
+        "please_enter_your_password":
+            MessageLookupByLibrary.simpleMessage("Please Enter Your Password"),
+        "please_enter_your_phone":
+            MessageLookupByLibrary.simpleMessage(" Please Enter Your Phone"),
+        "please_enter_your_username":
+            MessageLookupByLibrary.simpleMessage("Please Enter Your Username"),
         "project_id": MessageLookupByLibrary.simpleMessage("Project ID"),
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "register_error":

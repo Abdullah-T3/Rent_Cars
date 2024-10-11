@@ -1,17 +1,22 @@
 import 'package:bookingcars/Responsive/UiComponanets/InfoWidget.dart';
 import 'package:bookingcars/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:provider/provider.dart';
 import 'package:bookingcars/MVVM/View%20Model/orders_view_model.dart';
 import 'package:bookingcars/MVVM/Models/orders_model.dart';
 
 class OrdersView extends StatelessWidget {
+  const OrdersView({super.key});
+
   @override
   Widget build(BuildContext context) {
-    // Fetch the orders when the screen is loaded
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<OrdersViewModel>(context, listen: false).fetchOrders();
+            Provider.of<OrdersViewModel>(context, listen: false).fetchLocalOrders();
+            if( Provider.of<OrdersViewModel>(context, listen: false).orders.isEmpty) {
+              Provider.of<OrdersViewModel>(context, listen: false).fetchOrders();
+            }
+
     });
 
     return Scaffold(
@@ -53,7 +58,7 @@ class OrdersView extends StatelessWidget {
                           padding:  EdgeInsets.all(deviceInfo.screenHeight * 0.015),
                           child:  Text(
                             S.of(context).active_order,
-                            style: TextStyle( color: Colors.orange), 
+                            style: const TextStyle( color: Colors.orange), 
                             
                           ),
                         )
@@ -194,6 +199,7 @@ class OrdersView extends StatelessWidget {
                 await viewModel.updateOrder(updatedOrder);
                 // ignore: use_build_context_synchronously
                 if (viewModel.errorMessage != null) {
+                  // ignore: use_build_context_synchronously
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(viewModel.errorMessage!)),
                   );

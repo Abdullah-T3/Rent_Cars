@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:bookingcars/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,14 +10,16 @@ import '../../Responsive/UiComponanets/InfoWidget.dart';
 import '../View%20Model/user_view_model.dart';
 
 class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+  final VoidCallback toggleLanguage;
+
+  const LoginView({super.key, required this.toggleLanguage});
 
   @override
   State<LoginView> createState() => _LoginViewState();
 }
 
 class _LoginViewState extends State<LoginView> {
-  late String isLoggedIn ;
+  late String isLoggedIn;
   bool isPressed = true;
   GlobalKey formKey = GlobalKey();
   TextEditingController usernameController = TextEditingController();
@@ -26,7 +30,6 @@ class _LoginViewState extends State<LoginView> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _checkLoginState();
-      
     });
   }
 
@@ -48,15 +51,15 @@ class _LoginViewState extends State<LoginView> {
         padding: EdgeInsets.symmetric(
             horizontal: deviceInfo.screenWidth * 0.05,
             vertical: deviceInfo.screenHeight * 0.02),
-        child: const Column(
+        child: Column(
           children: [
             Text(
-              "Welcome to Cars",
-              style: TextStyle(fontSize: 30, color: Colors.white),
+              S.of(context).login,
+              style: const TextStyle(fontSize: 30, color: Colors.white),
             ),
             Text(
-              "Continue to login",
-              style: TextStyle(fontSize: 20, color: Colors.white),
+              S.of(context).Continue_to_login,
+              style: const TextStyle(fontSize: 20, color: Colors.white),
             ),
           ],
         ),
@@ -74,7 +77,7 @@ class _LoginViewState extends State<LoginView> {
             TextFormField(
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter your username';
+                  return S.of(context).please_enter_your_username;
                 }
                 return null;
               },
@@ -101,7 +104,7 @@ class _LoginViewState extends State<LoginView> {
               obscureText: isPressed,
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter your password';
+                  return S.of(context).please_enter_your_password;
                 }
                 return null;
               },
@@ -141,80 +144,117 @@ class _LoginViewState extends State<LoginView> {
     final userViewModel = Provider.of<UserViewModel>(context);
     return Infowidget(builder: (context, deviceInfo) {
       return Scaffold(
-          body: SafeArea(
-              child: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
-        child: SizedBox(
-          height: deviceInfo.screenHeight,  
-          width: deviceInfo.screenWidth,
-          child: SingleChildScrollView(
-            physics: deviceInfo.orientation == Orientation.landscape ? const NeverScrollableScrollPhysics()  : AlwaysScrollableScrollPhysics(), // Enable scrolling in all orientations
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: deviceInfo.screenWidth * 0.05,
-                  vertical: deviceInfo.screenHeight * 0.02,
-                ),
-                child: Column(
-                  children: [
-                    buildHeader(context),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: deviceInfo.screenHeight * 0.07),
-                      child: buildTextField(),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(left: deviceInfo.localWidth * 0.15),
-                      child: Image.asset("assets/images/desk.png"),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(top: deviceInfo.screenHeight * 0.1),
-                      child: Container(
-                        height: deviceInfo.localHeight * 0.08,
-                        width: deviceInfo.localWidth * 0.8,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: MyColors.primaryColor),
-                        child: MaterialButton(
-                          onPressed: () async {
-                            await userViewModel.login(
-                              usernameController.text,
-                              passwordController.text,
-                            );
-                            if (userViewModel.token.isNotEmpty) {
-                              // ignore: use_build_context_synchronously
-                              Navigator.pushReplacementNamed(context, '/home');
-                            }
-                            if (userViewModel.token.isEmpty) {
-                              // ignore: use_build_context_synchronously
-                              print(userViewModel.errorMessage);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Invalid username or password"),
-                                  backgroundColor: Colors.red,
-                                ),
-                              );
-                            }
-                          },
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          child: const Text(
-                            "Login",
-                            style: TextStyle(color: Colors.white, fontSize: 20),
+        body: SafeArea(
+          child: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).unfocus();
+            },
+            child: SizedBox(
+              height: deviceInfo.screenHeight,
+              width: deviceInfo.screenWidth,
+              child: SingleChildScrollView(
+                physics: deviceInfo.orientation == Orientation.landscape
+                    ? const NeverScrollableScrollPhysics()
+                    : const AlwaysScrollableScrollPhysics(),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: deviceInfo.screenWidth * 0.05,
+                    vertical: deviceInfo.screenHeight * 0.02,
+                  ),
+                  child: Column(
+                    children: [
+                      // Language toggle button
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: deviceInfo.screenWidth * 0.45,),
+                        child: SizedBox(
+                          width: deviceInfo.screenWidth * 0.45,
+                          height: deviceInfo.screenHeight * 0.05,
+                          child: MaterialButton(
+                            onPressed: widget.toggleLanguage,
+                            child: Row(
+                              children: [
+                          
+                                                        Padding(
+                                padding:  EdgeInsets.only(top: deviceInfo.screenHeight * 0.02),
+                                child: Text( S.of(context).change_language, style: const TextStyle(color: Colors.white),
+                                )
+                              ),
+                              SizedBox(width: deviceInfo.screenWidth * 0.02,),
+                              Padding(
+                                padding: EdgeInsets.only(
+                                    top: deviceInfo.screenHeight * 0.02,
+                                    ),
+                                  child: const Icon( Icons.language, color: Colors.white,),
+                              ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    )
-                  ],
+                      buildHeader(context),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: deviceInfo.screenHeight * 0.07),
+                        child: buildTextField(),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(left: deviceInfo.localWidth * 0.15),
+                        child: Image.asset("assets/images/desk.png"),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsets.only(top: deviceInfo.screenHeight * 0.1),
+                        child: Container(
+                          height: deviceInfo.localHeight * 0.08,
+                          width: deviceInfo.localWidth * 0.8,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: MyColors.primaryColor),
+                          child: MaterialButton(
+                            onPressed: () async {
+                              await userViewModel.login(
+                                usernameController.text,
+                                passwordController.text,
+                              );
+                              if (userViewModel.token.isNotEmpty) {
+                                Navigator.pushReplacementNamed(
+                                    // ignore: use_build_context_synchronously
+                                    context,
+                                    '/home');
+                              }
+                              if (userViewModel.token.isEmpty) {
+                                // ignore: use_build_context_synchronously
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(S
+                                        // ignore: use_build_context_synchronously
+                                        .of(context)
+                                        .Invalid_username_or_password),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
+                            },
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Text(
+                              S.of(context).login,
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 20),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            
+            ),
           ),
         ),
-      )));
+      );
     });
   }
 }

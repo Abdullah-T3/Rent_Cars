@@ -1,3 +1,4 @@
+import 'package:bookingcars/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -9,26 +10,20 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title:  Text(S.of(context).Settings),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              Localizations.localeOf(context).languageCode == 'en'
-                  ? 'Settings Page'
-                  : 'صفحة الإعدادات',
-              style: TextStyle(fontSize: 24),
+              S.of(context).Settings_Page,
+              style: const TextStyle(fontSize: 24),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: toggleLanguage,
-              child: Text(
-                Localizations.localeOf(context).languageCode == 'en'
-                    ? 'Switch to Arabic'
-                    : 'التبديل إلى الإنجليزية',
-              ),
+              child: Text(S.of(context).Switch_to_Arabic),
             ),
           ],
         ),

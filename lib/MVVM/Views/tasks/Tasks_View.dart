@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 import 'package:bookingcars/MVVM/View%20Model/task_view_model.dart';
 import 'package:bookingcars/MVVM/Views/tasks/edit_task.dart';
+import 'package:bookingcars/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,7 +44,7 @@ class _TasksViewtate extends State<TasksView> {
                       left: deviceInfo.screenWidth * 0.05,
                       top: deviceInfo.screenHeight * 0.03),
                   child: Text(
-                    "Tasks",
+                    S.of(context).Tasks,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: deviceInfo.screenWidth * 0.07,
@@ -55,9 +56,13 @@ class _TasksViewtate extends State<TasksView> {
           Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(
+                padding: Localizations.localeOf(context).languageCode == 'en' ? EdgeInsets.only(
                     right: deviceInfo.screenWidth * 0.05,
+                    top: deviceInfo.screenHeight * 0.03):
+                EdgeInsets.only(
+                    left: deviceInfo.screenWidth * 0.05,
                     top: deviceInfo.screenHeight * 0.03),
+                
                 child: Container(
                   height: deviceInfo.screenHeight * 0.05,
                   decoration: BoxDecoration(
@@ -70,12 +75,12 @@ class _TasksViewtate extends State<TasksView> {
                       },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
-                      child: const Row(
+                      child:  Row(
                         children: [
-                          Icon(Icons.add, color: Colors.white),
+                          const Icon(Icons.add, color: Colors.white),
                           Text(
-                            "Add Task",
-                            style: TextStyle(color: Colors.white),
+                            S.of(context).AddTask,
+                            style: const TextStyle(color: Colors.white),
                           )
                         ],
                       )),

@@ -11,6 +11,7 @@
     "register_error" : "Register Error",
     "register_success" : "Register Success",
     "Tasks" : "Tasks",
+    "AddTask" : "Add Task",
     "WelcomeMassage" : " Welcome to Cars",
     "plate_number" : "Plate Number",
     "brand" : "Brand",
@@ -32,7 +33,17 @@
     "rental_days" : " Rental Days",
     "rental_kilometers" : " Rental Kilometers",
     "active_order" : "Active Order",
-    "expired_order" : "Expired Order"
-
+    "expired_order" : "Expired Order",
+    "please_enter_your_password" : "Please Enter Your Password",
+    "please_enter_your_username" : "Please Enter Your Username",
+    "please_enter_your_email" : " Please Enter Your Email",
+    "please_enter_your_name" : " Please Enter Your Name",
+    "please_enter_your_phone" : " Please Enter Your Phone",
+    "Continue_to_login" : "Continue to login",
+    "Invalid_username_or_password": "Invalid username or password",
+    "Switch_to_Arabic": "Switch to Arabic",
+    "change_language" : "Change Language",
+    "Settings_Page" : "Settings Page",
+    "Settings" : "Settings"
 
 }

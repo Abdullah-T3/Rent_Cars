@@ -3,6 +3,8 @@ import 'package:bookingcars/MVVM/Models/task_model.dart';
 import 'package:bookingcars/MVVM/View%20Model/orders_view_model.dart';
 import 'package:bookingcars/MVVM/Views/bottom_nav_view.dart';
 import 'package:bookingcars/MVVM/Views/orders/order_view.dart';
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -34,7 +36,7 @@ void main() async {
 
   // Open Hive boxes
   await Hive.openBox<CarsDataModel>('carsBox');
-  await Hive.openBox('tasksBox'); 
+  await Hive.openBox('tasksBox');
   // Load environment variables
   await dotenv.load(fileName: ".env");
   // Create user view model and check login status
@@ -44,7 +46,8 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(
-      create: (context) => OrdersViewModel(),),
+          create: (context) => OrdersViewModel(),
+        ),
         ChangeNotifierProvider(
           create: (_) => TaskViewModel(),
         ),
@@ -55,11 +58,10 @@ void main() async {
           create: (context) => CarsViewModel(),
         ),
       ],
-      child: const MyApp(),
-      //child: DevicePreview(
-       // enabled: !kReleaseMode,
-        //builder: (context) => const MyApp(), // Wrap your app
-     // ),
+      child: DevicePreview(
+       enabled: !kReleaseMode,
+      builder: (context) => const MyApp(), // Wrap your app
+       ),
     ),
   );
 }
@@ -74,7 +76,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   // Locale state
   Locale _locale = const Locale('en'); // Default is English
-
+  
   // Function to toggle language
   void toggleLanguage() {
     setState(() {
@@ -89,7 +91,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     final userViewModel = Provider.of<UserViewModel>(context);
-    
+
     return MaterialApp(
       locale: _locale, // Use the _locale variable
       localizationsDelegates: const [
@@ -108,12 +110,15 @@ class _MyAppState extends State<MyApp> {
         canvasColor: MyColors.secondaryColor,
       ),
       home: userViewModel.token.isNotEmpty
-          ? BottomNavScreen(toggleLanguage: toggleLanguage) // Pass the toggleLanguage function
-          : const LoginView(),
+          ? BottomNavScreen(
+              toggleLanguage:
+                  toggleLanguage) // Pass the toggleLanguage function
+          : LoginView(toggleLanguage: toggleLanguage),
       routes: {
-        '/login': (context) => const LoginView(),
+        '/login': (context) => LoginView(toggleLanguage: toggleLanguage),
         '/tasks': (context) => const TasksView(),
-        '/home': (context) => BottomNavScreen(toggleLanguage: toggleLanguage), // Pass here too
+        '/home': (context) =>
+            BottomNavScreen(toggleLanguage: toggleLanguage), // Pass here too
         '/cars_data': (context) => const CarsDataView(),
         '/add_task': (context) => const AddTaskView(),
         '/orders': (context) => OrdersView(),

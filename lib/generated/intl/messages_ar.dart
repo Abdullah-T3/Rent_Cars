@@ -22,6 +22,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "AddTask": MessageLookupByLibrary.simpleMessage("اضافة مهمة"),
+        "Continue_to_login":
+            MessageLookupByLibrary.simpleMessage("اكمل الباينات لتسجيل الدخول"),
+        "Invalid_username_or_password": MessageLookupByLibrary.simpleMessage(
+            "اسم المستخدم او كلمة المرور غير صحيحة"),
+        "Settings": MessageLookupByLibrary.simpleMessage("الاعدادات"),
+        "Settings_Page": MessageLookupByLibrary.simpleMessage("صفحة الاعدادات"),
+        "Switch_to_Arabic":
+            MessageLookupByLibrary.simpleMessage("تبديل للعربي"),
         "Tasks": MessageLookupByLibrary.simpleMessage("المهام"),
         "WelcomeMassage":
             MessageLookupByLibrary.simpleMessage("مرحبا بك في تطبيق الحجوزات"),
@@ -30,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "booking_date": MessageLookupByLibrary.simpleMessage("تاريخ الحجز"),
         "brand": MessageLookupByLibrary.simpleMessage("الماركة"),
         "cars": MessageLookupByLibrary.simpleMessage("سيارات"),
+        "change_language": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
         "create": MessageLookupByLibrary.simpleMessage(" انشاء"),
         "customer_id": MessageLookupByLibrary.simpleMessage("رقم العميل"),
         "customer_name": MessageLookupByLibrary.simpleMessage("اسم العميل"),
@@ -46,6 +56,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "pickup_date": MessageLookupByLibrary.simpleMessage("تاريخ الاستلام"),
         "plate_number": MessageLookupByLibrary.simpleMessage("رقم اللوحة"),
+        "please_enter_your_email": MessageLookupByLibrary.simpleMessage(
+            " الرجاء ادخال البريد الالكتروني"),
+        "please_enter_your_name":
+            MessageLookupByLibrary.simpleMessage(" الرجاء ادخال الاسم"),
+        "please_enter_your_password":
+            MessageLookupByLibrary.simpleMessage(" الرجاء ادخال كلمة المرور"),
+        "please_enter_your_phone":
+            MessageLookupByLibrary.simpleMessage(" الرجاء ادخال رقم الهاتف"),
+        "please_enter_your_username":
+            MessageLookupByLibrary.simpleMessage(" الرجاء ادخال اسم المستخدم"),
         "project_id": MessageLookupByLibrary.simpleMessage("رقم المشروع"),
         "register": MessageLookupByLibrary.simpleMessage("تسجيل"),
         "register_error":

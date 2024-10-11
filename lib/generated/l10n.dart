@@ -170,6 +170,16 @@ class S {
     );
   }
 
+  /// `Add Task`
+  String get AddTask {
+    return Intl.message(
+      'Add Task',
+      name: 'AddTask',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ` Welcome to Cars`
   String get WelcomeMassage {
     return Intl.message(
@@ -361,6 +371,116 @@ class S {
     return Intl.message(
       'Expired Order',
       name: 'expired_order',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Enter Your Password`
+  String get please_enter_your_password {
+    return Intl.message(
+      'Please Enter Your Password',
+      name: 'please_enter_your_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Enter Your Username`
+  String get please_enter_your_username {
+    return Intl.message(
+      'Please Enter Your Username',
+      name: 'please_enter_your_username',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` Please Enter Your Email`
+  String get please_enter_your_email {
+    return Intl.message(
+      ' Please Enter Your Email',
+      name: 'please_enter_your_email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` Please Enter Your Name`
+  String get please_enter_your_name {
+    return Intl.message(
+      ' Please Enter Your Name',
+      name: 'please_enter_your_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` Please Enter Your Phone`
+  String get please_enter_your_phone {
+    return Intl.message(
+      ' Please Enter Your Phone',
+      name: 'please_enter_your_phone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue to login`
+  String get Continue_to_login {
+    return Intl.message(
+      'Continue to login',
+      name: 'Continue_to_login',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid username or password`
+  String get Invalid_username_or_password {
+    return Intl.message(
+      'Invalid username or password',
+      name: 'Invalid_username_or_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Switch to Arabic`
+  String get Switch_to_Arabic {
+    return Intl.message(
+      'Switch to Arabic',
+      name: 'Switch_to_Arabic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Language`
+  String get change_language {
+    return Intl.message(
+      'Change Language',
+      name: 'change_language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings Page`
+  String get Settings_Page {
+    return Intl.message(
+      'Settings Page',
+      name: 'Settings_Page',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get Settings {
+    return Intl.message(
+      'Settings',
+      name: 'Settings',
       desc: '',
       args: [],
     );

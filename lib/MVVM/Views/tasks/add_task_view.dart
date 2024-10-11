@@ -174,12 +174,12 @@ class _AddTaskViewState extends State<AddTaskView> {
                   )  );
                   
                   if (taskViewModel.errorMessage != null) {
-                    print(taskViewModel.errorMessage);
                     showDialog(
+                      // ignore: use_build_context_synchronously
                       context: context,
                       builder: (context) => AlertDialog(
                         title: const Text("Error"),
-                        content: Text(taskViewModel.errorMessage!),
+                        content: Text(taskViewModel.errorMessage),
                         actions: <Widget>[
                           TextButton(
                             child: const Text("OK"),
@@ -192,6 +192,7 @@ class _AddTaskViewState extends State<AddTaskView> {
                     );
                   } if(taskViewModel.errorMessage.isEmpty) {
                     showDialog(
+                      // ignore: use_build_context_synchronously
                       context: context,
                       builder: (context) => AlertDialog(
                         title: const Text("Success"),
