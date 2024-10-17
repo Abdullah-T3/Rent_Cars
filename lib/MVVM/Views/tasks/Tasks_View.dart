@@ -163,7 +163,9 @@ class _TasksViewtate extends State<TasksView> {
           appBar: AppBar(
             actions: [
               IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.notifications))
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed('/home');
+                  }, icon: const Icon(Icons.arrow_back))
             ],
             title: Padding(
               padding: EdgeInsets.only(left: deviceInfo.screenWidth * 0.23),

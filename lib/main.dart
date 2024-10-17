@@ -2,9 +2,9 @@ import 'package:bookingcars/MVVM/Models/cars_data_model.dart';
 import 'package:bookingcars/MVVM/Models/task_model.dart';
 import 'package:bookingcars/MVVM/View%20Model/orders_view_model.dart';
 import 'package:bookingcars/MVVM/Views/bottom_nav_view.dart';
+import 'package:bookingcars/MVVM/Views/cars/add_car_view.dart';
 import 'package:bookingcars/MVVM/Views/orders/order_view.dart';
-import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -18,7 +18,7 @@ import 'MVVM/View Model/task_view_model.dart';
 import 'MVVM/View Model/user_view_model.dart';
 import 'MVVM/Views/Login_View.dart';
 import 'MVVM/Views/tasks/add_task_view.dart';
-import 'MVVM/Views/cars_data_view.dart';
+import 'MVVM/Views/cars/cars_data_view.dart';
 import 'MVVM/Views/tasks/Tasks_View.dart';
 import 'generated/l10n.dart';
 
@@ -58,10 +58,11 @@ void main() async {
           create: (context) => CarsViewModel(),
         ),
       ],
-      child: DevicePreview(
-       enabled: !kReleaseMode,
-      builder: (context) => const MyApp(), // Wrap your app
-       ),
+      child: const MyApp(),
+      //child: DevicePreview(
+      // enabled: !kReleaseMode,
+      //builder: (context) => const MyApp(), // Wrap your app
+      // ),
     ),
   );
 }
@@ -117,11 +118,11 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/login': (context) => LoginView(toggleLanguage: toggleLanguage),
         '/tasks': (context) => const TasksView(),
-        '/home': (context) =>
-            BottomNavScreen(toggleLanguage: toggleLanguage), // Pass here too
+        '/home': (context) =>BottomNavScreen(toggleLanguage: toggleLanguage), 
         '/cars_data': (context) => const CarsDataView(),
         '/add_task': (context) => const AddTaskView(),
-        '/orders': (context) => OrdersView(),
+        '/add_car': (context) => const AddCarView(),
+        '/orders': (context) => const OrdersView(),
       },
     );
   }

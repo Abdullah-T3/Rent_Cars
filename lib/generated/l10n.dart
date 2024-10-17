@@ -220,11 +220,35 @@ class S {
     );
   }
 
-  // skipped getter for the 'year of manufacture' key
+  /// `Year of Manufacture`
+  String get year_of_manufacture {
+    return Intl.message(
+      'Year of Manufacture',
+      name: 'year_of_manufacture',
+      desc: '',
+      args: [],
+    );
+  }
 
-  // skipped getter for the 'odometer reading' key
+  /// `Odometer Reading`
+  String get odometer_reading {
+    return Intl.message(
+      'Odometer Reading',
+      name: 'odometer_reading',
+      desc: '',
+      args: [],
+    );
+  }
 
-  // skipped getter for the 'next oil change' key
+  /// `Next Oil Change`
+  String get next_oil_change {
+    return Intl.message(
+      'Next Oil Change',
+      name: 'next_oil_change',
+      desc: '',
+      args: [],
+    );
+  }
 
   /// `Create`
   String get create {
@@ -481,6 +505,176 @@ class S {
     return Intl.message(
       'Settings',
       name: 'Settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order`
+  String get order {
+    return Intl.message(
+      'Order',
+      name: 'order',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Orders`
+  String get orders {
+    return Intl.message(
+      'Orders',
+      name: 'orders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Customer Mobile`
+  String get customer_mobile {
+    return Intl.message(
+      'Customer Mobile',
+      name: 'customer_mobile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Car License Plate`
+  String get car_license_plate {
+    return Intl.message(
+      'Car License Plate',
+      name: 'car_license_plate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Car Name`
+  String get car_name {
+    return Intl.message(
+      'Car Name',
+      name: 'car_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Car`
+  String get add_car {
+    return Intl.message(
+      'Add Car',
+      name: 'add_car',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Car added successfully`
+  String get car_added_successfully {
+    return Intl.message(
+      'Car added successfully',
+      name: 'car_added_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Car updated successfully`
+  String get car_updated_successfully {
+    return Intl.message(
+      'Car updated successfully',
+      name: 'car_updated_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Car deleted successfully`
+  String get car_deleted_successfully {
+    return Intl.message(
+      'Car deleted successfully',
+      name: 'car_deleted_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Car not found`
+  String get car_not_found {
+    return Intl.message(
+      'Car not found',
+      name: 'car_not_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Car not deleted`
+  String get car_not_deleted {
+    return Intl.message(
+      'Car not deleted',
+      name: 'car_not_deleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Order`
+  String get add_order {
+    return Intl.message(
+      'Add Order',
+      name: 'add_order',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order added successfully`
+  String get order_added_successfully {
+    return Intl.message(
+      'Order added successfully',
+      name: 'order_added_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order updated successfully`
+  String get order_updated_successfully {
+    return Intl.message(
+      'Order updated successfully',
+      name: 'order_updated_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order deleted successfully`
+  String get order_deleted_successfully {
+    return Intl.message(
+      'Order deleted successfully',
+      name: 'order_deleted_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order not found`
+  String get order_not_found {
+    return Intl.message(
+      'Order not found',
+      name: 'order_not_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order not deleted`
+  String get order_not_deleted {
+    return Intl.message(
+      'Order not deleted',
+      name: 'order_not_deleted',
       desc: '',
       args: [],
     );

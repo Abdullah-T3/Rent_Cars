@@ -36,12 +36,27 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("مرحبا بك في تطبيق الحجوزات"),
         "active_order":
             MessageLookupByLibrary.simpleMessage("الحجوزات الجارية"),
+        "add_car": MessageLookupByLibrary.simpleMessage("اضافة سيارة"),
+        "add_order": MessageLookupByLibrary.simpleMessage("اضافة حجز"),
         "booking_date": MessageLookupByLibrary.simpleMessage("تاريخ الحجز"),
         "brand": MessageLookupByLibrary.simpleMessage("الماركة"),
+        "car_added_successfully":
+            MessageLookupByLibrary.simpleMessage(" تم اضافة السيارة بنجاح"),
+        "car_deleted_successfully":
+            MessageLookupByLibrary.simpleMessage(" تم حذف السيارة بنجاح"),
+        "car_license_plate": MessageLookupByLibrary.simpleMessage("رقم اللوحة"),
+        "car_name": MessageLookupByLibrary.simpleMessage("اسم السيارة"),
+        "car_not_deleted":
+            MessageLookupByLibrary.simpleMessage("السيارة لا يمكن حذفها"),
+        "car_not_found":
+            MessageLookupByLibrary.simpleMessage("السيارة غير موجودة"),
+        "car_updated_successfully":
+            MessageLookupByLibrary.simpleMessage(" تم تحديث السيارة بنجاح"),
         "cars": MessageLookupByLibrary.simpleMessage("سيارات"),
         "change_language": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
         "create": MessageLookupByLibrary.simpleMessage(" انشاء"),
         "customer_id": MessageLookupByLibrary.simpleMessage("رقم العميل"),
+        "customer_mobile": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
         "customer_name": MessageLookupByLibrary.simpleMessage("اسم العميل"),
         "delete": MessageLookupByLibrary.simpleMessage("حذف"),
         "description": MessageLookupByLibrary.simpleMessage("الوصف"),
@@ -53,6 +68,21 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("خطأ في تسجيل الدخول"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
         "model": MessageLookupByLibrary.simpleMessage("الموديل"),
+        "next_oil_change": MessageLookupByLibrary.simpleMessage("تغيير الزيت"),
+        "odometer_reading":
+            MessageLookupByLibrary.simpleMessage("قراءة العداد"),
+        "order": MessageLookupByLibrary.simpleMessage("الحجز"),
+        "order_added_successfully":
+            MessageLookupByLibrary.simpleMessage("تم اضافة الحجز بنجاح"),
+        "order_deleted_successfully":
+            MessageLookupByLibrary.simpleMessage("تم حذف الحجز بنجاح"),
+        "order_not_deleted":
+            MessageLookupByLibrary.simpleMessage("الحجز لا يمكن حذفه"),
+        "order_not_found":
+            MessageLookupByLibrary.simpleMessage("الحجز غير موجود"),
+        "order_updated_successfully":
+            MessageLookupByLibrary.simpleMessage("تم تحديث الحجز بنجاح"),
+        "orders": MessageLookupByLibrary.simpleMessage("الحجوزات"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
         "pickup_date": MessageLookupByLibrary.simpleMessage("تاريخ الاستلام"),
         "plate_number": MessageLookupByLibrary.simpleMessage("رقم اللوحة"),
@@ -78,6 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "rental_kilometers": MessageLookupByLibrary.simpleMessage("تسليم كم"),
         "return_date": MessageLookupByLibrary.simpleMessage("تاريخ العودة"),
         "user_type": MessageLookupByLibrary.simpleMessage("نوع المستخدم"),
-        "username": MessageLookupByLibrary.simpleMessage("اسم المستخدم")
+        "username": MessageLookupByLibrary.simpleMessage("اسم المستخدم"),
+        "year_of_manufacture": MessageLookupByLibrary.simpleMessage("سنة الصنع")
       };
 }

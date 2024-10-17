@@ -1,6 +1,7 @@
+import 'package:bookingcars/MVVM/Views/cars/add_car_view.dart';
+import 'package:bookingcars/MVVM/Views/orders/add_order_view.dart';
 import 'package:bookingcars/MVVM/Views/orders/order_view.dart';
 import 'package:bookingcars/MVVM/Views/setting_view.dart';
-import 'package:bookingcars/MVVM/Views/tasks/Tasks_View.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -26,8 +27,8 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   @override
   Widget build(BuildContext context) {
     final pages = [
-      const TasksView(),
-      OrdersView(),
+      const AddCarView(),
+       const AddOrderView(),
       SettingsPage(toggleLanguage: widget.toggleLanguage), // Pass the function to SettingsPage
     ];
 
@@ -45,7 +46,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
             items: [
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(
-                  "assets/images/task.svg",
+                  "assets/images/car_icon.svg",
                   colorFilter: const ColorFilter.mode(
                     inActiveIconColor,
                     BlendMode.srcIn,
@@ -54,7 +55,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
                   height: 30,
                 ),
                 activeIcon: SvgPicture.asset(
-                  "assets/images/task.svg",
+                  "assets/images/car_icon.svg",
                   colorFilter: const ColorFilter.mode(
                     Color(0xFFFF7643),
                     BlendMode.srcIn,

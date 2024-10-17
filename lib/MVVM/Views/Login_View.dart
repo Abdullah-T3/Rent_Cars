@@ -1,5 +1,4 @@
-// ignore_for_file: file_names
-
+import 'package:bookingcars/Responsive/enums/DeviceType.dart';
 import 'package:bookingcars/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +20,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   late String isLoggedIn;
   bool isPressed = true;
-  GlobalKey formKey = GlobalKey();
+GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -40,7 +39,6 @@ class _LoginViewState extends State<LoginView> {
     });
 
     if (isLoggedIn.isNotEmpty) {
-      // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, '/home');
     }
   }
@@ -49,17 +47,24 @@ class _LoginViewState extends State<LoginView> {
     return Infowidget(builder: (context, deviceInfo) {
       return Container(
         padding: EdgeInsets.symmetric(
-            horizontal: deviceInfo.screenWidth * 0.05,
-            vertical: deviceInfo.screenHeight * 0.02),
+          horizontal: deviceInfo.screenWidth * 0.05,
+          vertical: deviceInfo.screenHeight * 0.02,
+        ),
         child: Column(
           children: [
             Text(
               S.of(context).login,
-              style: const TextStyle(fontSize: 30, color: Colors.white),
+              style: TextStyle(
+                fontSize: deviceInfo.screenWidth * 0.07, // Dynamic text size
+                color: Colors.white,
+              ),
             ),
             Text(
               S.of(context).Continue_to_login,
-              style: const TextStyle(fontSize: 20, color: Colors.white),
+              style: TextStyle(
+                fontSize: deviceInfo.screenWidth * 0.05,
+                color: Colors.white,
+              ),
             ),
           ],
         ),
@@ -93,9 +98,6 @@ class _LoginViewState extends State<LoginView> {
                   borderSide: const BorderSide(color: Colors.white),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
               ),
             ),
             SizedBox(height: deviceInfo.screenHeight * 0.02),
@@ -119,18 +121,16 @@ class _LoginViewState extends State<LoginView> {
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                   borderSide: BorderSide(color: Colors.white),
                 ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
                 suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isPressed = !isPressed;
-                      });
-                    },
-                    icon: isPressed
-                        ? const Icon(Icons.visibility_off)
-                        : const Icon(Icons.visibility)),
+                  onPressed: () {
+                    setState(() {
+                      isPressed = !isPressed;
+                    });
+                  },
+                  icon: isPressed
+                      ? const Icon(Icons.visibility_off)
+                      : const Icon(Icons.visibility),
+                ),
               ),
             ),
           ],
@@ -153,9 +153,7 @@ class _LoginViewState extends State<LoginView> {
               height: deviceInfo.screenHeight,
               width: deviceInfo.screenWidth,
               child: SingleChildScrollView(
-                physics: deviceInfo.orientation == Orientation.landscape
-                    ? const NeverScrollableScrollPhysics()
-                    : const AlwaysScrollableScrollPhysics(),
+                physics:const AlwaysScrollableScrollPhysics(),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: deviceInfo.screenWidth * 0.05,
@@ -165,8 +163,14 @@ class _LoginViewState extends State<LoginView> {
                     children: [
                       // Language toggle button
                       Padding(
-                        padding: EdgeInsets.only(
-                          left: deviceInfo.screenWidth * 0.45,),
+                        padding: Localizations.localeOf(context)
+                                    .languageCode ==
+                                'en'
+                            ? EdgeInsets.only(
+                                right: deviceInfo.screenWidth * 0.5)
+                            : EdgeInsets.only(
+                                top: deviceInfo.screenHeight * 0.02,
+                                right: deviceInfo.screenWidth * 0.05),
                         child: SizedBox(
                           width: deviceInfo.screenWidth * 0.45,
                           height: deviceInfo.screenHeight * 0.05,
@@ -174,19 +178,25 @@ class _LoginViewState extends State<LoginView> {
                             onPressed: widget.toggleLanguage,
                             child: Row(
                               children: [
-                          
-                                                        Padding(
-                                padding:  EdgeInsets.only(top: deviceInfo.screenHeight * 0.02),
-                                child: Text( S.of(context).change_language, style: const TextStyle(color: Colors.white),
-                                )
-                              ),
-                              SizedBox(width: deviceInfo.screenWidth * 0.02,),
-                              Padding(
-                                padding: EdgeInsets.only(
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      top: deviceInfo.screenHeight * 0.02),
+                                  child: Text(
+                                    S.of(context).change_language,
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                                SizedBox(
+                                    width: deviceInfo.screenWidth * 0.01),
+                                Padding(
+                                  padding: EdgeInsets.only(
                                     top: deviceInfo.screenHeight * 0.02,
-                                    ),
-                                  child: const Icon( Icons.language, color: Colors.white,),
-                              ),
+                                  ),
+                                  child: const Icon(
+                                    Icons.language,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -220,25 +230,17 @@ class _LoginViewState extends State<LoginView> {
                               );
                               if (userViewModel.token.isNotEmpty) {
                                 Navigator.pushReplacementNamed(
-                                    // ignore: use_build_context_synchronously
-                                    context,
-                                    '/home');
-                              }
-                              if (userViewModel.token.isEmpty) {
-                                // ignore: use_build_context_synchronously
+                                    context, '/home');
+                              } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    content: Text(S
-                                        // ignore: use_build_context_synchronously
-                                        .of(context)
+                                    content: Text(S.of(context)
                                         .Invalid_username_or_password),
                                     backgroundColor: Colors.red,
                                   ),
                                 );
                               }
                             },
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
                             child: Text(
                               S.of(context).login,
                               style: const TextStyle(

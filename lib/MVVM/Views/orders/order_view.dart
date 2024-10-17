@@ -1,7 +1,7 @@
 import 'package:bookingcars/Responsive/UiComponanets/InfoWidget.dart';
+import 'package:bookingcars/Responsive/enums/DeviceType.dart';
 import 'package:bookingcars/generated/l10n.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 import 'package:bookingcars/MVVM/View%20Model/orders_view_model.dart';
 import 'package:bookingcars/MVVM/Models/orders_model.dart';
@@ -11,109 +11,114 @@ class OrdersView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-            Provider.of<OrdersViewModel>(context, listen: false).fetchLocalOrders();
-            if( Provider.of<OrdersViewModel>(context, listen: false).orders.isEmpty) {
-              Provider.of<OrdersViewModel>(context, listen: false).fetchOrders();
-            }
+    // Determine if the current locale is Arabic
+    final isArabic = Localizations.localeOf(context).languageCode == 'ar';
 
+    // Create a ScrollController
+    final ScrollController _verticalScrollController = ScrollController();
+    final ScrollController _horizontalScrollController = ScrollController();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<OrdersViewModel>(context, listen: false).fetchOrders();
     });
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Orders'),
-      ),
-      body: Consumer<OrdersViewModel>(
-        builder: (context, viewModel, child) {
-          if (viewModel.isLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
+    return Directionality(
+      textDirection: isArabic
+          ? TextDirection.rtl
+          : TextDirection.ltr, // Set direction based on locale
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Orders'),
+        ),
+        body: Consumer<OrdersViewModel>(
+          builder: (context, viewModel, child) {
+            if (viewModel.isLoading) {
+              return Center(child: Image.asset("assets/images/Progress.gif"));
+            }
 
-          if (viewModel.errorMessage != null) {
-            return Center(child: Text(viewModel.errorMessage!));
-          }
+            if (viewModel.errorMessage != null) {
+              return Center(child: Text(viewModel.errorMessage!));
+            }
 
-          if (viewModel.orders.isEmpty) {
-            return const Center(child: Text('No orders available.'));
-          }
+            if (viewModel.orders.isEmpty) {
+              return const Center(child: Text('No orders available.'));
+            }
 
-          return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Infowidget(builder: (context, deviceInfo) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: deviceInfo.screenHeight * 0.05,
-                      decoration: BoxDecoration(
+            return Infowidget(builder: (context, deviceInfo) {
+              bool isDesktop = deviceInfo.deviceType == DeviceType.desktop;
 
-                        border: Border.all(
-                          color: Colors.grey.withOpacity(0.2),
-                        )
-
-                      ),
-                        child: Padding(
-                          padding:  EdgeInsets.all(deviceInfo.screenHeight * 0.015),
-                          child:  Text(
-                            S.of(context).active_order,
-                            style: const TextStyle( color: Colors.orange), 
-                            
+              return Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal:
+                      isDesktop ? 50.0 : 10.0, // Add more padding on desktop
+                ),
+                child: Scrollbar(
+                  thumbVisibility: true, // Show scrollbar thumb for vertical scrolling
+                  controller: _verticalScrollController,
+                  child: SingleChildScrollView(
+                    controller: _verticalScrollController,
+                    child: Scrollbar(
+                      thumbVisibility: true, // Show scrollbar thumb for horizontal scrolling
+                      controller: _horizontalScrollController,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        controller: _horizontalScrollController,
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minWidth: deviceInfo.screenWidth, // Ensure horizontal stretching
                           ),
-                        )
-                      
-                    ),
-                    const SizedBox(height: 10),
-                    DataTable(
-                      showBottomBorder: true,
-                      columns: const <DataColumn>[
-                        DataColumn(label: Text('ID')),
-                        DataColumn(label: Text('Customer Name')),
-                        DataColumn(label: Text('Mobile')),
-                        DataColumn(label: Text('Car Name')),
-                        DataColumn(label: Text('Car License Plate')),
-                        DataColumn(label: Text('Rental Date')),
-                        DataColumn(label: Text('Rental Days')),
-                        DataColumn(label: Text('Rental Amount')),
-                        DataColumn(label: Text('Actions')),
-                      ],
-                      rows: viewModel.orders
-                          .map(
-                            (order) => DataRow(
-                              cells: <DataCell>[
-                                DataCell(Text(order.orderId?.toString() ?? '')),
-                                DataCell(Text(order.customerName ?? '')),
-                                DataCell(Text(order.customerMobile ?? '')),
-                                DataCell(Text(order.carName ?? '')),
-                                DataCell(Text(order.carLicensePlate ?? '')),
-                                DataCell(Text(order.rentalDate
-                                        ?.toIso8601String()
-                                        .substring(0, 10) ??
-                                    '')),
-                                DataCell(
-                                    Text(order.rentalDays?.toString() ?? '')),
-                                DataCell(
-                                    Text(order.rentalAmount?.toString() ?? '')),
-                                DataCell(
-                                  IconButton(
-                                    icon: const Icon(Icons.edit),
-                                    onPressed: () {
-                                      _showEditDialog(context, order);
-                                    },
+                          child: DataTable(
+                            showBottomBorder: true,
+                            columns: const <DataColumn>[
+                              DataColumn(label: Text('ID')),
+                              DataColumn(label: Text('Customer Name')),
+                              DataColumn(label: Text('Mobile')),
+                              DataColumn(label: Text('Car Name')),
+                              DataColumn(label: Text('Car License Plate')),
+                              DataColumn(label: Text('Rental Date')),
+                              DataColumn(label: Text('Rental Days')),
+                              DataColumn(label: Text('Rental Amount')),
+                              DataColumn(label: Text('Actions')),
+                            ],
+                            rows: viewModel.orders
+                                .map(
+                                  (order) => DataRow(
+                                    cells: <DataCell>[
+                                      DataCell(Text(
+                                          order.orderId?.toString() ?? '')),
+                                      DataCell(Text(order.customerName ?? '')),
+                                      DataCell(Text(order.customerMobile ?? '')),
+                                      DataCell(Text(order.carName ?? '')),
+                                      DataCell(Text(order.carLicensePlate ?? '')),
+                                      DataCell(Text(order.rentalDate
+                                              ?.toIso8601String()
+                                              ?.substring(0, 10) ?? '')),
+                                      DataCell(Text(order.rentalDays?.toString() ??
+                                          '')),
+                                      DataCell(Text(order.rentalAmount?.toString() ??
+                                          '')),
+                                      DataCell(
+                                        IconButton(
+                                          icon: const Icon(Icons.edit),
+                                          onPressed: () {
+                                            _showEditDialog(context, order);
+                                          },
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ),
-                          )
-                          .toList(),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                      ),
                     ),
-                  ],
-                );
-              }),
-            ),
-          );
-        },
+                  ),
+                ),
+              );
+            });
+          },
+        ),
       ),
     );
   }
@@ -167,7 +172,8 @@ class OrdersView extends StatelessWidget {
                 ),
                 TextField(
                   controller: rentalAmountController,
-                  decoration: const InputDecoration(labelText: 'Rental Amount'),
+                  decoration:
+                      const InputDecoration(labelText: 'Rental Amount'),
                   keyboardType: TextInputType.number,
                 ),
               ],
@@ -195,27 +201,31 @@ class OrdersView extends StatelessWidget {
                   rentalAmount: int.tryParse(rentalAmountController.text),
                   carKmAtRental: order.carKmAtRental,
                 );
-                print([updatedOrder]);
                 await viewModel.updateOrder(updatedOrder);
-                // ignore: use_build_context_synchronously
+
                 if (viewModel.errorMessage != null) {
                   // ignore: use_build_context_synchronously
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(viewModel.errorMessage!)),
                   );
-                }
-                AlertDialog(
-                  title: const Text('Success'),
-                  content: const Text('Order updated successfully.'),
-                  actions: <Widget>[
-                    TextButton(
-                      child: const Text('OK'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
+                } else {
+                  showDialog(
+                    // ignore: use_build_context_synchronously
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Success'),
+                      content: const Text('Order updated successfully.'),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text('OK'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                );
+                  );
+                }
                 Navigator.of(context).pop();
               },
             ),

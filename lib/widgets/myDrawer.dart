@@ -1,3 +1,4 @@
+import 'package:bookingcars/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -84,7 +85,14 @@ return Infowidget(
 
         buildDrawerListItemDivider(),
 
-        buildDrawerListItem(title: "Report", leadingIcon: Icons.bar_chart, onTap: () {}),
+        buildDrawerListItem(title: S.of(context).Tasks, leadingIcon: Icons.task_alt, onTap: () {
+          Navigator.of(context).pushReplacementNamed('/tasks');
+        }),  
+        buildDrawerListItemDivider(),
+      buildDrawerListItem(title: S.of(context).orders, leadingIcon: Icons.bar_chart, onTap: () {
+          Navigator.of(context).pushNamed('/orders');
+        }),
+      
         buildDrawerListItemDivider(),
         buildDrawerListItem( title: "Settings", leadingIcon: Icons.settings, onTap: () {}),
         buildDrawerListItemDivider(),

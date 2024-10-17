@@ -35,13 +35,29 @@ class MessageLookup extends MessageLookupByLibrary {
         "WelcomeMassage":
             MessageLookupByLibrary.simpleMessage(" Welcome to Cars"),
         "active_order": MessageLookupByLibrary.simpleMessage("Active Order"),
+        "add_car": MessageLookupByLibrary.simpleMessage("Add Car"),
+        "add_order": MessageLookupByLibrary.simpleMessage("Add Order"),
         "booking_date": MessageLookupByLibrary.simpleMessage(" Rental Date"),
         "brand": MessageLookupByLibrary.simpleMessage("Brand"),
+        "car_added_successfully":
+            MessageLookupByLibrary.simpleMessage("Car added successfully"),
+        "car_deleted_successfully":
+            MessageLookupByLibrary.simpleMessage("Car deleted successfully"),
+        "car_license_plate":
+            MessageLookupByLibrary.simpleMessage("Car License Plate"),
+        "car_name": MessageLookupByLibrary.simpleMessage("Car Name"),
+        "car_not_deleted":
+            MessageLookupByLibrary.simpleMessage("Car not deleted"),
+        "car_not_found": MessageLookupByLibrary.simpleMessage("Car not found"),
+        "car_updated_successfully":
+            MessageLookupByLibrary.simpleMessage("Car updated successfully"),
         "cars": MessageLookupByLibrary.simpleMessage("Cars"),
         "change_language":
             MessageLookupByLibrary.simpleMessage("Change Language"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
         "customer_id": MessageLookupByLibrary.simpleMessage(" Customer ID"),
+        "customer_mobile":
+            MessageLookupByLibrary.simpleMessage("Customer Mobile"),
         "customer_name": MessageLookupByLibrary.simpleMessage(" Customer Name"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
@@ -51,6 +67,22 @@ class MessageLookup extends MessageLookupByLibrary {
         "login_error": MessageLookupByLibrary.simpleMessage("Login Error"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "model": MessageLookupByLibrary.simpleMessage("Model"),
+        "next_oil_change":
+            MessageLookupByLibrary.simpleMessage("Next Oil Change"),
+        "odometer_reading":
+            MessageLookupByLibrary.simpleMessage("Odometer Reading"),
+        "order": MessageLookupByLibrary.simpleMessage("Order"),
+        "order_added_successfully":
+            MessageLookupByLibrary.simpleMessage("Order added successfully"),
+        "order_deleted_successfully":
+            MessageLookupByLibrary.simpleMessage("Order deleted successfully"),
+        "order_not_deleted":
+            MessageLookupByLibrary.simpleMessage("Order not deleted"),
+        "order_not_found":
+            MessageLookupByLibrary.simpleMessage("Order not found"),
+        "order_updated_successfully":
+            MessageLookupByLibrary.simpleMessage("Order updated successfully"),
+        "orders": MessageLookupByLibrary.simpleMessage("Orders"),
         "password": MessageLookupByLibrary.simpleMessage(" Password"),
         "pickup_date": MessageLookupByLibrary.simpleMessage(" Pickup Date"),
         "plate_number": MessageLookupByLibrary.simpleMessage("Plate Number"),
@@ -77,6 +109,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" Rental Kilometers"),
         "return_date": MessageLookupByLibrary.simpleMessage("Return Date"),
         "user_type": MessageLookupByLibrary.simpleMessage("User Type"),
-        "username": MessageLookupByLibrary.simpleMessage("Username")
+        "username": MessageLookupByLibrary.simpleMessage("Username"),
+        "year_of_manufacture":
+            MessageLookupByLibrary.simpleMessage("Year of Manufacture")
       };
 }

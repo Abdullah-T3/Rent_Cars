@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../Responsive/UiComponanets/InfoWidget.dart';
-import '../../widgets/myDrawer.dart';
-import '../Models/cars_data_model.dart';
-import '../View Model/cars_data_view_model.dart';
+import '../../../Responsive/UiComponanets/InfoWidget.dart';
+import '../../../widgets/myDrawer.dart';
+import '../../Models/cars_data_model.dart';
+import '../../View Model/cars_data_view_model.dart';
 
 class CarsDataView extends StatefulWidget {
   const CarsDataView({super.key});
@@ -33,39 +33,45 @@ Widget buildTable(CarsViewModel carsDataViewModel) {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: SingleChildScrollView(
-          child: DataTable(
-            headingRowColor: MaterialStateProperty.all(Colors.blue),
-            columns: const <DataColumn>[
-              DataColumn(label: Text('Plate Number'),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: deviceInfo.screenWidth,
+            ),
+            child: DataTable(
+              headingRowColor: MaterialStateProperty.all(Colors.blue),
               
-              ),
-              DataColumn(label: Text('Brand')),
-              DataColumn(label: Text('Model')),
-              DataColumn(label: Text('Year of Manufacture')),
-              DataColumn(label: Text('Odometer Reading')),
-              DataColumn(label: Text('Next Oil Change')),
-              DataColumn(label: Text('Actions')),
-            ],
-            rows: carsDataViewModel.cars.map<DataRow>((car) { // Explicitly cast to DataRow
-              return DataRow(
-                cells: <DataCell>[
-                  DataCell(Text(car.license_plate ?? 'N/A')),
-                  DataCell(Text(car.brand ?? 'N/A')),
-                  DataCell(Text(car.model ?? 'N/A')),
-                  DataCell(Text(car.yearOfManufacture?.toString() ?? 'N/A')),
-                  DataCell(Text(car.odometerReading?.toString() ?? 'N/A')),
-                  DataCell(Text(car.nextOilChange?.toString() ?? 'N/A')),
-                  DataCell(
-                    IconButton(
-                      icon: const Icon(Icons.edit),
-                      onPressed: () {
-                        _showEditDialog(context, car, carsDataViewModel);
-                      },
+              columns: const <DataColumn>[
+                DataColumn(label: Text('Plate Number'),
+                
+                ),
+                DataColumn(label: Text('Brand')),
+                DataColumn(label: Text('Model')),
+                DataColumn(label: Text('Year of Manufacture')),
+                DataColumn(label: Text('Odometer Reading')),
+                DataColumn(label: Text('Next Oil Change')),
+                DataColumn(label: Text('Actions')),
+              ],
+              rows: carsDataViewModel.cars.map<DataRow>((car) { // Explicitly cast to DataRow
+                return DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text(car.license_plate ?? 'N/A')),
+                    DataCell(Text(car.brand ?? 'N/A')),
+                    DataCell(Text(car.model ?? 'N/A')),
+                    DataCell(Text(car.yearOfManufacture?.toString() ?? 'N/A')),
+                    DataCell(Text(car.odometerReading?.toString() ?? 'N/A')),
+                    DataCell(Text(car.nextOilChange?.toString() ?? 'N/A')),
+                    DataCell(
+                      IconButton(
+                        icon: const Icon(Icons.edit),
+                        onPressed: () {
+                          _showEditDialog(context, car, carsDataViewModel);
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              );
-            }).toList(), // Ensure this converts to List<DataRow>
+                  ],
+                );
+              }).toList(), // Ensure this converts to List<DataRow>
+            ),
           ),
         ),
       ),
@@ -191,6 +197,7 @@ Widget buildTable(CarsViewModel carsDataViewModel) {
                   viewModel.fetchCars();
                 }).catchError((error) {
                   // Handle any errors if the update fails
+                  // ignore: use_build_context_synchronously
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                         content: Text('Failed to update car data: $error')),

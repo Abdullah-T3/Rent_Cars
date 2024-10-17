@@ -93,8 +93,10 @@ class CarsViewModel extends ChangeNotifier {
       if (response.statusCode == 201) {
         _cars.add(car);
         await _carsBox?.add(car); // Cache the new car
+        _errorMessage = '';
       } else {
         _handleError(response);
+        
       }
     } catch (e) {
       _errorMessage = e.toString();

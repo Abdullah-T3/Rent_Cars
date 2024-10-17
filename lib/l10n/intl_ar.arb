@@ -16,9 +16,9 @@
     "plate_number" : "رقم اللوحة",
     "brand" : "الماركة",
     "model" : "الموديل",
-    "year of manufacture" : "سنة الصنع",
-    "odometer reading" : "مقدار الساعة",
-    "next oil change" : "تغيير الزيت",
+    "year_of_manufacture" : "سنة الصنع",
+    "odometer_reading" : "قراءة العداد",
+    "next_oil_change" : "تغيير الزيت",
     "create" : " انشاء",
     "edit" : "تعديل",
     "delete" : "حذف" ,
@@ -44,11 +44,22 @@
     "Switch_to_Arabic": "تبديل للعربي",
     "Settings_Page" : "صفحة الاعدادات",
     "change_language" : "تغيير اللغة",
-    "Settings" : "الاعدادات"
-
-
-
-
-
-
+    "Settings" : "الاعدادات",
+    "order" : "الحجز",
+    "orders" : "الحجوزات",
+    "customer_mobile": "رقم الهاتف",
+    "car_license_plate": "رقم اللوحة",
+    "car_name": "اسم السيارة",
+    "add_car": "اضافة سيارة",
+    "car_added_successfully": " تم اضافة السيارة بنجاح",
+    "car_updated_successfully": " تم تحديث السيارة بنجاح",
+    "car_deleted_successfully": " تم حذف السيارة بنجاح",
+    "car_not_found": "السيارة غير موجودة",
+    "car_not_deleted": "السيارة لا يمكن حذفها",
+    "add_order": "اضافة حجز",
+    "order_added_successfully": "تم اضافة الحجز بنجاح",
+    "order_updated_successfully": "تم تحديث الحجز بنجاح",
+    "order_deleted_successfully": "تم حذف الحجز بنجاح",
+    "order_not_found": "الحجز غير موجود",
+    "order_not_deleted": "الحجز لا يمكن حذفه"
 }
