@@ -1,8 +1,8 @@
+import 'package:bookingcars/MVVM/Models/task_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../Constants/Colors.dart';
 import '../../View%20Model/task_view_model.dart';
-import '../../models/task_model.dart';
 import '../../../Responsive/UiComponanets/InfoWidget.dart';
 
 class AddTaskView extends StatefulWidget {
@@ -173,24 +173,23 @@ class _AddTaskViewState extends State<AddTaskView> {
                     projectId: 123
                   )  );
                   
-                  if (taskViewModel.errorMessage != null) {
-                    showDialog(
-                      // ignore: use_build_context_synchronously
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text("Error"),
-                        content: Text(taskViewModel.errorMessage),
-                        actions: <Widget>[
-                          TextButton(
-                            child: const Text("OK"),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      ),
-                    );
-                  } if(taskViewModel.errorMessage.isEmpty) {
+                  showDialog(
+                    // ignore: use_build_context_synchronously
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text("Error"),
+                      content: Text(taskViewModel.errorMessage),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text("OK"),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                if(taskViewModel.errorMessage.isEmpty) {
                     showDialog(
                       // ignore: use_build_context_synchronously
                       context: context,

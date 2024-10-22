@@ -1,4 +1,3 @@
-import 'package:bookingcars/Responsive/enums/DeviceType.dart';
 import 'package:bookingcars/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

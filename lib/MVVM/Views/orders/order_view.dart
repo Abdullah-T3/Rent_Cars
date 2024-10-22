@@ -15,8 +15,8 @@ class OrdersView extends StatelessWidget {
     final isArabic = Localizations.localeOf(context).languageCode == 'ar';
 
     // Create a ScrollController
-    final ScrollController _verticalScrollController = ScrollController();
-    final ScrollController _horizontalScrollController = ScrollController();
+    final ScrollController verticalScrollController = ScrollController();
+    final ScrollController horizontalScrollController = ScrollController();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<OrdersViewModel>(context, listen: false).fetchOrders();
@@ -54,15 +54,15 @@ class OrdersView extends StatelessWidget {
                 ),
                 child: Scrollbar(
                   thumbVisibility: true, // Show scrollbar thumb for vertical scrolling
-                  controller: _verticalScrollController,
+                  controller: verticalScrollController,
                   child: SingleChildScrollView(
-                    controller: _verticalScrollController,
+                    controller: verticalScrollController,
                     child: Scrollbar(
                       thumbVisibility: true, // Show scrollbar thumb for horizontal scrolling
-                      controller: _horizontalScrollController,
+                      controller: horizontalScrollController,
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        controller: _horizontalScrollController,
+                        controller: horizontalScrollController,
                         child: ConstrainedBox(
                           constraints: BoxConstraints(
                             minWidth: deviceInfo.screenWidth, // Ensure horizontal stretching
@@ -92,7 +92,7 @@ class OrdersView extends StatelessWidget {
                                       DataCell(Text(order.carLicensePlate ?? '')),
                                       DataCell(Text(order.rentalDate
                                               ?.toIso8601String()
-                                              ?.substring(0, 10) ?? '')),
+                                              .substring(0, 10) ?? '')),
                                       DataCell(Text(order.rentalDays?.toString() ??
                                           '')),
                                       DataCell(Text(order.rentalAmount?.toString() ??

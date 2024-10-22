@@ -38,7 +38,7 @@ Widget buildTable(CarsViewModel carsDataViewModel) {
               minWidth: deviceInfo.screenWidth,
             ),
             child: DataTable(
-              headingRowColor: MaterialStateProperty.all(Colors.blue),
+              headingRowColor: WidgetStateProperty.all(Colors.blue),
               
               columns: const <DataColumn>[
                 DataColumn(label: Text('Plate Number'),
