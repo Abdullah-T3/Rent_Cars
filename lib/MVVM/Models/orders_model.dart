@@ -34,6 +34,8 @@ class OrdersModel {
   @HiveField(9)
   DateTime? createdAt;
 
+  @HiveField(10)
+  String? imagePath;  
   OrdersModel({
     this.orderId,
     this.customerName,
@@ -45,6 +47,7 @@ class OrdersModel {
     this.rentalAmount,
     this.carKmAtRental,
     this.createdAt,
+    this.imagePath
   });
 
   // Existing factory constructor for parsing JSON data
