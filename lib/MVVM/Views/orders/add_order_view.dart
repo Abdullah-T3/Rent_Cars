@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:bookingcars/MVVM/Models/orders_model.dart';
+import 'package:bookingcars/MVVM/Models/orders/orders_model.dart';
 import 'package:bookingcars/MVVM/View%20Model/orders_view_model.dart';
 import 'package:bookingcars/Responsive/UiComponanets/InfoWidget.dart';
 import 'package:bookingcars/Responsive/enums/DeviceType.dart';
@@ -31,7 +31,8 @@ class _AddOrderViewState extends State<AddOrderView> {
     if (pickedFile != null) {
       setState(() {
         _selectedImage = File(pickedFile.path);
-        _order.imagePath = pickedFile.path; // Assuming OrdersModel has a field for image path
+        _order.imagePath =
+            pickedFile.path; // Assuming OrdersModel has a field for image path
       });
     }
   }
@@ -40,15 +41,15 @@ class _AddOrderViewState extends State<AddOrderView> {
   void _removeImage() {
     setState(() {
       _selectedImage = null;
-      _order.imagePath = null; // Assuming OrdersModel has a field for image path
+      _order.imagePath =
+          null; // Assuming OrdersModel has a field for image path
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Infowidget(
-      builder: (context, deviceInfo) {
-        isDesktop = deviceInfo.deviceType == DeviceType.desktop;
+    return Infowidget(builder: (context, deviceInfo) {
+      isDesktop = deviceInfo.deviceType == DeviceType.desktop;
       return Scaffold(
         drawer: const Mydrawer(),
         appBar: AppBar(
@@ -63,7 +64,8 @@ class _AddOrderViewState extends State<AddOrderView> {
                 children: [
                   // Customer Name Input
                   TextFormField(
-                    decoration: InputDecoration(labelText: S.of(context).customer_name),
+                    decoration:
+                        InputDecoration(labelText: S.of(context).customer_name),
                     onSaved: (value) => _order.customerName = value,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -74,7 +76,8 @@ class _AddOrderViewState extends State<AddOrderView> {
                   ),
                   // Customer Mobile Input
                   TextFormField(
-                    decoration: InputDecoration(labelText: S.of(context).customer_mobile),
+                    decoration: InputDecoration(
+                        labelText: S.of(context).customer_mobile),
                     onSaved: (value) => _order.customerMobile = value,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -85,7 +88,8 @@ class _AddOrderViewState extends State<AddOrderView> {
                   ),
                   // Car License Plate Input
                   TextFormField(
-                    decoration: InputDecoration(labelText: S.of(context).car_license_plate),
+                    decoration: InputDecoration(
+                        labelText: S.of(context).car_license_plate),
                     onSaved: (value) => _order.carLicensePlate = value,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -96,7 +100,8 @@ class _AddOrderViewState extends State<AddOrderView> {
                   ),
                   // Car Name Input
                   TextFormField(
-                    decoration: InputDecoration(labelText: S.of(context).car_name),
+                    decoration:
+                        InputDecoration(labelText: S.of(context).car_name),
                     onSaved: (value) => _order.carName = value,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -107,9 +112,11 @@ class _AddOrderViewState extends State<AddOrderView> {
                   ),
                   // Rental Days Input
                   TextFormField(
-                    decoration: InputDecoration(labelText: S.of(context).rental_days),
+                    decoration:
+                        InputDecoration(labelText: S.of(context).rental_days),
                     keyboardType: TextInputType.number,
-                    onSaved: (value) => _order.rentalDays = int.tryParse(value ?? ''),
+                    onSaved: (value) =>
+                        _order.rentalDays = int.tryParse(value ?? ''),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter rental days';
@@ -119,9 +126,11 @@ class _AddOrderViewState extends State<AddOrderView> {
                   ),
                   // Rental Amount Input
                   TextFormField(
-                    decoration: InputDecoration(labelText: S.of(context).rental_amount),
+                    decoration:
+                        InputDecoration(labelText: S.of(context).rental_amount),
                     keyboardType: TextInputType.number,
-                    onSaved: (value) => _order.rentalAmount = int.tryParse(value ?? ''),
+                    onSaved: (value) =>
+                        _order.rentalAmount = int.tryParse(value ?? ''),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter rental amount';
@@ -131,9 +140,11 @@ class _AddOrderViewState extends State<AddOrderView> {
                   ),
                   // Rental Kilometers Input
                   TextFormField(
-                    decoration: InputDecoration(labelText: S.of(context).rental_kilometers),
+                    decoration: InputDecoration(
+                        labelText: S.of(context).rental_kilometers),
                     keyboardType: TextInputType.number,
-                    onSaved: (value) => _order.carKmAtRental = int.tryParse(value ?? ''),
+                    onSaved: (value) =>
+                        _order.carKmAtRental = int.tryParse(value ?? ''),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter rental kilometers';
@@ -143,9 +154,11 @@ class _AddOrderViewState extends State<AddOrderView> {
                   ),
                   // Rental Date Input
                   TextFormField(
-                    decoration: InputDecoration(labelText: S.of(context).rental_date),
+                    decoration:
+                        InputDecoration(labelText: S.of(context).rental_date),
                     keyboardType: TextInputType.datetime,
-                    onSaved: (value) => _order.rentalDate = DateTime.tryParse(value ?? ''),
+                    onSaved: (value) =>
+                        _order.rentalDate = DateTime.tryParse(value ?? ''),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter rental date';
@@ -153,9 +166,9 @@ class _AddOrderViewState extends State<AddOrderView> {
                       return null;
                     },
                   ),
-      
+
                   const SizedBox(height: 20),
-      
+
                   // Image Picker Section
                   _selectedImage != null
                       ? Column(
@@ -170,56 +183,103 @@ class _AddOrderViewState extends State<AddOrderView> {
                             ElevatedButton.icon(
                               onPressed: _removeImage,
                               icon: const Icon(Icons.delete),
-                              label: Text('Remove Photo', style: isDesktop 
-                                  ? TextStyle(fontSize: deviceInfo.screenWidth / 2 * 0.025)
-                                  : TextStyle(fontSize: deviceInfo.screenWidth * 0.025),
+                              label: Text(
+                                'Remove Photo',
+                                style: isDesktop
+                                    ? TextStyle(
+                                        fontSize:
+                                            deviceInfo.screenWidth / 2 * 0.025)
+                                    : TextStyle(
+                                        fontSize:
+                                            deviceInfo.screenWidth * 0.025),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
                           ],
                         )
                       : const SizedBox(
-                          height: 150, 
+                          height: 150,
                           width: 150,
                           child: Icon(Icons.camera_alt, size: 100),
                         ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton.icon(
-                        onPressed: () => _pickImage(ImageSource.camera),
-                        icon: const Icon(Icons.camera),
-                        label: Text('Take Photo',style:isDesktop? TextStyle(fontSize: deviceInfo.screenWidth /2 * 0.025): TextStyle(fontSize: deviceInfo.screenWidth * 0.025) ,overflow: TextOverflow.ellipsis,),
-                      ),
-                         
-                         ElevatedButton.icon(
+                  isDesktop
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton.icon(
+                              onPressed: () => _pickImage(ImageSource.camera),
+                              icon: const Icon(Icons.camera),
+                              label: Text(
+                                'Take Photo',
+                                style: isDesktop
+                                    ? TextStyle(
+                                        fontSize:
+                                            deviceInfo.screenWidth / 2 * 0.025)
+                                    : TextStyle(
+                                        fontSize:
+                                            deviceInfo.screenWidth * 0.025),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            ElevatedButton.icon(
+                              onPressed: () => _pickImage(ImageSource.gallery),
+                              icon: const Icon(Icons.photo),
+                              label: Text(
+                                'Choose from Gallery',
+                                style: isDesktop
+                                    ? TextStyle(
+                                        fontSize:
+                                            deviceInfo.screenWidth / 2 * 0.025)
+                                    : TextStyle(
+                                        fontSize:
+                                            deviceInfo.screenWidth * 0.025),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        )
+                      : ElevatedButton.icon(
                           onPressed: () => _pickImage(ImageSource.gallery),
                           icon: const Icon(Icons.photo),
-                          label:  Text('Choose from Gallery',style:isDesktop? TextStyle(fontSize: deviceInfo.screenWidth /2 * 0.025): TextStyle(fontSize: deviceInfo.screenWidth * 0.025) ,overflow: TextOverflow.ellipsis,),
+                          label: Text(
+                            'Choose from Gallery',
+                            style: isDesktop
+                                ? TextStyle(
+                                    fontSize:
+                                        deviceInfo.screenWidth / 2 * 0.025)
+                                : TextStyle(
+                                    fontSize: deviceInfo.screenWidth * 0.025),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                    ],
-                  ),
                   const SizedBox(height: 20),
-      
+
                   // Submit Button
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-                        Provider.of<OrdersViewModel>(context, listen: false).addOrder(_order);
-                        Navigator.pop(context); // Close the form after submission
+                        Provider.of<OrdersViewModel>(context, listen: false)
+                            .addOrder(_order);
+                        Navigator.pop(
+                            context); // Close the form after submission
                       }
                     },
-                    child: Text(S.of(context).add_order,style:isDesktop? TextStyle(fontSize: deviceInfo.screenWidth /2 * 0.025): TextStyle(fontSize: deviceInfo.screenWidth * 0.025) ,overflow: TextOverflow.ellipsis,),
+                    child: Text(
+                      S.of(context).add_order,
+                      style: isDesktop
+                          ? TextStyle(
+                              fontSize: deviceInfo.screenWidth / 2 * 0.025)
+                          : TextStyle(fontSize: deviceInfo.screenWidth * 0.025),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),
             ),
           ),
         ),
-      );   
-      }
-     
-    );
+      );
+    });
   }
 }

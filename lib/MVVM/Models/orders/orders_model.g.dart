@@ -27,13 +27,14 @@ class OrdersModelAdapter extends TypeAdapter<OrdersModel> {
       rentalAmount: fields[7] as int?,
       carKmAtRental: fields[8] as int?,
       createdAt: fields[9] as DateTime?,
+      imagePath: fields[10] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, OrdersModel obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.orderId)
       ..writeByte(1)
@@ -53,7 +54,9 @@ class OrdersModelAdapter extends TypeAdapter<OrdersModel> {
       ..writeByte(8)
       ..write(obj.carKmAtRental)
       ..writeByte(9)
-      ..write(obj.createdAt);
+      ..write(obj.createdAt)
+      ..writeByte(10)
+      ..write(obj.imagePath);
   }
 
   @override

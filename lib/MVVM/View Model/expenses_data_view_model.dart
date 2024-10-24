@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import '../Models/expenses_data_model.dart';
+import '../Models/expenses/expenses_data_model.dart';
 
 class ExpensesViewModel extends ChangeNotifier {
   List<ExpensesDataModel> _expenses = [];
@@ -78,7 +78,7 @@ class ExpensesViewModel extends ChangeNotifier {
   Future<void> updateExpense(ExpensesDataModel expense) async {
     _isLoading = true;
     notifyListeners();
-    final updatedExpense = UpdateExpensesModel(
+    final updatedExpense = ExpensesDataModel(
       customerName: expense.customerName,
       description: expense.description,
       carDetails: expense.carDetails,

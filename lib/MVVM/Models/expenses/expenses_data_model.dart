@@ -17,6 +17,7 @@ class ExpensesDataModel {
     DateTime? expensesDate;
     String? cost;
     String? remaining;
+    String? paidAmount;
 
     ExpensesDataModel({
         this.expensesId,
@@ -27,6 +28,7 @@ class ExpensesDataModel {
         this.expensesDate,
         this.cost,
         this.remaining,
+        this.paidAmount,
     });
 
     factory ExpensesDataModel.fromJson(Map<String, dynamic> json) => ExpensesDataModel(
@@ -38,6 +40,7 @@ class ExpensesDataModel {
         expensesDate: json["Expenses_date"] == null ? null : DateTime.parse(json["Expenses_date"]),
         cost: json["cost"],
         remaining: json["remaining"],
+        paidAmount: json["paid_amount"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -49,5 +52,6 @@ class ExpensesDataModel {
         "Expenses_date": expensesDate?.toIso8601String(),
         "cost": cost,
         "remaining": remaining,
+        "paid_amount": paidAmount,
     };
 }

@@ -58,6 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "customer_id": MessageLookupByLibrary.simpleMessage("رقم العميل"),
         "customer_mobile": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
         "customer_name": MessageLookupByLibrary.simpleMessage("اسم العميل"),
+        "customers": MessageLookupByLibrary.simpleMessage("العملاء"),
         "delete": MessageLookupByLibrary.simpleMessage("حذف"),
         "description": MessageLookupByLibrary.simpleMessage("الوصف"),
         "edit": MessageLookupByLibrary.simpleMessage("تعديل"),

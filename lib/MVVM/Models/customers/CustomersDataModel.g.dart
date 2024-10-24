@@ -1,48 +1,48 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'task_model.dart';
+part of 'CustomersDataModel.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class TaskModelAdapter extends TypeAdapter<TaskModel> {
+class CustomersDataModelAdapter extends TypeAdapter<CustomersDataModel> {
   @override
-  final int typeId = 0;
+  final int typeId = 3;
 
   @override
-  TaskModel read(BinaryReader reader) {
+  CustomersDataModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return TaskModel(
-      taskId: fields[0] as int?,
-      taskTitle: fields[1] as String?,
-      taskDescription: fields[2] as String?,
-      deadline: fields[3] as DateTime?,
-      isCompleted: fields[4] as int?,
-      createdAt: fields[5] as DateTime?,
+    return CustomersDataModel(
+      customerId: fields[0] as int?,
+      customerName: fields[1] as String?,
+      idNumber: fields[2] as String?,
+      address: fields[3] as String?,
+      landline: fields[4] as String?,
+      referenceNumber: fields[5] as String?,
       projectId: fields[6] as int?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, TaskModel obj) {
+  void write(BinaryWriter writer, CustomersDataModel obj) {
     writer
       ..writeByte(7)
       ..writeByte(0)
-      ..write(obj.taskId)
+      ..write(obj.customerId)
       ..writeByte(1)
-      ..write(obj.taskTitle)
+      ..write(obj.customerName)
       ..writeByte(2)
-      ..write(obj.taskDescription)
+      ..write(obj.idNumber)
       ..writeByte(3)
-      ..write(obj.deadline)
+      ..write(obj.address)
       ..writeByte(4)
-      ..write(obj.isCompleted)
+      ..write(obj.landline)
       ..writeByte(5)
-      ..write(obj.createdAt)
+      ..write(obj.referenceNumber)
       ..writeByte(6)
       ..write(obj.projectId);
   }
@@ -53,7 +53,7 @@ class TaskModelAdapter extends TypeAdapter<TaskModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TaskModelAdapter &&
+      other is CustomersDataModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

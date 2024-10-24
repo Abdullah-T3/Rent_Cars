@@ -1,3 +1,4 @@
+import 'package:bookingcars/Responsive/enums/DeviceType.dart';
 import 'package:bookingcars/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,22 +11,29 @@ class Mydrawer extends StatelessWidget {
   const Mydrawer({super.key});
 
   Widget buildDrawerHeader(context) {
-    return Infowidget(
-        
-        builder: (context, deviceInfo) {
+    return Infowidget(builder: (context, deviceInfo) {
       return Column(
         children: [
           Container(
-            padding:  EdgeInsetsDirectional.fromSTEB(deviceInfo.screenWidth * 0.05, deviceInfo.screenHeight * 0.02, deviceInfo.screenWidth * 0.05, deviceInfo.screenHeight * 0.02),
-      
-            child: Image.asset("assets/images/car_logo.gif",),
+            padding: deviceInfo.deviceType == DeviceType.mobile ||
+                    deviceInfo.deviceType == DeviceType.tablet
+                ? EdgeInsetsDirectional.fromSTEB(
+                    deviceInfo.screenWidth * 0.07,
+                    deviceInfo.screenHeight * 0.05,
+                    deviceInfo.screenWidth * 0.07,
+                    deviceInfo.screenHeight * 0.05)
+                : EdgeInsetsDirectional.fromSTEB(
+                    deviceInfo.screenWidth * 0.05,
+                    deviceInfo.screenHeight * 0.02,
+                    deviceInfo.screenWidth * 0.05,
+                    deviceInfo.screenHeight * 0.02),
+            child: Image.asset(
+              "assets/images/car_logo.gif",
+            ),
           ),
-      
         ],
-      );    
-        }
-      
-    );
+      );
+    });
   }
 
   Widget buildDrawerListItem(
@@ -48,6 +56,7 @@ class Mydrawer extends StatelessWidget {
       onTap: onTap,
     );
   }
+
   Widget buildDrawerListItemDivider() {
     return const Divider(
       height: 0,
@@ -58,54 +67,71 @@ class Mydrawer extends StatelessWidget {
   }
 
   @override
-
-
   Widget build(BuildContext context) {
     final userView = Provider.of<UserViewModel>(context);
-return Infowidget(
-  builder: (context, deviceInfo) {
+    return Infowidget(builder: (context, deviceInfo) {
       return Drawer(
-    backgroundColor:MyColors.bgColor,
-  
-    child: ListView(
-      children: [
-        SizedBox(
-          height:deviceInfo.orientation == Orientation.portrait ? deviceInfo.screenHeight * 0.2 : deviceInfo.screenHeight * 0.4,
-          child: DrawerHeader(
-            child: 
-          buildDrawerHeader(context),),
-          
-        ),
-
-        buildDrawerListItem( title: "Transactions", leadingIcon: Icons.history, onTap: () {}),
-        buildDrawerListItemDivider(),
-        buildDrawerListItem( title: "Cars List", leadingIcon: Icons.car_rental, onTap: () {
-          Navigator.of(context).pushReplacementNamed('/cars_data');
-        }),
-
-        buildDrawerListItemDivider(),
-
-        buildDrawerListItem(title: S.of(context).Tasks, leadingIcon: Icons.task_alt, onTap: () {
-          Navigator.of(context).pushReplacementNamed('/tasks');
-        }),  
-        buildDrawerListItemDivider(),
-      buildDrawerListItem(title: S.of(context).orders, leadingIcon: Icons.bar_chart, onTap: () {
-          Navigator.of(context).pushNamed('/orders');
-        }),
-      
-        buildDrawerListItemDivider(),
-        buildDrawerListItem( title: "Settings", leadingIcon: Icons.settings, onTap: () {}),
-        buildDrawerListItemDivider(),
-        buildDrawerListItem( title: "Logout", leadingIcon: Icons.logout, onTap: () async{
-          await userView.logout();
-          Navigator.of(context).pushReplacementNamed('/login');
-        },triling: const Icon(Icons.arrow_right),color: Colors.red),
-      ],
-    )
-  
-  );
+          backgroundColor: MyColors.bgColor,
+          child: ListView(
+            children: [
+              SizedBox(
+                height: deviceInfo.orientation == Orientation.portrait
+                    ? deviceInfo.screenHeight * 0.2
+                    : deviceInfo.screenHeight * 0.4,
+                child: DrawerHeader(
+                  child: buildDrawerHeader(context),
+                ),
+              ),
+              buildDrawerListItem(
+                  title: "expenses",
+                  leadingIcon: Icons.history,
+                  onTap: () {
+                    Navigator.of(context).pushReplacementNamed('/expenses');
+                  }),
+              buildDrawerListItemDivider(),
+              buildDrawerListItem(
+                  title: "Cars List",
+                  leadingIcon: Icons.car_rental,
+                  onTap: () {
+                    Navigator.of(context).pushReplacementNamed('/cars_data');
+                  }),
+              buildDrawerListItemDivider(),
+              buildDrawerListItem(
+                  title: S.of(context).Tasks,
+                  leadingIcon: Icons.task_alt,
+                  onTap: () {
+                    Navigator.of(context).pushReplacementNamed('/tasks');
+                  }),
+              buildDrawerListItemDivider(),
+              buildDrawerListItem(
+                  title: S.of(context).orders,
+                  leadingIcon: Icons.bar_chart,
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/orders');
+                  }),
+              buildDrawerListItemDivider(),
+              buildDrawerListItem(
+                  title: S.of(context).customers,
+                  leadingIcon: Icons.person,
+                  onTap: () {
+                    Navigator.of(context).pushNamed('/customers');
+                  }),
+              buildDrawerListItemDivider(),
+              buildDrawerListItem(
+                  title: "Settings", leadingIcon: Icons.settings, onTap: () {}),
+              buildDrawerListItemDivider(),
+              buildDrawerListItem(
+                  title: "Logout",
+                  leadingIcon: Icons.logout,
+                  onTap: () async {
+                    await userView.logout();
+                    // ignore: use_build_context_synchronously
+                    Navigator.of(context).pushReplacementNamed('/login');
+                  },
+                  triling: const Icon(Icons.arrow_right),
+                  color: Colors.red),
+            ],
+          ));
+    });
   }
-
-);
-
-  }}
+}

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../Responsive/UiComponanets/InfoWidget.dart';
 import '../../../widgets/myDrawer.dart';
-import '../../Models/cars_data_model.dart';
+import '../../Models/cars/cars_data_model.dart';
 import '../../View Model/cars_data_view_model.dart';
 
 class CarsDataView extends StatefulWidget {

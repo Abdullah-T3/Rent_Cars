@@ -1,10 +1,15 @@
-import 'package:bookingcars/MVVM/Models/cars_data_model.dart';
-import 'package:bookingcars/MVVM/Models/task_model.dart';
+import 'package:bookingcars/MVVM/Models/cars/cars_data_model.dart';
+import 'package:bookingcars/MVVM/Models/task/task_model.dart';
+import 'package:bookingcars/MVVM/View%20Model/customer_view_model.dart';
+import 'package:bookingcars/MVVM/View%20Model/expenses_data_view_model.dart';
 import 'package:bookingcars/MVVM/View%20Model/orders_view_model.dart';
 import 'package:bookingcars/MVVM/Views/bottom_nav_view.dart';
 import 'package:bookingcars/MVVM/Views/cars/add_car_view.dart';
+import 'package:bookingcars/MVVM/Views/customer/add_customer_view.dart';
+import 'package:bookingcars/MVVM/Views/customer/customer_data_view.dart';
+import 'package:bookingcars/MVVM/Views/expenses/expenses_data_view.dart';
 import 'package:bookingcars/MVVM/Views/orders/order_view.dart';
-
+import 'package:bookingcars/MVVM/Views/setting_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -21,19 +26,15 @@ import 'MVVM/Views/tasks/add_task_view.dart';
 import 'MVVM/Views/cars/cars_data_view.dart';
 import 'MVVM/Views/tasks/Tasks_View.dart';
 import 'generated/l10n.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Initialize SharedPreferences
   await SharedPreferences.getInstance();
-
   // Initialize Hive and Flutter adapter
   await Hive.initFlutter();
-
   // Register Hive adapters
   Hive.registerAdapter(TaskModelAdapter());
   Hive.registerAdapter(CarsDataModelAdapter());
-
   // Open Hive boxes
   await Hive.openBox<CarsDataModel>('carsBox');
   await Hive.openBox('tasksBox');
@@ -57,6 +58,8 @@ void main() async {
         ChangeNotifierProvider(
           create: (context) => CarsViewModel(),
         ),
+        ChangeNotifierProvider(create: (_) => ExpensesViewModel()), 
+        ChangeNotifierProvider(create: (_) => CustomerViewModel()),
       ],
       child: const MyApp(),
       //child: DevicePreview(
@@ -66,7 +69,6 @@ void main() async {
     ),
   );
 }
-
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -123,6 +125,10 @@ class _MyAppState extends State<MyApp> {
         '/add_task': (context) => const AddTaskView(),
         '/add_car': (context) => const AddCarView(),
         '/orders': (context) => const OrdersView(),
+        '/expenses': (context) => const ExpensesDataView(),
+        '/settings': (context) => SettingsPage( toggleLanguage: toggleLanguage),
+        '/customers': (context) => const CustomerDataView(),
+        "/add_customer": (context) =>  AddCustomerView(),
       },
     );
   }

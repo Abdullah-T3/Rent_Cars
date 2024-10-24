@@ -33,11 +33,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Switch to Arabic"),
         "Tasks": MessageLookupByLibrary.simpleMessage("Tasks"),
         "WelcomeMassage":
-            MessageLookupByLibrary.simpleMessage(" Welcome to Cars"),
+            MessageLookupByLibrary.simpleMessage("Welcome to Cars"),
         "active_order": MessageLookupByLibrary.simpleMessage("Active Order"),
         "add_car": MessageLookupByLibrary.simpleMessage("Add Car"),
         "add_order": MessageLookupByLibrary.simpleMessage("Add Order"),
-        "booking_date": MessageLookupByLibrary.simpleMessage(" Rental Date"),
+        "booking_date": MessageLookupByLibrary.simpleMessage("Rental Date"),
         "brand": MessageLookupByLibrary.simpleMessage("Brand"),
         "car_added_successfully":
             MessageLookupByLibrary.simpleMessage("Car added successfully"),
@@ -55,10 +55,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_language":
             MessageLookupByLibrary.simpleMessage("Change Language"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
-        "customer_id": MessageLookupByLibrary.simpleMessage(" Customer ID"),
+        "customer_id": MessageLookupByLibrary.simpleMessage("Customer ID"),
         "customer_mobile":
             MessageLookupByLibrary.simpleMessage("Customer Mobile"),
-        "customer_name": MessageLookupByLibrary.simpleMessage(" Customer Name"),
+        "customer_name": MessageLookupByLibrary.simpleMessage("Customer Name"),
+        "customers": MessageLookupByLibrary.simpleMessage("Customers"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
@@ -83,17 +84,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "order_updated_successfully":
             MessageLookupByLibrary.simpleMessage("Order updated successfully"),
         "orders": MessageLookupByLibrary.simpleMessage("Orders"),
-        "password": MessageLookupByLibrary.simpleMessage(" Password"),
-        "pickup_date": MessageLookupByLibrary.simpleMessage(" Pickup Date"),
+        "password": MessageLookupByLibrary.simpleMessage("Password"),
+        "pickup_date": MessageLookupByLibrary.simpleMessage("Pickup Date"),
         "plate_number": MessageLookupByLibrary.simpleMessage("Plate Number"),
         "please_enter_your_email":
-            MessageLookupByLibrary.simpleMessage(" Please Enter Your Email"),
+            MessageLookupByLibrary.simpleMessage("Please Enter Your Email"),
         "please_enter_your_name":
-            MessageLookupByLibrary.simpleMessage(" Please Enter Your Name"),
+            MessageLookupByLibrary.simpleMessage("Please Enter Your Name"),
         "please_enter_your_password":
             MessageLookupByLibrary.simpleMessage("Please Enter Your Password"),
         "please_enter_your_phone":
-            MessageLookupByLibrary.simpleMessage(" Please Enter Your Phone"),
+            MessageLookupByLibrary.simpleMessage("Please Enter Your Phone"),
         "please_enter_your_username":
             MessageLookupByLibrary.simpleMessage("Please Enter Your Username"),
         "project_id": MessageLookupByLibrary.simpleMessage("Project ID"),
@@ -104,9 +105,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Register Success"),
         "rental_amount": MessageLookupByLibrary.simpleMessage("Rental Amount"),
         "rental_date": MessageLookupByLibrary.simpleMessage("Rental Date"),
-        "rental_days": MessageLookupByLibrary.simpleMessage(" Rental Days"),
+        "rental_days": MessageLookupByLibrary.simpleMessage("Rental Days"),
         "rental_kilometers":
-            MessageLookupByLibrary.simpleMessage(" Rental Kilometers"),
+            MessageLookupByLibrary.simpleMessage("Rental Kilometers"),
         "return_date": MessageLookupByLibrary.simpleMessage("Return Date"),
         "user_type": MessageLookupByLibrary.simpleMessage("User Type"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),

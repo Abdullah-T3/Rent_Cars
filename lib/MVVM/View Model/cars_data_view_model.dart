@@ -1,4 +1,4 @@
-import 'package:bookingcars/MVVM/Models/cars_data_model.dart';
+import 'package:bookingcars/MVVM/Models/cars/cars_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/hive_flutter.dart';

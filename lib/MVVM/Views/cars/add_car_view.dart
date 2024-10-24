@@ -1,17 +1,15 @@
-import 'package:bookingcars/MVVM/Models/cars_data_model.dart';
+import 'package:bookingcars/MVVM/Models/cars/cars_data_model.dart';
 import 'package:bookingcars/MVVM/View%20Model/cars_data_view_model.dart';
 import 'package:bookingcars/generated/l10n.dart';
 import 'package:bookingcars/widgets/myDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 class AddCarView extends StatefulWidget {
   const AddCarView({super.key});
-
   @override
+  // ignore: library_private_types_in_public_api
   _AddCarViewState createState() => _AddCarViewState();
 }
-
 class _AddCarViewState extends State<AddCarView> {
   final _formKey = GlobalKey<FormState>();
   final _licensePlateController = TextEditingController();
@@ -20,12 +18,10 @@ class _AddCarViewState extends State<AddCarView> {
   final _yearOfManufactureController = TextEditingController();
   final _odometerReadingController = TextEditingController();
   final _nextOilChangeController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<CarsViewModel>(context, listen: false);
     return Scaffold(
-      
       appBar: AppBar(
         title: const Text('Add Car'),
       ),
@@ -39,7 +35,7 @@ class _AddCarViewState extends State<AddCarView> {
               children: [
                 TextFormField(
                   controller: _licensePlateController,
-                  decoration:  InputDecoration(
+                  decoration: InputDecoration(
                     labelText: S.of(context).car_license_plate,
                   ),
                   validator: (value) {
@@ -52,7 +48,7 @@ class _AddCarViewState extends State<AddCarView> {
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _brandController,
-                  decoration:  InputDecoration(
+                  decoration: InputDecoration(
                     labelText: S.of(context).brand,
                   ),
                   validator: (value) {
@@ -65,7 +61,7 @@ class _AddCarViewState extends State<AddCarView> {
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _modelController,
-                  decoration:  InputDecoration(
+                  decoration: InputDecoration(
                     labelText: S.of(context).model,
                   ),
                   validator: (value) {
@@ -78,7 +74,7 @@ class _AddCarViewState extends State<AddCarView> {
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _yearOfManufactureController,
-                  decoration:  InputDecoration(
+                  decoration: InputDecoration(
                     labelText: S.of(context).year_of_manufacture,
                   ),
                   validator: (value) {
@@ -91,7 +87,7 @@ class _AddCarViewState extends State<AddCarView> {
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _odometerReadingController,
-                  decoration:  InputDecoration(
+                  decoration: InputDecoration(
                     labelText: S.of(context).odometer_reading,
                   ),
                   validator: (value) {
@@ -104,7 +100,7 @@ class _AddCarViewState extends State<AddCarView> {
                 const SizedBox(height: 16),
                 TextFormField(
                   controller: _nextOilChangeController,
-                  decoration:  InputDecoration(
+                  decoration: InputDecoration(
                     labelText: S.of(context).next_oil_change,
                   ),
                   validator: (value) {
@@ -129,52 +125,27 @@ class _AddCarViewState extends State<AddCarView> {
                         nextOilChange: int.parse(_nextOilChangeController.text),
                       );
                       await viewModel.addCar(car);
-                      if (viewModel.errorMessage!.isNotEmpty) {
-                        showDialog(
-                          // ignore: use_build_context_synchronously
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Error'),
-                              content: Text(viewModel.errorMessage!),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            );
-                          },
+                      if (viewModel.errorMessage != null) {
+                        // ignore: use_build_context_synchronously
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(viewModel.errorMessage!),
+                          ),
                         );
                       } else {
-                        showDialog(
-                          // ignore: use_build_context_synchronously
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Success'),
-                              content: const Text('Car added successfully'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            );
-                          },
+                        // ignore: use_build_context_synchronously
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Car added successfully'),
+                          ),
                         );
+                        // ignore: use_build_context_synchronously
+                        Navigator.of(context)
+                            .pushReplacementNamed('/cars_data');
                       }
-
-                      // Call the addCar function from your view model
-                      // ignore: use_build_context_synchronously
-                      Navigator.pop(context);
                     }
                   },
-                  child:  Text(S.of(context).add_car),
+                  child: Text(S.of(context).add_car),
                 ),
               ],
             ),

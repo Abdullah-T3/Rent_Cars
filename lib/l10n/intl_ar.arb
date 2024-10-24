@@ -61,5 +61,6 @@
     "order_updated_successfully": "تم تحديث الحجز بنجاح",
     "order_deleted_successfully": "تم حذف الحجز بنجاح",
     "order_not_found": "الحجز غير موجود",
-    "order_not_deleted": "الحجز لا يمكن حذفه"
+    "order_not_deleted": "الحجز لا يمكن حذفه",
+    "customers" : "العملاء"
 }

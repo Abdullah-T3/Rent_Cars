@@ -30,8 +30,8 @@
     "pickup_date" : "Pickup Date",
     "customer_id" : "Customer ID",
     "description" : "Description",
-    "rental_days" : " Rental Days",
-    "rental_kilometers" : " Rental Kilometers",
+    "rental_days" : "Rental Days",
+    "rental_kilometers" : "Rental Kilometers",
     "active_order" : "Active Order",
     "expired_order" : "Expired Order",
     "please_enter_your_password" : "Please Enter Your Password",
@@ -61,6 +61,7 @@
     "order_updated_successfully": "Order updated successfully",
     "order_deleted_successfully": "Order deleted successfully",
     "order_not_found": "Order not found",
-    "order_not_deleted": "Order not deleted"
+    "order_not_deleted": "Order not deleted",
+    "customers" : "Customers"
 
 }

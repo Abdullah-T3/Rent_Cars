@@ -100,10 +100,10 @@ class S {
     );
   }
 
-  /// ` Password`
+  /// `Password`
   String get password {
     return Intl.message(
-      ' Password',
+      'Password',
       name: 'password',
       desc: '',
       args: [],
@@ -180,10 +180,10 @@ class S {
     );
   }
 
-  /// ` Welcome to Cars`
+  /// `Welcome to Cars`
   String get WelcomeMassage {
     return Intl.message(
-      ' Welcome to Cars',
+      'Welcome to Cars',
       name: 'WelcomeMassage',
       desc: '',
       args: [],
@@ -310,40 +310,40 @@ class S {
     );
   }
 
-  /// ` Customer Name`
+  /// `Customer Name`
   String get customer_name {
     return Intl.message(
-      ' Customer Name',
+      'Customer Name',
       name: 'customer_name',
       desc: '',
       args: [],
     );
   }
 
-  /// ` Rental Date`
+  /// `Rental Date`
   String get booking_date {
     return Intl.message(
-      ' Rental Date',
+      'Rental Date',
       name: 'booking_date',
       desc: '',
       args: [],
     );
   }
 
-  /// ` Pickup Date`
+  /// `Pickup Date`
   String get pickup_date {
     return Intl.message(
-      ' Pickup Date',
+      'Pickup Date',
       name: 'pickup_date',
       desc: '',
       args: [],
     );
   }
 
-  /// ` Customer ID`
+  /// `Customer ID`
   String get customer_id {
     return Intl.message(
-      ' Customer ID',
+      'Customer ID',
       name: 'customer_id',
       desc: '',
       args: [],
@@ -360,20 +360,20 @@ class S {
     );
   }
 
-  /// ` Rental Days`
+  /// `Rental Days`
   String get rental_days {
     return Intl.message(
-      ' Rental Days',
+      'Rental Days',
       name: 'rental_days',
       desc: '',
       args: [],
     );
   }
 
-  /// ` Rental Kilometers`
+  /// `Rental Kilometers`
   String get rental_kilometers {
     return Intl.message(
-      ' Rental Kilometers',
+      'Rental Kilometers',
       name: 'rental_kilometers',
       desc: '',
       args: [],
@@ -420,30 +420,30 @@ class S {
     );
   }
 
-  /// ` Please Enter Your Email`
+  /// `Please Enter Your Email`
   String get please_enter_your_email {
     return Intl.message(
-      ' Please Enter Your Email',
+      'Please Enter Your Email',
       name: 'please_enter_your_email',
       desc: '',
       args: [],
     );
   }
 
-  /// ` Please Enter Your Name`
+  /// `Please Enter Your Name`
   String get please_enter_your_name {
     return Intl.message(
-      ' Please Enter Your Name',
+      'Please Enter Your Name',
       name: 'please_enter_your_name',
       desc: '',
       args: [],
     );
   }
 
-  /// ` Please Enter Your Phone`
+  /// `Please Enter Your Phone`
   String get please_enter_your_phone {
     return Intl.message(
-      ' Please Enter Your Phone',
+      'Please Enter Your Phone',
       name: 'please_enter_your_phone',
       desc: '',
       args: [],
@@ -675,6 +675,16 @@ class S {
     return Intl.message(
       'Order not deleted',
       name: 'order_not_deleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Customers`
+  String get customers {
+    return Intl.message(
+      'Customers',
+      name: 'customers',
       desc: '',
       args: [],
     );
