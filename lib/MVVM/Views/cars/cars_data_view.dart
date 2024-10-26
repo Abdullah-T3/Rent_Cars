@@ -1,3 +1,4 @@
+import 'package:bookingcars/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../Responsive/UiComponanets/InfoWidget.dart';
@@ -40,16 +41,16 @@ Widget buildTable(CarsViewModel carsDataViewModel) {
             child: DataTable(
               headingRowColor: WidgetStateProperty.all(Colors.blue),
               
-              columns: const <DataColumn>[
-                DataColumn(label: Text('Plate Number'),
+              columns:  <DataColumn>[
+                DataColumn(label: Text( S.of(context).car_license_plate),
                 
                 ),
-                DataColumn(label: Text('Brand')),
-                DataColumn(label: Text('Model')),
-                DataColumn(label: Text('Year of Manufacture')),
-                DataColumn(label: Text('Odometer Reading')),
-                DataColumn(label: Text('Next Oil Change')),
-                DataColumn(label: Text('Actions')),
+                DataColumn(label: Text(S.of(context).brand)),
+                DataColumn(label: Text(S.of(context).model)),
+                DataColumn(label: Text(S.of(context).year_of_manufacture)),
+                DataColumn(label: Text(S.of(context).odometer_reading)),
+                DataColumn(label: Text(S.of(context).next_oil_change)),
+                DataColumn(label: Text(S.of(context).actions))
               ],
               rows: carsDataViewModel.cars.map<DataRow>((car) { // Explicitly cast to DataRow
                 return DataRow(
@@ -85,7 +86,7 @@ Widget buildTable(CarsViewModel carsDataViewModel) {
     return Infowidget(builder: (context, deviceInfo) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Cars List'),
+          title:  Text(S.of(context).cars),
           actions: [
             IconButton(
               icon: const Icon(Icons.arrow_back),
@@ -106,8 +107,8 @@ Widget buildTable(CarsViewModel carsDataViewModel) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   if (carsDataViewModel.errorMessage != null) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content: Text("Check your internet connection")),
+                       SnackBar(
+                          content: Text(S.of(context).check_internet),),
                     );
                   }
                 });
@@ -147,30 +148,30 @@ Widget buildTable(CarsViewModel carsDataViewModel) {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Edit Car Data'),
+          title:  Text(S.of(context).edit),
           content: SingleChildScrollView(
             child: Column(
               children: [
                 TextField(
                   controller: modelController,
-                  decoration: const InputDecoration(labelText: 'Model'),
+                  decoration:  InputDecoration(labelText: S.of(context).model),
                 ),
                 TextField(
                   controller: yearController,
                   decoration:
-                      const InputDecoration(labelText: 'Year of Manufacture'),
+                       InputDecoration(labelText: S.of(context).year_of_manufacture),
                   keyboardType: TextInputType.number,
                 ),
                 TextField(
                   controller: odometerController,
                   decoration:
-                      const InputDecoration(labelText: 'Odometer Reading'),
+                       InputDecoration(labelText: S.of(context).odometer_reading),
                   keyboardType: TextInputType.number,
                 ),
                 TextField(
                   controller: nextOilChangeController,
                   decoration:
-                      const InputDecoration(labelText: 'Next Oil Change'),
+                       InputDecoration(labelText: S.of(context).next_oil_change),
                   keyboardType: TextInputType.number,
                 ),
               ],
@@ -181,7 +182,7 @@ Widget buildTable(CarsViewModel carsDataViewModel) {
               onPressed: () {
                 Navigator.of(context).pop(); // Close dialog without saving
               },
-              child: const Text('Cancel'),
+              child:  Text(S.of(context).cancel),
             ),
             TextButton(
               onPressed: () {
@@ -193,8 +194,7 @@ Widget buildTable(CarsViewModel carsDataViewModel) {
 
                 // Send the updated data to the ViewModel
                 viewModel.updateCar(car).then((_) {
-                  // Optionally refresh the car list
-                  viewModel.fetchCars();
+                viewModel.fetchCars();
                 }).catchError((error) {
                   // Handle any errors if the update fails
                   // ignore: use_build_context_synchronously
@@ -203,10 +203,9 @@ Widget buildTable(CarsViewModel carsDataViewModel) {
                         content: Text('Failed to update car data: $error')),
                   );
                 });
-
                 Navigator.of(context).pop();
               },
-              child: const Text('Save'),
+              child:  Text(S.of(context).save),
             ),
           ],
         );

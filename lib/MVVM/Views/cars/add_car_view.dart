@@ -23,7 +23,7 @@ class _AddCarViewState extends State<AddCarView> {
     final viewModel = Provider.of<CarsViewModel>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Car'),
+        title: Text(S.of(context).Add_Car),
       ),
       drawer: const Mydrawer(),
       body: Padding(
@@ -40,7 +40,7 @@ class _AddCarViewState extends State<AddCarView> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter license plate';
+                      return S.of(context).please_enter_car_license_plate;
                     }
                     return null;
                   },
@@ -53,7 +53,7 @@ class _AddCarViewState extends State<AddCarView> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter brand';
+                      return S.of(context).please_enter_brand;
                     }
                     return null;
                   },
@@ -66,7 +66,7 @@ class _AddCarViewState extends State<AddCarView> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter model';
+                      return S.of(context).please_enter_model;
                     }
                     return null;
                   },
@@ -79,7 +79,7 @@ class _AddCarViewState extends State<AddCarView> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter year of manufacture';
+                      return S.of(context).please_enter_year_of_manufacture;
                     }
                     return null;
                   },
@@ -92,7 +92,7 @@ class _AddCarViewState extends State<AddCarView> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter odometer reading';
+                      return S.of(context).please_enter_odometer_reading;
                     }
                     return null;
                   },
@@ -105,7 +105,7 @@ class _AddCarViewState extends State<AddCarView> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter next oil change';
+                      return S.of(context).please_enter_next_oil_change;
                     }
                     return null;
                   },
@@ -135,8 +135,9 @@ class _AddCarViewState extends State<AddCarView> {
                       } else {
                         // ignore: use_build_context_synchronously
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Car added successfully'),
+                           SnackBar(
+                            // ignore: use_build_context_synchronously
+                            content: Text(S.of(context).car_added_successfully),
                           ),
                         );
                         // ignore: use_build_context_synchronously

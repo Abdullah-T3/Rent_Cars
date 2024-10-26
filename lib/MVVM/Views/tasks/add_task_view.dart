@@ -1,4 +1,5 @@
 import 'package:bookingcars/MVVM/Models/task/task_model.dart';
+import 'package:bookingcars/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../Constants/Colors.dart';
@@ -146,7 +147,7 @@ class _AddTaskViewState extends State<AddTaskView> {
     return Infowidget(builder: (context, deviceInfo) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text("Add Task"),
+          title:  Text(S.of(context).Add_Task),
         ),
         body: SizedBox(
           height: deviceInfo.screenHeight,
@@ -172,12 +173,12 @@ class _AddTaskViewState extends State<AddTaskView> {
                     isCompleted: 1,
                     projectId: 123
                   )  );
-                  
-                  showDialog(
+                  if(taskViewModel.errorMessage.isNotEmpty) {
+                                      showDialog(
                     // ignore: use_build_context_synchronously
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: const Text("Error"),
+                      title:  Text(S.of(context).Error),
                       content: Text(taskViewModel.errorMessage),
                       actions: <Widget>[
                         TextButton(
@@ -189,12 +190,13 @@ class _AddTaskViewState extends State<AddTaskView> {
                       ],
                     ),
                   );
+                  }
                 if(taskViewModel.errorMessage.isEmpty) {
                     showDialog(
                       // ignore: use_build_context_synchronously
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: const Text("Success"),
+                        title: Text(S.of(context).Success),
                         content: const Text("Task added successfully"),
                         actions: <Widget>[
                           TextButton(

@@ -23,26 +23,102 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "AddTask": MessageLookupByLibrary.simpleMessage("Add Task"),
+        "Add_Car": MessageLookupByLibrary.simpleMessage("Add Car"),
+        "Add_Customer": MessageLookupByLibrary.simpleMessage("Add Customer"),
+        "Add_Expenses": MessageLookupByLibrary.simpleMessage("Add Expenses"),
+        "Add_Order": MessageLookupByLibrary.simpleMessage("Add Order"),
+        "Add_Task": MessageLookupByLibrary.simpleMessage("Add Task"),
+        "Add_Task_Type": MessageLookupByLibrary.simpleMessage("Add Task Type"),
         "Continue_to_login":
             MessageLookupByLibrary.simpleMessage("Continue to login"),
+        "Delete_Car": MessageLookupByLibrary.simpleMessage("Delete Car"),
+        "Delete_Customer":
+            MessageLookupByLibrary.simpleMessage("Delete Customer"),
+        "Delete_Expenses":
+            MessageLookupByLibrary.simpleMessage("Delete expenses"),
+        "Delete_Order": MessageLookupByLibrary.simpleMessage("Delete Order"),
+        "Delete_Task": MessageLookupByLibrary.simpleMessage("Delete Task"),
+        "Delete_Task_Type":
+            MessageLookupByLibrary.simpleMessage("Delete Task Type"),
+        "Edit_Car": MessageLookupByLibrary.simpleMessage("Edit Car"),
+        "Edit_Customer": MessageLookupByLibrary.simpleMessage("Edit Customer"),
+        "Edit_Expenses": MessageLookupByLibrary.simpleMessage("Edit expenses"),
+        "Edit_Order": MessageLookupByLibrary.simpleMessage("Edit Order"),
+        "Edit_Task": MessageLookupByLibrary.simpleMessage("Edit Task"),
+        "Edit_Task_Type":
+            MessageLookupByLibrary.simpleMessage("Edit Task Type"),
+        "Error": MessageLookupByLibrary.simpleMessage("Error"),
+        "Expenses": MessageLookupByLibrary.simpleMessage("Expenses"),
+        "Expenses_Added_Successfully":
+            MessageLookupByLibrary.simpleMessage("Expenses added successfully"),
+        "Expenses_Data": MessageLookupByLibrary.simpleMessage("Expenses Data"),
+        "Expenses_Deleted_Successfully": MessageLookupByLibrary.simpleMessage(
+            "Expenses deleted successfully"),
+        "Expenses_Not_Found":
+            MessageLookupByLibrary.simpleMessage("Expenses not found"),
+        "Expenses_Updated_Successfully": MessageLookupByLibrary.simpleMessage(
+            "Expenses updated successfully"),
+        "Expenses_not_deleted":
+            MessageLookupByLibrary.simpleMessage("Expenses not deleted"),
+        "Expenses_not_found":
+            MessageLookupByLibrary.simpleMessage("Expenses not found"),
         "Invalid_username_or_password": MessageLookupByLibrary.simpleMessage(
             "Invalid username or password"),
         "Settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "Settings_Page": MessageLookupByLibrary.simpleMessage("Settings Page"),
+        "Success": MessageLookupByLibrary.simpleMessage("Success"),
         "Switch_to_Arabic":
             MessageLookupByLibrary.simpleMessage("Switch to Arabic"),
+        "Task_Added_Successfully":
+            MessageLookupByLibrary.simpleMessage("Task added successfully"),
+        "Task_Deleted_Successfully":
+            MessageLookupByLibrary.simpleMessage("Task deleted successfully"),
+        "Task_Not_Deleted":
+            MessageLookupByLibrary.simpleMessage("Task not deleted"),
+        "Task_Not_Found":
+            MessageLookupByLibrary.simpleMessage("Task not found"),
+        "Task_Type_Added_Successfully": MessageLookupByLibrary.simpleMessage(
+            "Task type added successfully"),
+        "Task_Type_Deleted_Successfully": MessageLookupByLibrary.simpleMessage(
+            "Task type deleted successfully"),
+        "Task_Type_Not_Deleted":
+            MessageLookupByLibrary.simpleMessage("Task type not deleted"),
+        "Task_Type_Not_Found":
+            MessageLookupByLibrary.simpleMessage("Task type not found"),
+        "Task_Type_Updated_Successfully": MessageLookupByLibrary.simpleMessage(
+            "Task type updated successfully"),
+        "Task_Updated_Successfully":
+            MessageLookupByLibrary.simpleMessage("Task updated successfully"),
         "Tasks": MessageLookupByLibrary.simpleMessage("Tasks"),
+        "Update_Car": MessageLookupByLibrary.simpleMessage("Update Car"),
+        "Update_Customer":
+            MessageLookupByLibrary.simpleMessage("Update Customer"),
+        "Update_Expenses":
+            MessageLookupByLibrary.simpleMessage("Update Expenses"),
+        "Update_Order": MessageLookupByLibrary.simpleMessage("Update Order"),
+        "Update_Task": MessageLookupByLibrary.simpleMessage("Update Task"),
+        "Update_Task_Type":
+            MessageLookupByLibrary.simpleMessage("Update Task Type"),
         "WelcomeMassage":
             MessageLookupByLibrary.simpleMessage("Welcome to Cars"),
+        "actions": MessageLookupByLibrary.simpleMessage("Actions"),
         "active_order": MessageLookupByLibrary.simpleMessage("Active Order"),
         "add_car": MessageLookupByLibrary.simpleMessage("Add Car"),
+        "add_customer": MessageLookupByLibrary.simpleMessage("Add Customer"),
+        "add_expenses": MessageLookupByLibrary.simpleMessage("Add Expenses"),
+        "add_image": MessageLookupByLibrary.simpleMessage("Add Image"),
         "add_order": MessageLookupByLibrary.simpleMessage("Add Order"),
+        "amount": MessageLookupByLibrary.simpleMessage("Amount"),
         "booking_date": MessageLookupByLibrary.simpleMessage("Rental Date"),
         "brand": MessageLookupByLibrary.simpleMessage("Brand"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "car_added_successfully":
             MessageLookupByLibrary.simpleMessage("Car added successfully"),
+        "car_data_updated":
+            MessageLookupByLibrary.simpleMessage("Car data updated"),
         "car_deleted_successfully":
             MessageLookupByLibrary.simpleMessage("Car deleted successfully"),
+        "car_details": MessageLookupByLibrary.simpleMessage("Car Details"),
         "car_license_plate":
             MessageLookupByLibrary.simpleMessage("Car License Plate"),
         "car_name": MessageLookupByLibrary.simpleMessage("Car Name"),
@@ -54,15 +130,31 @@ class MessageLookup extends MessageLookupByLibrary {
         "cars": MessageLookupByLibrary.simpleMessage("Cars"),
         "change_language":
             MessageLookupByLibrary.simpleMessage("Change Language"),
+        "check_internet":
+            MessageLookupByLibrary.simpleMessage("Check Internet"),
+        "cost": MessageLookupByLibrary.simpleMessage("Cost"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
         "customer_id": MessageLookupByLibrary.simpleMessage("Customer ID"),
         "customer_mobile":
             MessageLookupByLibrary.simpleMessage("Customer Mobile"),
         "customer_name": MessageLookupByLibrary.simpleMessage("Customer Name"),
         "customers": MessageLookupByLibrary.simpleMessage("Customers"),
+        "date": MessageLookupByLibrary.simpleMessage("Date"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "delete_expenses":
+            MessageLookupByLibrary.simpleMessage("Delete Expenses"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "edit": MessageLookupByLibrary.simpleMessage("Edit"),
+        "expense_added_successfully":
+            MessageLookupByLibrary.simpleMessage("Expense added successfully"),
+        "expense_deleted_successfully": MessageLookupByLibrary.simpleMessage(
+            "Expense deleted successfully"),
+        "expense_not_deleted":
+            MessageLookupByLibrary.simpleMessage("Expense not deleted"),
+        "expense_not_found":
+            MessageLookupByLibrary.simpleMessage("Expense not found"),
+        "expense_updated_successfully": MessageLookupByLibrary.simpleMessage(
+            "Expense updated successfully"),
         "expired_order": MessageLookupByLibrary.simpleMessage("Expired Order"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "login_error": MessageLookupByLibrary.simpleMessage("Login Error"),
@@ -70,6 +162,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "model": MessageLookupByLibrary.simpleMessage("Model"),
         "next_oil_change":
             MessageLookupByLibrary.simpleMessage("Next Oil Change"),
+        "no_internet": MessageLookupByLibrary.simpleMessage("No Internet"),
+        "no_internet_connection":
+            MessageLookupByLibrary.simpleMessage("No internet connection"),
         "odometer_reading":
             MessageLookupByLibrary.simpleMessage("Odometer Reading"),
         "order": MessageLookupByLibrary.simpleMessage("Order"),
@@ -84,9 +179,47 @@ class MessageLookup extends MessageLookupByLibrary {
         "order_updated_successfully":
             MessageLookupByLibrary.simpleMessage("Order updated successfully"),
         "orders": MessageLookupByLibrary.simpleMessage("Orders"),
+        "paid_amount": MessageLookupByLibrary.simpleMessage("Paid Amount"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "pickup_date": MessageLookupByLibrary.simpleMessage("Pickup Date"),
         "plate_number": MessageLookupByLibrary.simpleMessage("Plate Number"),
+        "please_check_your_internet":
+            MessageLookupByLibrary.simpleMessage("Please check your internet"),
+        "please_enter_brand":
+            MessageLookupByLibrary.simpleMessage("Please Enter Brand"),
+        "please_enter_car_license_plate": MessageLookupByLibrary.simpleMessage(
+            "Please Enter Car License Plate"),
+        "please_enter_car_name":
+            MessageLookupByLibrary.simpleMessage("Please Enter Car Name"),
+        "please_enter_customer_id":
+            MessageLookupByLibrary.simpleMessage("Please Enter Customer ID"),
+        "please_enter_customer_mobile": MessageLookupByLibrary.simpleMessage(
+            "Please Enter Customer Mobile"),
+        "please_enter_customer_name":
+            MessageLookupByLibrary.simpleMessage("Please Enter Customer Name"),
+        "please_enter_description":
+            MessageLookupByLibrary.simpleMessage("Please Enter Description"),
+        "please_enter_model":
+            MessageLookupByLibrary.simpleMessage("Please Enter Model"),
+        "please_enter_next_oil_change": MessageLookupByLibrary.simpleMessage(
+            "Please Enter Next Oil Change"),
+        "please_enter_odometer_reading": MessageLookupByLibrary.simpleMessage(
+            "Please Enter Odometer Reading"),
+        "please_enter_pickup_date":
+            MessageLookupByLibrary.simpleMessage("Please Enter Pickup Date"),
+        "please_enter_rental_amount":
+            MessageLookupByLibrary.simpleMessage("Please Enter Rental Amount"),
+        "please_enter_rental_date":
+            MessageLookupByLibrary.simpleMessage("Please Enter Rental Date"),
+        "please_enter_rental_days":
+            MessageLookupByLibrary.simpleMessage("Please Enter Rental Days"),
+        "please_enter_rental_kilometers": MessageLookupByLibrary.simpleMessage(
+            "Please Enter Rental Kilometers"),
+        "please_enter_return_date":
+            MessageLookupByLibrary.simpleMessage("Please Enter Return Date"),
+        "please_enter_year_of_manufacture":
+            MessageLookupByLibrary.simpleMessage(
+                "Please Enter Year of Manufacture"),
         "please_enter_your_email":
             MessageLookupByLibrary.simpleMessage("Please Enter Your Email"),
         "please_enter_your_name":
@@ -103,12 +236,21 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Register Error"),
         "register_success":
             MessageLookupByLibrary.simpleMessage("Register Success"),
+        "remaining": MessageLookupByLibrary.simpleMessage("Remaining"),
+        "remove_image": MessageLookupByLibrary.simpleMessage("Remove Image"),
         "rental_amount": MessageLookupByLibrary.simpleMessage("Rental Amount"),
         "rental_date": MessageLookupByLibrary.simpleMessage("Rental Date"),
         "rental_days": MessageLookupByLibrary.simpleMessage("Rental Days"),
         "rental_kilometers":
             MessageLookupByLibrary.simpleMessage("Rental Kilometers"),
         "return_date": MessageLookupByLibrary.simpleMessage("Return Date"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "select_from_gallery":
+            MessageLookupByLibrary.simpleMessage("Select From Gallery"),
+        "take_photo": MessageLookupByLibrary.simpleMessage("Take Photo"),
+        "update_expenses":
+            MessageLookupByLibrary.simpleMessage("Update Expenses"),
+        "upload_photo": MessageLookupByLibrary.simpleMessage("Upload Photo"),
         "user_type": MessageLookupByLibrary.simpleMessage("User Type"),
         "username": MessageLookupByLibrary.simpleMessage("Username"),
         "year_of_manufacture":

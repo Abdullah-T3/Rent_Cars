@@ -169,7 +169,7 @@ class _TasksViewtate extends State<TasksView> {
             ],
             title: Padding(
               padding: EdgeInsets.only(left: deviceInfo.screenWidth * 0.23),
-              child: const Text("Home"),
+              child:  Text(S.of(context).Tasks),
             ),
           ),
           drawer: const Mydrawer(),

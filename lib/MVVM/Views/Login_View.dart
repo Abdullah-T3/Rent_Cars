@@ -142,6 +142,8 @@ GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Widget build(BuildContext context) {
     final userViewModel = Provider.of<UserViewModel>(context);
     return Infowidget(builder: (context, deviceInfo) {
+          Locale currentLocale = Localizations.localeOf(context);
+
       return Scaffold(
         body: SafeArea(
           child: GestureDetector(
@@ -160,46 +162,14 @@ GlobalKey<FormState> formKey = GlobalKey<FormState>();
                   ),
                   child: Column(
                     children: [
-                      // Language toggle button
-                      Padding(
-                        padding: Localizations.localeOf(context)
-                                    .languageCode ==
-                                'en'
-                            ? EdgeInsets.only(
-                                right: deviceInfo.screenWidth * 0.5)
-                            : EdgeInsets.only(
-                                top: deviceInfo.screenHeight * 0.02,
-                                right: deviceInfo.screenWidth * 0.05),
-                        child: SizedBox(
-                          width: deviceInfo.screenWidth * 0.45,
-                          height: deviceInfo.screenHeight * 0.05,
-                          child: MaterialButton(
-                            onPressed: widget.toggleLanguage,
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      top: deviceInfo.screenHeight * 0.02),
-                                  child: Text(
-                                    S.of(context).change_language,
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                                SizedBox(
-                                    width: deviceInfo.screenWidth * 0.01),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    top: deviceInfo.screenHeight * 0.02,
-                                  ),
-                                  child: const Icon(
-                                    Icons.language,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                      // ignore: prefer_const_constructors
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(onPressed: widget.toggleLanguage, icon:const Icon(Icons.language) ),
+                          Text(currentLocale.toString())
+                        ],
                       ),
                       buildHeader(context),
                       Padding(

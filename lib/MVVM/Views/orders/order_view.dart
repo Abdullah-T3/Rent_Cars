@@ -29,6 +29,14 @@ class OrdersView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Orders'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/add_order');
+              },
+            ),
+          ],
         ),
         body: Consumer<OrdersViewModel>(
           builder: (context, viewModel, child) {

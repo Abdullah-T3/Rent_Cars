@@ -1,6 +1,7 @@
 import 'package:bookingcars/MVVM/Models/expenses/expenses_data_model.dart';
 import 'package:bookingcars/MVVM/View%20Model/expenses_data_view_model.dart';
 import 'package:bookingcars/Responsive/UiComponanets/InfoWidget.dart';
+import 'package:bookingcars/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,12 +13,25 @@ class ExpensesDataView extends StatefulWidget {
 }
 
 class _ExpensesDataViewState extends State<ExpensesDataView> {
+  late ScrollController _verticalScrollController;
+  late ScrollController _horizontalScrollController;
+
   @override
   void initState() {
     super.initState();
+    _verticalScrollController = ScrollController();
+    _horizontalScrollController = ScrollController();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<ExpensesViewModel>(context, listen: false).fetchExpenses();
     });
+  }
+
+  @override
+  void dispose() {
+    _verticalScrollController.dispose();
+    _horizontalScrollController.dispose();
+    super.dispose();
   }
 
   Widget buildTable(ExpensesViewModel expensesViewModel) {
@@ -26,26 +40,30 @@ class _ExpensesDataViewState extends State<ExpensesDataView> {
         width: deviceInfo.screenWidth,
         height: deviceInfo.screenHeight,
         child: Scrollbar(
+          controller: _verticalScrollController, // Attach vertical ScrollController
           thumbVisibility: true, // Show scrollbar thumb for vertical scrolling
           child: SingleChildScrollView(
+            controller: _verticalScrollController, // Attach vertical ScrollController
             child: Scrollbar(
+              controller: _horizontalScrollController, // Attach horizontal ScrollController
               thumbVisibility: true, // Show scrollbar thumb for horizontal scrolling
               child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
+                scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+                controller: _horizontalScrollController, // Attach horizontal ScrollController
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
                     minWidth: deviceInfo.screenWidth,
                   ),
                   child: DataTable(
                     headingRowColor: MaterialStateProperty.all(Colors.blue),
-                    columns: const <DataColumn>[
-                      DataColumn(label: Text('Customer Name')),
-                      DataColumn(label: Text('Description')),
-                      DataColumn(label: Text('Car Details')),
-                      DataColumn(label: Text('Expenses Date')),
-                      DataColumn(label: Text('Cost')),
-                      DataColumn(label: Text('Remaining')),
-                      DataColumn(label: Text('Actions')),
+                    columns:  <DataColumn>[
+                      DataColumn(label: Text(S.of(context).customer_name)),
+                      DataColumn(label: Text(S.of(context).description)),
+                      DataColumn(label: Text(S.of(context).car_details)),
+                      DataColumn(label: Text(S.of(context).date)),
+                      DataColumn(label: Text(S.of(context).cost)),
+                      DataColumn(label: Text(S.of(context).remaining)),
+                      DataColumn(label: Text(S.of(context).actions)),
                     ],
                     rows: expensesViewModel.expenses.map<DataRow>((expense) {
                       return DataRow(
@@ -53,7 +71,7 @@ class _ExpensesDataViewState extends State<ExpensesDataView> {
                           DataCell(Text(expense.customerName ?? 'N/A')),
                           DataCell(Text(expense.description ?? 'N/A')),
                           DataCell(Text(expense.carDetails ?? 'N/A')),
-                          DataCell(Text(expense.expensesDate.toString())),
+                          DataCell(Text(expense.expensesDate.toString().substring(0, 10))), 
                           DataCell(Text(expense.cost?.toString() ?? 'N/A')),
                           DataCell(Text(expense.remaining?.toString() ?? 'N/A')),
                           DataCell(
@@ -81,13 +99,12 @@ class _ExpensesDataViewState extends State<ExpensesDataView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Expenses List'),
+        title:  Text(S.of(context).Expenses),
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
-              // Implement add dialog similar to CarsDataView
-            },
+              Navigator.of(context).pushNamed('/add_expenses');},
           ),
           IconButton(
             onPressed: () {
@@ -100,7 +117,7 @@ class _ExpensesDataViewState extends State<ExpensesDataView> {
       body: Center(
         child: Consumer<ExpensesViewModel>(builder: (context, expensesViewModel, child) {
           if (expensesViewModel.isLoading) {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
 
           return buildTable(expensesViewModel);
@@ -114,7 +131,7 @@ class _ExpensesDataViewState extends State<ExpensesDataView> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Edit Expense'),
+          title:  Text(S.of(context).edit),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -124,42 +141,42 @@ class _ExpensesDataViewState extends State<ExpensesDataView> {
                   onChanged: (value) {
                     expense.customerName = value;
                   },
-                  decoration: const InputDecoration(labelText: 'Customer Name'),
+                  decoration:  InputDecoration(labelText: S.of(context).customer_name),
                 ),
                 TextField(
                   controller: TextEditingController(text: expense.description),
                   onChanged: (value) {
                     expense.description = value;
                   },
-                  decoration: const InputDecoration(labelText: 'Description'),
+                  decoration:  InputDecoration(labelText: S.of(context).description),
                 ),
                 TextField(
                   controller: TextEditingController(text: expense.carDetails),
                   onChanged: (value) {
                     expense.carDetails = value;
                   },
-                  decoration: const InputDecoration(labelText: 'Car Details'),
+                  decoration:  InputDecoration(labelText: S.of(context).car_details),
                 ),
                 TextField(
                   controller: TextEditingController(text: expense.expensesDate.toString()),
                   onChanged: (value) {
-                    expense.expensesDate = DateTime.parse(value);
+                    expense.expensesDate = DateTime.tryParse(value) ?? expense.expensesDate;
                   },
-                  decoration: const InputDecoration(labelText: 'Expenses Date'),
+                  decoration:  InputDecoration(labelText: S.of(context).date),
                 ),
                 TextField(
-                  controller: TextEditingController(text: expense.cost.toString()),
+                  controller: TextEditingController(text: expense.cost?.toString()),
                   onChanged: (value) {
                     expense.cost = value;
                   },
-                  decoration: const InputDecoration(labelText: 'Cost'),
+                  decoration:  InputDecoration(labelText:S.of(context).cost) ,
                 ),
                 TextField(
-                  controller: TextEditingController(text: expense.remaining.toString()),
+                  controller: TextEditingController(text: expense.remaining?.toString()),
                   onChanged: (value) {
                     expense.remaining = value;
                   },
-                  decoration: const InputDecoration(labelText: 'Remaining'),
+                  decoration:  InputDecoration(labelText: S.of(context).remaining),
                 ),
               ],
             ),
@@ -169,14 +186,14 @@ class _ExpensesDataViewState extends State<ExpensesDataView> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Cancel'),
+              child:  Text(S.of(context).cancel),
             ),
             TextButton(
               onPressed: () {
                 viewModel.updateExpense(expense);
                 Navigator.of(context).pop();
               },
-              child: const Text('Save'),
+              child:  Text(S.of(context).save),
             ),
           ],
         );

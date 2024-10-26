@@ -96,6 +96,7 @@ class TaskViewModel extends ChangeNotifier {
       }
     } catch (e) {
       _setErrorMessage('Error: $e');
+      print(e);
     } finally {
       _setLoading(false);
     }

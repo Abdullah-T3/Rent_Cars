@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:bookingcars/Responsive/enums/DeviceType.dart';
 import 'package:bookingcars/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -18,15 +19,15 @@ class Mydrawer extends StatelessWidget {
             padding: deviceInfo.deviceType == DeviceType.mobile ||
                     deviceInfo.deviceType == DeviceType.tablet
                 ? EdgeInsetsDirectional.fromSTEB(
-                    deviceInfo.screenWidth * 0.07,
-                    deviceInfo.screenHeight * 0.05,
-                    deviceInfo.screenWidth * 0.07,
-                    deviceInfo.screenHeight * 0.05)
+                    deviceInfo.screenWidth * 0.03,
+                    deviceInfo.screenHeight * 0.01,
+                    deviceInfo.screenWidth * 0.03,
+                    deviceInfo.screenHeight * 0.01)
                 : EdgeInsetsDirectional.fromSTEB(
-                    deviceInfo.screenWidth * 0.05,
-                    deviceInfo.screenHeight * 0.02,
-                    deviceInfo.screenWidth * 0.05,
-                    deviceInfo.screenHeight * 0.02),
+                    deviceInfo.screenWidth * 0.03,
+                    deviceInfo.screenHeight * 0.01,
+                    deviceInfo.screenWidth * 0.03,
+                    deviceInfo.screenHeight * 0.01),
             child: Image.asset(
               "assets/images/car_logo.gif",
             ),
@@ -83,14 +84,14 @@ class Mydrawer extends StatelessWidget {
                 ),
               ),
               buildDrawerListItem(
-                  title: "expenses",
+                  title: S.of(context).Expenses,
                   leadingIcon: Icons.history,
                   onTap: () {
                     Navigator.of(context).pushReplacementNamed('/expenses');
                   }),
               buildDrawerListItemDivider(),
               buildDrawerListItem(
-                  title: "Cars List",
+                  title: S.of(context).cars,
                   leadingIcon: Icons.car_rental,
                   onTap: () {
                     Navigator.of(context).pushReplacementNamed('/cars_data');
@@ -118,10 +119,12 @@ class Mydrawer extends StatelessWidget {
                   }),
               buildDrawerListItemDivider(),
               buildDrawerListItem(
-                  title: "Settings", leadingIcon: Icons.settings, onTap: () {}),
+                  title: S.of(context).Settings, leadingIcon: Icons.settings, onTap: () {
+                Navigator.of(context).pushNamed('/settings');
+                  }),
               buildDrawerListItemDivider(),
               buildDrawerListItem(
-                  title: "Logout",
+                  title: S.of(context).logout,
                   leadingIcon: Icons.logout,
                   onTap: () async {
                     await userView.logout();
