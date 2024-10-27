@@ -1,5 +1,4 @@
 import 'package:bookingcars/MVVM/Models/cars/cars_data_model.dart';
-import 'package:bookingcars/MVVM/Models/task/task_model.dart';
 import 'package:bookingcars/MVVM/View%20Model/customer_view_model.dart';
 import 'package:bookingcars/MVVM/View%20Model/expenses_data_view_model.dart';
 import 'package:bookingcars/MVVM/View%20Model/orders_view_model.dart';
@@ -34,10 +33,8 @@ void main() async {
   await Hive.initFlutter();
   await dotenv.load(fileName: ".env");
   // Register Hive adapters and open Hive boxes
-  Hive.registerAdapter(TaskModelAdapter());
   Hive.registerAdapter(CarsDataModelAdapter());
   await Hive.openBox<CarsDataModel>('carsBox');
-  await Hive.openBox('tasksBox');
   // Initialize user view model and check login status
   final userViewModel = UserViewModel();
   await userViewModel.isLoggedIn();

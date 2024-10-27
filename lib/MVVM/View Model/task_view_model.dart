@@ -16,26 +16,31 @@ class TaskViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String get errorMessage => _errorMessage;
 
-  // Initialize Hive and load cached tasks
-  Future<void> _initializeHive() async {
-    await Hive.initFlutter(); // Initialize Hive
-
-    // Check if adapter is already registered to avoid double registration
-    if (!Hive.isAdapterRegistered(TaskModelAdapter().typeId)) {
-      Hive.registerAdapter(TaskModelAdapter()); // Register adapter for TaskModel
-    }
-
-    // Check if the box is already open to avoid re-opening
-    if (!Hive.isBoxOpen('tasksBox')) {
-      _taskBox = await Hive.openBox<TaskModel>('tasksBox'); // Open the Hive box for tasks
-    } else {
-      _taskBox = Hive.box<TaskModel>('tasksBox'); // Use already opened box
-    }
-
-    // Load cached data if available
-    _tasks = _taskBox.values.toList();
-    notifyListeners(); // Notify listeners after loading cached data
+  TaskViewModel._(){
+    _initializeHive();
   }
+factory TaskViewModel() => TaskViewModel._();
+  // Initialize Hive and load cached tasks
+Future<void> _initializeHive() async {
+  await Hive.initFlutter(); // Initialize Hive
+
+  // Check if adapter is already registered to avoid double registration
+  if (!Hive.isAdapterRegistered(TaskModelAdapter().typeId)) {
+    Hive.registerAdapter(TaskModelAdapter()); // Register adapter for TaskModel
+  }
+
+  // Check if the box is already open
+  if (Hive.isBoxOpen('tasksBox')) {
+    _taskBox = Hive.box<TaskModel>('tasksBox'); // Use already opened box
+  } else {
+    // This should never happen, because you're opening the box in main.dart
+    _taskBox = await Hive.openBox<TaskModel>('tasksBox'); // Open the Hive box for tasks
+  }
+
+  // Load cached data if available
+  _tasks = _taskBox.values.toList();
+  notifyListeners(); // Notify listeners after loading cached data
+}
 
   // Fetch all tasks from the API or cache
   Future<void> fetchTasks() async {
@@ -53,7 +58,7 @@ class TaskViewModel extends ChangeNotifier {
         // Cache the fetched tasks
         _taskBox.clear(); // Clear old cached data
         for (var task in _tasks) {
-          _taskBox.put(task.taskId, task);
+          _taskBox.put(task.taskId.toString(), task);
         }
         _setErrorMessage('');
       } else {
@@ -88,7 +93,7 @@ class TaskViewModel extends ChangeNotifier {
         _tasks.add(task);
 
         // Cache the new task
-        await _taskBox.put(task.taskId, task);
+        await _taskBox.put(task.taskId.toString(), task);
         notifyListeners();
         _setErrorMessage('');
       } else {
@@ -121,7 +126,7 @@ class TaskViewModel extends ChangeNotifier {
           _tasks[index] = task;
 
           // Update cache
-          await _taskBox.put(task.taskId, task);
+          await _taskBox.put(task.taskId.toString(), task);
           notifyListeners();
         }
         _setErrorMessage('');
@@ -148,7 +153,7 @@ class TaskViewModel extends ChangeNotifier {
         _tasks.removeWhere((task) => task.taskId == taskId);
 
         // Remove from cache
-        await _taskBox.delete(taskId);
+        await _taskBox.delete(taskId.toString());
         notifyListeners();
         _setErrorMessage('');
       } else {
