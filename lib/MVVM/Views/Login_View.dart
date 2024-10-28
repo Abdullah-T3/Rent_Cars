@@ -1,3 +1,4 @@
+import 'package:bookingcars/Responsive/enums/DeviceType.dart';
 import 'package:bookingcars/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,24 +45,29 @@ GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   Widget buildHeader(context) {
     return Infowidget(builder: (context, deviceInfo) {
+      bool isDesktop = deviceInfo.deviceType == DeviceType.desktop?true:false;
       return Container(
-        padding: EdgeInsets.symmetric(
+        padding:isDesktop? EdgeInsets.symmetric(
           horizontal: deviceInfo.screenWidth * 0.05,
           vertical: deviceInfo.screenHeight * 0.02,
+        ):
+        EdgeInsets.symmetric(
+          horizontal: deviceInfo.screenWidth * 0.03,
+          vertical: deviceInfo.screenHeight * 0.01,
         ),
         child: Column(
           children: [
             Text(
               S.of(context).login,
               style: TextStyle(
-                fontSize: deviceInfo.screenWidth * 0.07, // Dynamic text size
+                fontSize:isDesktop? deviceInfo.screenWidth * 0.03: deviceInfo.screenWidth * 0.07, // Dynamic text size
                 color: Colors.white,
               ),
             ),
             Text(
               S.of(context).Continue_to_login,
               style: TextStyle(
-                fontSize: deviceInfo.screenWidth * 0.05,
+                fontSize:isDesktop? deviceInfo.screenWidth * 0.02: deviceInfo.screenWidth * 0.05,
                 color: Colors.white,
               ),
             ),
@@ -143,7 +149,7 @@ GlobalKey<FormState> formKey = GlobalKey<FormState>();
     final userViewModel = Provider.of<UserViewModel>(context);
     return Infowidget(builder: (context, deviceInfo) {
           Locale currentLocale = Localizations.localeOf(context);
-
+          bool isDesktop = deviceInfo.deviceType == DeviceType.desktop?true:false;
       return Scaffold(
         body: SafeArea(
           child: GestureDetector(
@@ -179,8 +185,9 @@ GlobalKey<FormState> formKey = GlobalKey<FormState>();
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.only(left: deviceInfo.localWidth * 0.15),
-                        child: Image.asset("assets/images/desk.png"),
+                           isDesktop? EdgeInsets.only(left: deviceInfo.localWidth * 0.09):EdgeInsets.only(left: deviceInfo.localWidth * 0.15),
+                        child: Image.asset("assets/images/desk.png",
+                            height: deviceInfo.screenHeight * 0.3),
                       ),
                       Padding(
                         padding:

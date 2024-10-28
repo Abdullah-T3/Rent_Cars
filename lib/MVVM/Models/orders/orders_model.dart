@@ -35,7 +35,7 @@ class OrdersModel {
   DateTime? createdAt;
 
   @HiveField(10)
-  String? imagePath;  
+  String? imageUrl;  
   OrdersModel({
     this.orderId,
     this.customerName,
@@ -47,7 +47,7 @@ class OrdersModel {
     this.rentalAmount,
     this.carKmAtRental,
     this.createdAt,
-    this.imagePath
+    this.imageUrl
   });
 
   // Existing factory constructor for parsing JSON data
@@ -66,6 +66,7 @@ class OrdersModel {
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
+        imageUrl: json["image_url"],
       );
 
   // Method to convert the model back to JSON
@@ -80,5 +81,6 @@ class OrdersModel {
         "rental_amount": rentalAmount,
         "car_km_at_rental": carKmAtRental,
         "created_at": createdAt?.toIso8601String(),
+        "image_url": imageUrl
       };
 }

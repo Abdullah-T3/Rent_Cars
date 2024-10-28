@@ -1,5 +1,5 @@
+// lib/views/add_order_view.dart
 import 'dart:io';
-
 import 'package:bookingcars/MVVM/Models/orders/orders_model.dart';
 import 'package:bookingcars/MVVM/View%20Model/orders_view_model.dart';
 import 'package:bookingcars/Responsive/UiComponanets/InfoWidget.dart';
@@ -31,8 +31,7 @@ class _AddOrderViewState extends State<AddOrderView> {
     if (pickedFile != null) {
       setState(() {
         _selectedImage = File(pickedFile.path);
-        _order.imagePath =
-            pickedFile.path; // Assuming OrdersModel has a field for image path
+        _order.imageUrl = pickedFile.path; // Assuming OrdersModel has a field for image path
       });
     }
   }
@@ -41,9 +40,38 @@ class _AddOrderViewState extends State<AddOrderView> {
   void _removeImage() {
     setState(() {
       _selectedImage = null;
-      _order.imagePath =
-          null; // Assuming OrdersModel has a field for image path
+      _order.imageUrl = null; // Assuming OrdersModel has a field for image path
     });
+  }
+
+  Future<void> _handleSubmit() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+
+      // Show loading indicator
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return const Center(child: CircularProgressIndicator());
+        },
+      );
+
+      try {
+        await Provider.of<OrdersViewModel>(context, listen: false)
+            .addOrder(_order, imageFile: _selectedImage);
+
+        // Close loading indicator and form
+        Navigator.pop(context); // Close loading indicator
+      } catch (e) {
+        // Close loading indicator
+        Navigator.pop(context);
+        // Show error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: ${e.toString()}')),
+        );
+      }
+    }
   }
 
   @override
@@ -52,18 +80,13 @@ class _AddOrderViewState extends State<AddOrderView> {
       isDesktop = deviceInfo.deviceType == DeviceType.desktop;
       return Scaffold(
         drawer: const Mydrawer(),
-        appBar: AppBar(
-          title:  Text(S.of(context).add_order),
-          actions: [
-            IconButton(
+        appBar: AppBar(title: Text(S.of(context).add_order), actions: [
+          IconButton(
               icon: const Icon(Icons.arrow_back),
               onPressed: () {
                 Navigator.of(context).pushReplacementNamed('/home');
-              }
-              
-            ),
-          ]
-        ),
+              }),
+        ]),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
@@ -90,7 +113,7 @@ class _AddOrderViewState extends State<AddOrderView> {
                     onSaved: (value) => _order.customerMobile = value,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return  S.of(context).please_enter_customer_mobile;
+                        return S.of(context).please_enter_customer_mobile;
                       }
                       return null;
                     },
@@ -128,7 +151,7 @@ class _AddOrderViewState extends State<AddOrderView> {
                         _order.rentalDays = int.tryParse(value ?? ''),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return  S.of(context).please_enter_rental_days;
+                        return S.of(context).please_enter_rental_days;
                       }
                       return null;
                     },
@@ -248,15 +271,7 @@ class _AddOrderViewState extends State<AddOrderView> {
                   const SizedBox(height: 20),
                   // Submit Button
                   ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                        Provider.of<OrdersViewModel>(context, listen: false)
-                            .addOrder(_order);
-                        Navigator.pop(
-                            context); // Close the form after submission
-                      }
-                    },
+                    onPressed: _handleSubmit,
                     child: Text(
                       S.of(context).add_order,
                       style: isDesktop

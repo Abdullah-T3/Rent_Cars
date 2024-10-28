@@ -11,6 +11,7 @@ import 'package:bookingcars/MVVM/Views/expenses/expenses_data_view.dart';
 import 'package:bookingcars/MVVM/Views/orders/add_order_view.dart';
 import 'package:bookingcars/MVVM/Views/orders/order_view.dart';
 import 'package:bookingcars/MVVM/Views/setting_view.dart';
+import 'package:bookingcars/services/cloudinary_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -38,6 +39,9 @@ void main() async {
   // Initialize user view model and check login status
   final userViewModel = UserViewModel();
   await userViewModel.isLoggedIn();
+    WidgetsFlutterBinding.ensureInitialized();
+  await CloudinaryService.initialize();
+
   runApp(
     MultiProvider(
       providers: [
@@ -54,7 +58,6 @@ void main() async {
 }
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
-
   @override
   State<MyApp> createState() => _MyAppState();
 }

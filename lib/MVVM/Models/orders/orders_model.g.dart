@@ -27,7 +27,7 @@ class OrdersModelAdapter extends TypeAdapter<OrdersModel> {
       rentalAmount: fields[7] as int?,
       carKmAtRental: fields[8] as int?,
       createdAt: fields[9] as DateTime?,
-      imagePath: fields[10] as String?,
+      imageUrl: fields[10] as String?,
     );
   }
 
@@ -56,7 +56,7 @@ class OrdersModelAdapter extends TypeAdapter<OrdersModel> {
       ..writeByte(9)
       ..write(obj.createdAt)
       ..writeByte(10)
-      ..write(obj.imagePath);
+      ..write(obj.imageUrl);
   }
 
   @override
