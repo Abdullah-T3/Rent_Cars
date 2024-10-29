@@ -1,6 +1,5 @@
 import 'package:bookingcars/Responsive/UiComponanets/InfoWidget.dart';
 import 'package:bookingcars/Responsive/enums/DeviceType.dart';
-import 'package:bookingcars/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:bookingcars/MVVM/View%20Model/orders_view_model.dart';
@@ -76,7 +75,7 @@ class OrdersView extends StatelessWidget {
                             minWidth: deviceInfo.screenWidth, // Ensure horizontal stretching
                           ),
                           child: DataTable(
-                            headingRowColor: MaterialStateProperty.all(Colors.blue),
+                            headingRowColor: WidgetStateProperty.all(Colors.blue),
                             showBottomBorder: true,
                             columns: const <DataColumn>[
                               DataColumn(label: Text('ID')),

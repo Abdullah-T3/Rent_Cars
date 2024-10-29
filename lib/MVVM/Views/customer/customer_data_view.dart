@@ -45,7 +45,7 @@ class _CustomerDataViewState extends State<CustomerDataView> {
                     minWidth: deviceInfo.screenWidth,
                   ),
                   child: DataTable(
-                    headingRowColor: MaterialStateProperty.all(Colors.blue),
+                    headingRowColor: WidgetStateProperty.all(Colors.blue),
                     columns: const <DataColumn>[
                       DataColumn(label: Text('Customer Name')),
                       DataColumn(label: Text('ID Number')),
@@ -101,7 +101,7 @@ class _CustomerDataViewState extends State<CustomerDataView> {
         child: Consumer<CustomerViewModel>(
           builder: (context, customerViewModel, child) {
             if (customerViewModel.isLoading) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             }
 
             return buildTable(customerViewModel);

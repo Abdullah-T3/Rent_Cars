@@ -1,6 +1,5 @@
 import 'package:bookingcars/MVVM/Models/customers/CustomersDataModel.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -44,7 +43,8 @@ class CustomerViewModel extends ChangeNotifier {
         List jsonData = json.decode(strings);
 
         _customers = jsonData
-            .map<CustomersDataModel>((json) => CustomersDataModel.fromJson(json))
+            .map<CustomersDataModel>(
+                (json) => CustomersDataModel.fromJson(json))
             .toList();
 
         // Cache the fetched data
@@ -71,7 +71,7 @@ class CustomerViewModel extends ChangeNotifier {
       final response = await http.post(
         Uri.parse(_baseUrl),
         headers: _headers(),
-        body: jsonEncode(customer.toJson()),
+        body: customersDataModelToJson([customer]),
       );
       if (response.statusCode == 201) {
         _customers.add(customer);
@@ -87,6 +87,15 @@ class CustomerViewModel extends ChangeNotifier {
     }
     notifyListeners();
   }
+   // Method to get a customer by their mobile number
+  CustomersDataModel getCustomerByMobile(String mobileNumber) {
+    final customer = _customers.firstWhere(
+      (customer) => customer.mobileNumber.toString() == mobileNumber,
+      orElse: () => throw Exception('Customer not found'), // Throw an exception if no customer is found
+    );
+
+    return customer;
+  }
 
   Future<void> updateCustomer(CustomersDataModel customer) async {
     _setLoading(true);
@@ -97,7 +106,8 @@ class CustomerViewModel extends ChangeNotifier {
         body: jsonEncode(customer.toJson()),
       );
       if (response.statusCode == 200) {
-        final index = _customers.indexWhere((c) => c.customerId == customer.customerId);
+        final index =
+            _customers.indexWhere((c) => c.customerId == customer.customerId);
         if (index != -1) {
           _customers[index] = customer;
           await _customersBox?.putAt(index, customer);
@@ -122,7 +132,8 @@ class CustomerViewModel extends ChangeNotifier {
       );
       if (response.statusCode == 200) {
         _customers.removeWhere((customer) => customer.customerId == customerId);
-        await _customersBox?.deleteAt(_customers.indexWhere((customer) => customer.customerId == customerId));
+        await _customersBox?.deleteAt(_customers
+            .indexWhere((customer) => customer.customerId == customerId));
       } else {
         _handleError(response);
       }
@@ -148,5 +159,14 @@ class CustomerViewModel extends ChangeNotifier {
   void _setLoading(bool loading) {
     _isLoading = loading;
     notifyListeners();
+  }
+
+  // Method to get list of customers matching a mobile number prefix
+  List<CustomersDataModel> searchCustomersByMobile(String query) {
+    return _customers
+        .where((customer) =>
+            customer.mobileNumber != null &&
+            customer.mobileNumber!.toString().startsWith(query))
+        .toList();
   }
 }

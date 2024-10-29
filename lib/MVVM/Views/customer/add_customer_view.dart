@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddCustomerView extends StatefulWidget {
+  const AddCustomerView({super.key});
+
   @override
   _AddCustomerViewState createState() => _AddCustomerViewState();
 }

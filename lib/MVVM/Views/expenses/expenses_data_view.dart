@@ -55,7 +55,7 @@ class _ExpensesDataViewState extends State<ExpensesDataView> {
                     minWidth: deviceInfo.screenWidth,
                   ),
                   child: DataTable(
-                    headingRowColor: MaterialStateProperty.all(Colors.blue),
+                    headingRowColor: WidgetStateProperty.all(Colors.blue),
                     columns:  <DataColumn>[
                       DataColumn(label: Text(S.of(context).customer_name)),
                       DataColumn(label: Text(S.of(context).description)),

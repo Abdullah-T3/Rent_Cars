@@ -167,4 +167,14 @@ class CarsViewModel extends ChangeNotifier {
     _isLoading = loading;
     notifyListeners();
   }
+   // Method to search cars by license plate
+  List<CarsDataModel> searchCarsByLicensePlate(String query) {
+    return _cars
+        .where((car) => car.license_plate.toString().toLowerCase().contains(query.toLowerCase()))
+        .toList();
+  }
+
+  CarsDataModel getCarByLicensePlate(String licensePlate) {
+    return _cars.firstWhere((car) => car.license_plate == licensePlate, orElse: () => throw Exception('Car not found'));
+  }
 }

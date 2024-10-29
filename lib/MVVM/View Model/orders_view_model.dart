@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:bookingcars/MVVM/Models/orders/orders_model.dart';
 import 'package:bookingcars/MVVM/Models/orders/upadte_order_model.dart';
-import 'package:bookingcars/services/cloudinary_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -57,13 +56,8 @@ Future<void> addOrder(OrdersModel order, {File? imageFile}) async {
     notifyListeners();
 
     try {
-      // Upload image to Cloudinary if available
-      if (imageFile != null) {
-        final imageUrl = await CloudinaryService.uploadImage(imageFile);
-        if (imageUrl != null) {
-          order.imageUrl = imageUrl;
-        }
-      }
+
+      
 
       final response = await http.post(
         Uri.parse("${apiUrl}orders"),

@@ -19,31 +19,34 @@ class CustomersDataModelAdapter extends TypeAdapter<CustomersDataModel> {
     return CustomersDataModel(
       customerId: fields[0] as int?,
       customerName: fields[1] as String?,
-      idNumber: fields[2] as String?,
-      address: fields[3] as String?,
-      landline: fields[4] as String?,
-      referenceNumber: fields[5] as String?,
-      projectId: fields[6] as int?,
+      mobileNumber: fields[2] as int?,
+      idNumber: fields[3] as String?,
+      address: fields[4] as String?,
+      landline: fields[5] as String?,
+      referenceNumber: fields[6] as String?,
+      projectId: fields[7] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, CustomersDataModel obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.customerId)
       ..writeByte(1)
       ..write(obj.customerName)
       ..writeByte(2)
-      ..write(obj.idNumber)
+      ..write(obj.mobileNumber)
       ..writeByte(3)
-      ..write(obj.address)
+      ..write(obj.idNumber)
       ..writeByte(4)
-      ..write(obj.landline)
+      ..write(obj.address)
       ..writeByte(5)
-      ..write(obj.referenceNumber)
+      ..write(obj.landline)
       ..writeByte(6)
+      ..write(obj.referenceNumber)
+      ..writeByte(7)
       ..write(obj.projectId);
   }
 
