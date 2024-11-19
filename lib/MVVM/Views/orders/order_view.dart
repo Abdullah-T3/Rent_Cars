@@ -18,7 +18,7 @@ class OrdersView extends StatelessWidget {
     final ScrollController horizontalScrollController = ScrollController();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<OrdersViewModel>(context, listen: false).fetchOrders();
+      Provider.of<OrderViewModel>(context, listen: false).fetchOrders();
     });
 
     return Directionality(
@@ -37,7 +37,7 @@ class OrdersView extends StatelessWidget {
             ),
           ],
         ),
-        body: Consumer<OrdersViewModel>(
+        body: Consumer<OrderViewModel>(
           builder: (context, viewModel, child) {
             if (viewModel.isLoading) {
               return Center(child: Image.asset("assets/images/Progress.gif"));
@@ -133,7 +133,7 @@ class OrdersView extends StatelessWidget {
 
   // Show a dialog to edit the order
   void _showEditDialog(BuildContext context, OrdersModel order) {
-    final viewModel = Provider.of<OrdersViewModel>(context, listen: false);
+    final viewModel = Provider.of<OrderViewModel>(context, listen: false);
     final TextEditingController customerNameController =
         TextEditingController(text: order.customerName);
     final TextEditingController customerMobileController =

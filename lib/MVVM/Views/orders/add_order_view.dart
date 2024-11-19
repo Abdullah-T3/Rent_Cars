@@ -43,8 +43,7 @@ class _AddOrderViewState extends State<AddOrderView> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<CustomerViewModel>(context, listen: false).fetchCustomers();
-      Provider.of<CarsViewModel>(context, listen: false)
-          .fetchCars(); // Fetch cars
+      Provider.of<CarsViewModel>(context, listen: false).fetchCars();
     });
   }
 
@@ -54,34 +53,23 @@ class _AddOrderViewState extends State<AddOrderView> {
       _order.imageUrl = null;
     });
   }
- // If you need to reset the order, create a method
 
   void resetOrder() {
-
     setState(() {
-
-      // Reset properties of _order as needed
-
       _order.customerName = '';
-
       _order.customerMobile = '';
-
       _order.carLicensePlate = '';
-
       _order.carName = '';
-
       _order.rentalDays = 0;
-
       _order.rentalAmount = 0;
-
       _order.carKmAtRental = 0;
-
-      _order.rentalDate = DateTime.now(); // or any default value
-
+      _order.rentalDate = DateTime.now();
+      _selectedImage = null;
     });
-
   }
+
   Future<void> _handleSubmit() async {
+    final viewModel = Provider.of<OrderViewModel>(context, listen: false);
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
@@ -94,8 +82,13 @@ class _AddOrderViewState extends State<AddOrderView> {
       );
 
       try {
-        await Provider.of<OrdersViewModel>(context, listen: false)
-            .addOrder(_order, imageFile: _selectedImage);
+        await viewModel.addOrder(_order);
+        if (viewModel.errorMessage != null) {
+          print(viewModel.errorMessage);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(viewModel.errorMessage!)),
+          );
+        }
 
         Navigator.pop(context);
       } catch (e) {
@@ -119,7 +112,7 @@ class _AddOrderViewState extends State<AddOrderView> {
 
   @override
   Widget build(BuildContext context) {
-    final ordersVM = Provider.of<OrdersViewModel>(context);
+    final ordersVM = Provider.of<OrderViewModel>(context);
     return Infowidget(builder: (context, deviceInfo) {
       isDesktop = deviceInfo.deviceType == DeviceType.desktop;
       return Scaffold(
@@ -136,8 +129,7 @@ class _AddOrderViewState extends State<AddOrderView> {
                 children: [
                   // Customer Name Input
                   TextFormField(
-                    controller:
-                        TextEditingController(text: _order.customerName),
+                    controller: TextEditingController(text: _order.customerName),
                     decoration: InputDecoration(
                       labelText: S.of(context).customer_name,
                     ),
@@ -151,101 +143,85 @@ class _AddOrderViewState extends State<AddOrderView> {
                   ),
 
                   // Customer Mobile Input with Autocomplete
-                  Consumer<CustomerViewModel>(
-                    builder: (context, customerVM, child) {
-                      return Autocomplete<String>(
-                        optionsBuilder: (TextEditingValue textEditingValue) {
-                          if (textEditingValue.text.isEmpty) {
-                            return const Iterable<String>.empty();
-                          }
-                          final matchingCustomers = customerVM
-                              .searchCustomersByMobile(textEditingValue.text)
-                              .map((customer) =>
-                                  customer.mobileNumber?.toString() ?? '')
-                              .where((mobile) => mobile.isNotEmpty);
-                          return matchingCustomers;
-                        },
-                        onSelected: (String selection) {
-                          _order.customerMobile = selection;
+                  Consumer<CustomerViewModel>(builder: (context, customerVM, child) {
+                    return Autocomplete<String>(
+                      optionsBuilder: (TextEditingValue textEditingValue) {
+                        if (textEditingValue.text.isEmpty) {
+                          return const Iterable<String>.empty();
+                        }
+                        final matchingCustomers = customerVM
+                            .searchCustomersByMobile(textEditingValue.text)
+                            .map((customer) => customer.mobileNumber?.toString() ?? '')
+                            .where((mobile) => mobile.isNotEmpty);
+                        return matchingCustomers;
+                      },
+                      onSelected: (String selection) {
+                        _order.customerMobile = selection;
 
-                          final customer =
-                              customerVM.getCustomerByMobile(selection);
-                          setState(() {
-                            _order.customerName = customer.customerName;
-                          });
-                        },
-                        fieldViewBuilder:
-                            (context, controller, focusNode, onFieldSubmitted) {
-                          return TextFormField(
-                            controller: controller,
-                            focusNode: focusNode,
-                            decoration: InputDecoration(
-                              labelText: S.of(context).customer_mobile,
-                            ),
-                            onSaved: (value) => _order.customerMobile = value,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return S
-                                    .of(context)
-                                    .please_enter_customer_mobile;
-                              }
-                              return null;
-                            },
-                          );
-                        },
-                      );
-                    },
-                  ),
-// Car License Plate Input with Autocomplete
-                  Consumer<CarsViewModel>(
-                    builder: (context, carsVM, child) {
-                      return Autocomplete<String>(
-                        optionsBuilder: (TextEditingValue textEditingValue) {
-                          if (textEditingValue.text.isEmpty) {
-                            return const Iterable<String>.empty();
-                          }
-                          final matchingCars = carsVM
-                              .searchCarsByLicensePlate(textEditingValue.text)
-                              .map((car) => car.license_plate.toString())
-                              .where((plate) => plate.isNotEmpty);
-                          return matchingCars;
-                        },
-                        onSelected: (String selection) {
-                          _order.carLicensePlate = selection;
+                        final customer = customerVM.getCustomerByMobile(selection);
+                        setState(() {
+                          _order.customerName = customer.customerName;
+                        });
+                      },
+                      fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
+                        return TextFormField(
+                          controller: controller,
+                          focusNode: focusNode,
+                          decoration: InputDecoration(
+                            labelText: S.of(context).customer_mobile,
+                          ),
+                          onSaved: (value) => _order.customerMobile = value,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return S.of(context).please_enter_customer_mobile;
+                            }
+                            return null;
+                          },
+                        );
+                      },
+                    );
+                  }),
 
-                          // Fetch the car details using the selected license plate
-                          final car = carsVM.getCarByLicensePlate(selection);
-                          setState(() {
-                            _order.carName = car.brand! +
-                                " " +
-                                car.model!; // Assuming the car model has a property called carName
-                            // Populate other fields if available
-                            // Example:
-                            // _order.someOtherField = car.someOtherField;
-                          });
-                        },
-                        fieldViewBuilder:
-                            (context, controller, focusNode, onFieldSubmitted) {
-                          return TextFormField(
-                            controller: controller,
-                            focusNode: focusNode,
-                            decoration: InputDecoration(
-                              labelText: S.of(context).car_license_plate,
-                            ),
-                            onSaved: (value) => _order.carLicensePlate = value,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return S
-                                    .of(context)
-                                    .please_enter_car_license_plate;
-                              }
-                              return null;
-                            },
-                          );
-                        },
-                      );
-                    },
-                  ),
+                  // Car License Plate Input with Autocomplete
+                  Consumer<CarsViewModel>(builder: (context, carsVM, child) {
+                    return Autocomplete<String>(
+                      optionsBuilder: (TextEditingValue textEditingValue) {
+                        if (textEditingValue.text.isEmpty) {
+                          return const Iterable<String>.empty();
+                        }
+                        final matchingCars = carsVM
+                            .searchCarsByLicensePlate(textEditingValue.text)
+                            .map((car) => car.license_plate.toString())
+                            .where((plate) => plate.isNotEmpty);
+                        return matchingCars;
+                      },
+                      onSelected: (String selection) {
+                        _order.carLicensePlate = selection;
+
+                        // Fetch the car details using the selected license plate
+                        final car = carsVM.getCarByLicensePlate(selection);
+                        setState(() {
+                          _order.carName = '${car.brand} ${car.model}'; // Update car name with brand and model
+                        });
+                      },
+                      fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
+                        return TextFormField(
+                          controller: controller,
+                          focusNode: focusNode,
+                          decoration: InputDecoration(
+                            labelText: S.of(context).car_license_plate,
+                          ),
+                          onSaved: (value) => _order.carLicensePlate = value,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return S.of(context).please_enter_car_license_plate;
+                            }
+                            return null;
+                          },
+                        );
+                      },
+                    );
+                  }),
 
                   // Car Name Input
                   TextFormField(
@@ -268,8 +244,7 @@ class _AddOrderViewState extends State<AddOrderView> {
                       labelText: S.of(context).rental_days,
                     ),
                     keyboardType: TextInputType.number,
-                    onSaved: (value) =>
-                        _order.rentalDays = int.tryParse(value ?? ''),
+                    onSaved: (value) => _order.rentalDays = int.tryParse(value ?? ''),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return S.of(context).please_enter_rental_days;
@@ -284,8 +259,7 @@ class _AddOrderViewState extends State<AddOrderView> {
                       labelText: S.of(context).rental_amount,
                     ),
                     keyboardType: TextInputType.number,
-                    onSaved: (value) =>
-                        _order.rentalAmount = int.tryParse(value ?? ''),
+                    onSaved: (value) => _order.rentalAmount = int.tryParse(value ?? ''),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return S.of(context).please_enter_rental_amount;
@@ -300,8 +274,7 @@ class _AddOrderViewState extends State<AddOrderView> {
                       labelText: S.of(context).rental_kilometers,
                     ),
                     keyboardType: TextInputType.number,
-                    onSaved: (value) =>
-                        _order.carKmAtRental = int.tryParse(value ?? ''),
+                    onSaved: (value) => _order.carKmAtRental = int.tryParse(value ?? ''),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return S.of(context).please_enter_rental_kilometers;
@@ -309,11 +282,9 @@ class _AddOrderViewState extends State<AddOrderView> {
                       return null;
                     },
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  // Rental Date Input
-                  BuildTimePicker(
+
+                  // Rental Date Picker
+                       BuildTimePicker(
                     onDateSelected: (selectedDate) {
                       setState(() {
                         _order.rentalDate =
@@ -322,66 +293,26 @@ class _AddOrderViewState extends State<AddOrderView> {
                     },
                   ),
 
-                  const SizedBox(height: 20),
 
-                  // Image Picker Section
+                  // Image Picker
                   _selectedImage != null
                       ? Column(
                           children: [
-                            Image.file(
-                              _selectedImage!,
-                              height: 150,
-                              width: 150,
-                              fit: BoxFit.cover,
-                            ),
-                            const SizedBox(height: 10),
-                            ElevatedButton.icon(
+                            Image.file(_selectedImage!),
+                            ElevatedButton(
                               onPressed: _removeImage,
-                              icon: const Icon(Icons.delete),
-                              label: Text(S.of(context).remove_image),
+                              child: Text(S.of(context).remove_image),
                             ),
                           ],
                         )
-                      : const SizedBox(
-                          height: 150,
-                          width: 150,
-                          child: Icon(Icons.camera_alt, size: 100),
+                      : ElevatedButton(
+                          onPressed: () => _pickImage(ImageSource.gallery),
+                          child: Text(S.of(context).add_image),
                         ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      if (!isDesktop)
-                        ElevatedButton.icon(
-                          onPressed: () => _pickImage(ImageSource.camera),
-                          icon: const Icon(Icons.camera),
-                          label: Text(S.of(context).take_photo),
-                        ),
-                      ElevatedButton.icon(
-                        onPressed: () => _pickImage(ImageSource.gallery),
-                        icon: const Icon(Icons.photo),
-                        label: Text(S.of(context).select_from_gallery),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
 
                   // Submit Button
                   ElevatedButton(
-                    onPressed: () async {
-                      await ordersVM.addOrder(_order);
-                      if(ordersVM.errorMessage != null){
-                        print(ordersVM.errorMessage);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(ordersVM.errorMessage!)),
-                        );
-                      }
-                      else{
-                        resetOrder();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(S.of(context).order_added_successfully)),
-                        );
-                      }
-                    },
+                    onPressed: _handleSubmit,
                     child: Text(S.of(context).add_order),
                   ),
                 ],

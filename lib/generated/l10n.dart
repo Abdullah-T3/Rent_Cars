@@ -1579,6 +1579,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Select Date`
+  String get select_date {
+    return Intl.message(
+      'Select Date',
+      name: 'select_date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Time`
+  String get select_time {
+    return Intl.message(
+      'Select Time',
+      name: 'select_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Enter Task Name`
+  String get please_enter_task_name {
+    return Intl.message(
+      'Please Enter Task Name',
+      name: 'please_enter_task_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Enter Task Type`
+  String get please_enter_task_type {
+    return Intl.message(
+      'Please Enter Task Type',
+      name: 'please_enter_task_type',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Submit Order`
+  String get submit_order {
+    return Intl.message(
+      'Submit Order',
+      name: 'submit_order',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order submitted successfully`
+  String get order_submitted_successfully {
+    return Intl.message(
+      'Order submitted successfully',
+      name: 'order_submitted_successfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order not submitted`
+  String get order_not_submitted {
+    return Intl.message(
+      'Order not submitted',
+      name: 'order_not_submitted',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

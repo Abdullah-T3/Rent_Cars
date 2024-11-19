@@ -1,5 +1,6 @@
 import 'package:bookingcars/Constants/Colors.dart';
 import 'package:bookingcars/Responsive/UiComponanets/InfoWidget.dart';
+import 'package:bookingcars/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class BuildTimePicker extends StatefulWidget {
@@ -52,8 +53,8 @@ class _BuildTimePickerState extends State<BuildTimePicker> {
             border: Border.all(color: Colors.blue),
           ),
           child: ListTile(
-            title: const Text(
-              "Choose deadline: ",
+            title:  Text(
+             S.of(context).select_date,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 20,

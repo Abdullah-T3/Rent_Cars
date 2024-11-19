@@ -160,6 +160,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("الحجز لا يمكن حذفه"),
         "order_not_found":
             MessageLookupByLibrary.simpleMessage("الحجز غير موجود"),
+        "order_not_submitted":
+            MessageLookupByLibrary.simpleMessage("Order not submitted"),
+        "order_submitted_successfully": MessageLookupByLibrary.simpleMessage(
+            "Order submitted successfully"),
         "order_updated_successfully":
             MessageLookupByLibrary.simpleMessage("تم تحديث الحجز بنجاح"),
         "orders": MessageLookupByLibrary.simpleMessage("الحجوزات"),
@@ -182,7 +186,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_enter_customer_name":
             MessageLookupByLibrary.simpleMessage("الرجاء ادخال الاسم"),
         "please_enter_description":
-            MessageLookupByLibrary.simpleMessage("الرجاء ادخال الوصف"),
+            MessageLookupByLibrary.simpleMessage("Please Enter Description"),
         "please_enter_model":
             MessageLookupByLibrary.simpleMessage("الرجاء ادخال الموديل"),
         "please_enter_next_oil_change":
@@ -201,6 +205,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("الرجاء ادخال عدد الكيلومتر"),
         "please_enter_return_date":
             MessageLookupByLibrary.simpleMessage("الرجاء ادخال تاريخ العودة"),
+        "please_enter_task_name":
+            MessageLookupByLibrary.simpleMessage("Please Enter Task Name"),
+        "please_enter_task_type":
+            MessageLookupByLibrary.simpleMessage("Please Enter Task Type"),
         "please_enter_year_of_manufacture":
             MessageLookupByLibrary.simpleMessage("الرجاء ادخال سنة الصنع"),
         "please_enter_your_email": MessageLookupByLibrary.simpleMessage(
@@ -227,8 +235,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "rental_kilometers": MessageLookupByLibrary.simpleMessage("تسليم كم"),
         "return_date": MessageLookupByLibrary.simpleMessage("تاريخ العودة"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
+        "select_date": MessageLookupByLibrary.simpleMessage("اختر التاريخ"),
         "select_from_gallery":
             MessageLookupByLibrary.simpleMessage("تحديد من المعرض"),
+        "select_time": MessageLookupByLibrary.simpleMessage("Select Time"),
+        "submit_order": MessageLookupByLibrary.simpleMessage("Submit Order"),
         "take_photo": MessageLookupByLibrary.simpleMessage("التقط صورة"),
         "update_expenses":
             MessageLookupByLibrary.simpleMessage("تحديث المصروفات"),

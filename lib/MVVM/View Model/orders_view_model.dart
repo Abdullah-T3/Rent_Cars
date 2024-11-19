@@ -1,157 +1,151 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:bookingcars/MVVM/Models/orders/orders_model.dart';
-import 'package:bookingcars/MVVM/Models/orders/upadte_order_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-class OrdersViewModel extends ChangeNotifier {
+class OrderViewModel extends ChangeNotifier {
   List<OrdersModel> _orders = [];
-  bool _isLoading = false;
   String? _errorMessage;
-
+  bool _isLoading = false;
 
   List<OrdersModel> get orders => _orders;
-  bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
-  final String apiUrl = dotenv.env['apiUrl'] ?? '';
-  final String token = dotenv.env['jwt_Secret'] ?? '';
-  // Base URL of your API
+  bool get isLoading => _isLoading;
 
-  // Fetch all orders
-  Future<void> fetchOrders() async {
-    _isLoading = true;
-    notifyListeners();
+  final String _baseUrl = '${dotenv.env['apiUrl']}orders';
+  Box<OrdersModel>? _ordersBox;
 
-    try {
-      final response = await http.get(
-        Uri.parse("${apiUrl}orders"),
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
-      );
-
-      if (response.statusCode == 200) {
-        final List<dynamic> jsonData = json.decode(response.body);
-        _orders = jsonData.map((item) => OrdersModel.fromJson(item)).toList();
-        _errorMessage = null;
-      } else {
-        print(response.body);
-        _errorMessage = 'Failed to load orders';
-      }
-    } catch (e) {
-      print(e);
-      _errorMessage = 'An error occurred: $e';
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
+  OrderViewModel() {
+    _initializeHive();
   }
 
-  // Add a new order
-Future<void> addOrder(OrdersModel order, {File? imageFile}) async {
-    _isLoading = true;
+  Future<void> _initializeHive() async {
+    await Hive.initFlutter();
+    if (!Hive.isAdapterRegistered(OrdersModelAdapter().typeId)) {
+      Hive.registerAdapter(OrdersModelAdapter());
+    }
+    _ordersBox = await Hive.openBox<OrdersModel>('ordersBox');
+    _orders = _ordersBox?.values.toList() ?? [];
     notifyListeners();
+  }
 
+  Future<void> fetchOrders() async {
+    _setLoading(true);
     try {
+      var request = http.Request('GET', Uri.parse(_baseUrl));
+      request.headers.addAll(_headers());
 
-      
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        var strings = await response.stream.bytesToString();
+        List jsonData = json.decode(strings);
 
+        _orders = jsonData
+            .map<OrdersModel>((json) => OrdersModel.fromJson(json))
+            .toList();
+
+        // Cache the fetched data
+        await _ordersBox?.clear();
+        for (var order in _orders) {
+          await _ordersBox?.add(order);
+        }
+
+        _errorMessage = null;
+      } else {
+        _handleError(response as http.Response);
+      }
+    } catch (e) {
+      _errorMessage = e.toString();
+    } finally {
+      _setLoading(false);
+    }
+    notifyListeners();
+  }
+
+  Future<void> addOrder(OrdersModel order) async {
+    _setLoading(true);
+    try {
       final response = await http.post(
-        Uri.parse("${apiUrl}orders"),
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
-        body: json.encode(order.toJson()),
+        Uri.parse(_baseUrl),
+        headers: _headers(),
+        body: ordersModelToJson([order]), // Ensure this is the right method for converting the model to JSON
       );
-
       if (response.statusCode == 201) {
         _orders.add(order);
+        await _ordersBox?.add(order);
         _errorMessage = null;
       } else {
-        _errorMessage = 'Failed to add order';
+        _handleError(response);
       }
     } catch (e) {
-      _errorMessage = 'An error occurred: $e';
+      _errorMessage = e.toString();
     } finally {
-      _isLoading = false;
-      notifyListeners();
+      _setLoading(false);
     }
+    notifyListeners();
   }
 
-  // Update an existing order
-
   Future<void> updateOrder(OrdersModel order) async {
-    _isLoading = true;
-    notifyListeners();
-    final updatedOrder =UpdateOrdersModel (
-      customerName: order.customerName,
-      customerMobile: order.customerMobile,
-      carName: order.carName,
-      carLicensePlate: order.carLicensePlate,
-      rentalDays: order.rentalDays,
-      rentalAmount: order.rentalAmount,
-      carKmAtRental: order.carKmAtRental,
-      rentalDate: order.rentalDate,
-    );
-
+    _setLoading(true);
     try {
       final response = await http.put(
-        Uri.parse('${apiUrl}orders/${order.orderId}'),
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
-        body:updateOrdersModelToJson(updatedOrder),
+        Uri.parse('$_baseUrl/${order.orderId}'),
+        headers: _headers(),
+        body: jsonEncode(order.toJson()),
       );
-
       if (response.statusCode == 200) {
         final index = _orders.indexWhere((o) => o.orderId == order.orderId);
         if (index != -1) {
           _orders[index] = order;
+          await _ordersBox?.putAt(index, order);
         }
-        _errorMessage = null;
       } else {
-        print(response.body);
-        _errorMessage = 'Failed to update order';
+        _handleError(response);
       }
     } catch (e) {
-      print(e);
-      _errorMessage = 'An error occurred: $e';
+      _errorMessage = e.toString();
     } finally {
-      _isLoading = false;
-      notifyListeners();
+      _setLoading(false);
     }
+    notifyListeners();
   }
 
-  // Delete an order
   Future<void> deleteOrder(int orderId) async {
-    _isLoading = true;
-    notifyListeners();
-
+    _setLoading(true);
     try {
       final response = await http.delete(
-        Uri.parse('${apiUrl}orders/$orderId'),
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
+        Uri.parse('$_baseUrl/$orderId'),
+        headers: _headers(),
       );
-
       if (response.statusCode == 200) {
         _orders.removeWhere((order) => order.orderId == orderId);
-        _errorMessage = null;
+        await _ordersBox?.deleteAt(_orders.indexWhere((order) => order.orderId == orderId));
       } else {
-        _errorMessage = 'Failed to delete order';
+        _handleError(response);
       }
     } catch (e) {
-      _errorMessage = 'An error occurred: $e';
+      _errorMessage = e.toString();
     } finally {
-      _isLoading = false;
-      notifyListeners();
+      _setLoading(false);
     }
+    notifyListeners();
+  }
+
+  Map<String, String> _headers() {
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${dotenv.env['jwt_Secret']}',
+    };
+  }
+
+  void _handleError(http.Response response) {
+    _errorMessage = 'Error: ${response.statusCode} - ${response.body}';
+  }
+
+  void _setLoading(bool loading) {
+    _isLoading = loading;
+    notifyListeners();
   }
 }

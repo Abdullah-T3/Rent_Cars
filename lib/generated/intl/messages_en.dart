@@ -176,6 +176,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Order not deleted"),
         "order_not_found":
             MessageLookupByLibrary.simpleMessage("Order not found"),
+        "order_not_submitted":
+            MessageLookupByLibrary.simpleMessage("Order not submitted"),
+        "order_submitted_successfully": MessageLookupByLibrary.simpleMessage(
+            "Order submitted successfully"),
         "order_updated_successfully":
             MessageLookupByLibrary.simpleMessage("Order updated successfully"),
         "orders": MessageLookupByLibrary.simpleMessage("Orders"),
@@ -217,6 +221,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please Enter Rental Kilometers"),
         "please_enter_return_date":
             MessageLookupByLibrary.simpleMessage("Please Enter Return Date"),
+        "please_enter_task_name":
+            MessageLookupByLibrary.simpleMessage("Please Enter Task Name"),
+        "please_enter_task_type":
+            MessageLookupByLibrary.simpleMessage("Please Enter Task Type"),
         "please_enter_year_of_manufacture":
             MessageLookupByLibrary.simpleMessage(
                 "Please Enter Year of Manufacture"),
@@ -245,8 +253,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Rental Kilometers"),
         "return_date": MessageLookupByLibrary.simpleMessage("Return Date"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "select_date": MessageLookupByLibrary.simpleMessage("Select Date"),
         "select_from_gallery":
             MessageLookupByLibrary.simpleMessage("Select From Gallery"),
+        "select_time": MessageLookupByLibrary.simpleMessage("Select Time"),
+        "submit_order": MessageLookupByLibrary.simpleMessage("Submit Order"),
         "take_photo": MessageLookupByLibrary.simpleMessage("Take Photo"),
         "update_expenses":
             MessageLookupByLibrary.simpleMessage("Update Expenses"),
