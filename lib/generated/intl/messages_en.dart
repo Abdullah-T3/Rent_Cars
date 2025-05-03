@@ -132,6 +132,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Change Language"),
         "check_internet":
             MessageLookupByLibrary.simpleMessage("Check Internet"),
+        "confirm_delete":
+            MessageLookupByLibrary.simpleMessage("Confirm Delete"),
         "cost": MessageLookupByLibrary.simpleMessage("Cost"),
         "create": MessageLookupByLibrary.simpleMessage("Create"),
         "customer_id": MessageLookupByLibrary.simpleMessage("Customer ID"),
@@ -162,9 +164,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "model": MessageLookupByLibrary.simpleMessage("Model"),
         "next_oil_change":
             MessageLookupByLibrary.simpleMessage("Next Oil Change"),
+        "no_expenses_found":
+            MessageLookupByLibrary.simpleMessage("No expenses found"),
         "no_internet": MessageLookupByLibrary.simpleMessage("No Internet"),
         "no_internet_connection":
             MessageLookupByLibrary.simpleMessage("No internet connection"),
+        "no_results_found":
+            MessageLookupByLibrary.simpleMessage("No results found"),
+        "no_tasks_found":
+            MessageLookupByLibrary.simpleMessage("No tasks found"),
         "odometer_reading":
             MessageLookupByLibrary.simpleMessage("Odometer Reading"),
         "order": MessageLookupByLibrary.simpleMessage("Order"),
@@ -176,8 +184,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Order not deleted"),
         "order_not_found":
             MessageLookupByLibrary.simpleMessage("Order not found"),
-        "order_not_submitted":
-            MessageLookupByLibrary.simpleMessage("Order not submitted"),
         "order_submitted_successfully": MessageLookupByLibrary.simpleMessage(
             "Order submitted successfully"),
         "order_updated_successfully":
@@ -251,8 +257,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "rental_days": MessageLookupByLibrary.simpleMessage("Rental Days"),
         "rental_kilometers":
             MessageLookupByLibrary.simpleMessage("Rental Kilometers"),
+        "retry": MessageLookupByLibrary.simpleMessage("Retry"),
         "return_date": MessageLookupByLibrary.simpleMessage("Return Date"),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "search": MessageLookupByLibrary.simpleMessage("Search"),
         "select_date": MessageLookupByLibrary.simpleMessage("Select Date"),
         "select_from_gallery":
             MessageLookupByLibrary.simpleMessage("Select From Gallery"),

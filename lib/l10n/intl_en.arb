@@ -162,5 +162,6 @@
     "no_expenses_found": "No expenses found",
     "no_tasks_found": "No tasks found",
     "retry": "Retry",
-    "search": "Search"
+    "search": "Search",
+    "no_results_found": "No results found"
 }

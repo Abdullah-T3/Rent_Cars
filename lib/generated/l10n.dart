@@ -1640,11 +1640,61 @@ class S {
     );
   }
 
-  /// `Order not submitted`
-  String get order_not_submitted {
+  /// `Confirm Delete`
+  String get confirm_delete {
     return Intl.message(
-      'Order not submitted',
-      name: 'order_not_submitted',
+      'Confirm Delete',
+      name: 'confirm_delete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No expenses found`
+  String get no_expenses_found {
+    return Intl.message(
+      'No expenses found',
+      name: 'no_expenses_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No tasks found`
+  String get no_tasks_found {
+    return Intl.message(
+      'No tasks found',
+      name: 'no_tasks_found',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Retry`
+  String get retry {
+    return Intl.message(
+      'Retry',
+      name: 'retry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search`
+  String get search {
+    return Intl.message(
+      'Search',
+      name: 'search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No results found`
+  String get no_results_found {
+    return Intl.message(
+      'No results found',
+      name: 'no_results_found',
       desc: '',
       args: [],
     );

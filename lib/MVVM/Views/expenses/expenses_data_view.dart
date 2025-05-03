@@ -46,7 +46,7 @@ class ExpensesSearchDelegate extends SearchDelegate<String> {
 
   Widget _buildSearchResults(BuildContext context) {
     if (query.isEmpty) {
-      return Center(child: Text(S.of(context).search_expenses));
+      return Center(child: Text(S.of(context).search));
     }
 
     final results = viewModel.expenses.where((expense) {
@@ -369,7 +369,7 @@ class _ExpensesDataViewState extends State<ExpensesDataView> {
                               Navigator.of(context).pushNamed('/add_expenses');
                             },
                             icon: const Icon(Icons.add),
-                            label: Text(S.of(context).add_expense),
+                            label: Text(S.of(context).add_expenses),
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 24, vertical: 12),

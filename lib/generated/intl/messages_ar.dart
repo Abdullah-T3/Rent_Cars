@@ -116,6 +116,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_language": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
         "check_internet":
             MessageLookupByLibrary.simpleMessage("التحقق من الانترنت"),
+        "confirm_delete": MessageLookupByLibrary.simpleMessage("تاكيد الحذف"),
         "cost": MessageLookupByLibrary.simpleMessage("التكلفة"),
         "create": MessageLookupByLibrary.simpleMessage(" انشاء"),
         "customer_id": MessageLookupByLibrary.simpleMessage("رقم العميل"),
@@ -146,9 +147,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
         "model": MessageLookupByLibrary.simpleMessage("الموديل"),
         "next_oil_change": MessageLookupByLibrary.simpleMessage("تغيير الزيت"),
+        "no_expenses_found":
+            MessageLookupByLibrary.simpleMessage("لا يوجد مصاريف"),
         "no_internet": MessageLookupByLibrary.simpleMessage("لا يوجد انترنت"),
         "no_internet_connection":
             MessageLookupByLibrary.simpleMessage("لا يوجد انترنت"),
+        "no_results_found":
+            MessageLookupByLibrary.simpleMessage("لا يوجد نتائج"),
+        "no_tasks_found": MessageLookupByLibrary.simpleMessage("لا يوجد مهام"),
         "odometer_reading":
             MessageLookupByLibrary.simpleMessage("قراءة العداد"),
         "order": MessageLookupByLibrary.simpleMessage("الحجز"),
@@ -160,8 +166,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("الحجز لا يمكن حذفه"),
         "order_not_found":
             MessageLookupByLibrary.simpleMessage("الحجز غير موجود"),
-        "order_not_submitted":
-            MessageLookupByLibrary.simpleMessage("Order not submitted"),
         "order_submitted_successfully": MessageLookupByLibrary.simpleMessage(
             "Order submitted successfully"),
         "order_updated_successfully":
@@ -186,7 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "please_enter_customer_name":
             MessageLookupByLibrary.simpleMessage("الرجاء ادخال الاسم"),
         "please_enter_description":
-            MessageLookupByLibrary.simpleMessage("Please Enter Description"),
+            MessageLookupByLibrary.simpleMessage("الرجاء ادخال الوصف"),
         "please_enter_model":
             MessageLookupByLibrary.simpleMessage("الرجاء ادخال الموديل"),
         "please_enter_next_oil_change":
@@ -233,8 +237,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "rental_date": MessageLookupByLibrary.simpleMessage("تاريخ الايجار"),
         "rental_days": MessageLookupByLibrary.simpleMessage("عدد الايام"),
         "rental_kilometers": MessageLookupByLibrary.simpleMessage("تسليم كم"),
+        "retry": MessageLookupByLibrary.simpleMessage("اعادة المحاولة"),
         "return_date": MessageLookupByLibrary.simpleMessage("تاريخ العودة"),
         "save": MessageLookupByLibrary.simpleMessage("حفظ"),
+        "search": MessageLookupByLibrary.simpleMessage("بحث"),
         "select_date": MessageLookupByLibrary.simpleMessage("اختر التاريخ"),
         "select_from_gallery":
             MessageLookupByLibrary.simpleMessage("تحديد من المعرض"),

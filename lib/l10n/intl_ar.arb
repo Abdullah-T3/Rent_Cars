@@ -159,5 +159,6 @@
     "no_expenses_found": "لا يوجد مصاريف",
     "no_tasks_found": "لا يوجد مهام",
     "retry": "اعادة المحاولة",
-    "search": "بحث"
+    "search": "بحث",
+    "no_results_found": "لا يوجد نتائج"
 }
