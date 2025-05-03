@@ -1,7 +1,9 @@
 import 'package:bookingcars/MVVM/Models/orders/orders_model.dart';
+import 'package:bookingcars/services/cloudinary_service.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -67,11 +69,32 @@ class OrderViewModel extends ChangeNotifier {
   Future<void> addOrder(OrdersModel order) async {
     _setLoading(true);
     try {
+      // Upload image to Cloudinary if available
+      if (order.imageUrl != null && order.imageUrl!.startsWith('/')) {
+        final cloudinaryService = CloudinaryService();
+        final imageFile = File(order.imageUrl!);
+        final cloudinaryUrl = await cloudinaryService.uploadImage(imageFile);
+        if (cloudinaryUrl != null) {
+          order.imageUrl = cloudinaryUrl;
+        }
+      }
       final response = await http.post(
         Uri.parse(_baseUrl),
         headers: _headers(),
-        body: ordersModelToJson([order]), // Ensure this is the right method for converting the model to JSON
+        body: ordersModelToJson(order),
       );
+// ordersModelToJson([
+// OrdersModel(
+//     carKmAtRental: order.carKmAtRental,
+//     carLicensePlate: order.carLicensePlate,
+//     customerName: order.customerName,
+//     rentalDate: order.rentalDate,
+//     rentalDays: order.rentalDays,
+//     rentalAmount: order.rentalAmount,
+//     carName: order.carName,
+//     customerMobile: order.customerMobile,
+//     imageUrl: order.imageUrl)
+// ]);
       if (response.statusCode == 201) {
         _orders.add(order);
         await _ordersBox?.add(order);
@@ -90,6 +113,16 @@ class OrderViewModel extends ChangeNotifier {
   Future<void> updateOrder(OrdersModel order) async {
     _setLoading(true);
     try {
+      // Upload image to Cloudinary if available
+      if (order.imageUrl != null && order.imageUrl!.startsWith('/')) {
+        final cloudinaryService = CloudinaryService();
+        final imageFile = File(order.imageUrl!);
+        final cloudinaryUrl = await cloudinaryService.uploadImage(imageFile);
+        if (cloudinaryUrl != null) {
+          order.imageUrl = cloudinaryUrl;
+        }
+      }
+
       final response = await http.put(
         Uri.parse('$_baseUrl/${order.orderId}'),
         headers: _headers(),
@@ -121,7 +154,8 @@ class OrderViewModel extends ChangeNotifier {
       );
       if (response.statusCode == 200) {
         _orders.removeWhere((order) => order.orderId == orderId);
-        await _ordersBox?.deleteAt(_orders.indexWhere((order) => order.orderId == orderId));
+        await _ordersBox
+            ?.deleteAt(_orders.indexWhere((order) => order.orderId == orderId));
       } else {
         _handleError(response);
       }

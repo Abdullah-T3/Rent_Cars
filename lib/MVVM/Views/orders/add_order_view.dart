@@ -129,7 +129,8 @@ class _AddOrderViewState extends State<AddOrderView> {
                 children: [
                   // Customer Name Input
                   TextFormField(
-                    controller: TextEditingController(text: _order.customerName),
+                    controller:
+                        TextEditingController(text: _order.customerName),
                     decoration: InputDecoration(
                       labelText: S.of(context).customer_name,
                     ),
@@ -142,8 +143,11 @@ class _AddOrderViewState extends State<AddOrderView> {
                     },
                   ),
 
+                  const SizedBox(height: 10),
+
                   // Customer Mobile Input with Autocomplete
-                  Consumer<CustomerViewModel>(builder: (context, customerVM, child) {
+                  Consumer<CustomerViewModel>(
+                      builder: (context, customerVM, child) {
                     return Autocomplete<String>(
                       optionsBuilder: (TextEditingValue textEditingValue) {
                         if (textEditingValue.text.isEmpty) {
@@ -151,19 +155,22 @@ class _AddOrderViewState extends State<AddOrderView> {
                         }
                         final matchingCustomers = customerVM
                             .searchCustomersByMobile(textEditingValue.text)
-                            .map((customer) => customer.mobileNumber?.toString() ?? '')
+                            .map((customer) =>
+                                customer.mobileNumber?.toString() ?? '')
                             .where((mobile) => mobile.isNotEmpty);
                         return matchingCustomers;
                       },
                       onSelected: (String selection) {
                         _order.customerMobile = selection;
 
-                        final customer = customerVM.getCustomerByMobile(selection);
+                        final customer =
+                            customerVM.getCustomerByMobile(selection);
                         setState(() {
                           _order.customerName = customer.customerName;
                         });
                       },
-                      fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
+                      fieldViewBuilder:
+                          (context, controller, focusNode, onFieldSubmitted) {
                         return TextFormField(
                           controller: controller,
                           focusNode: focusNode,
@@ -181,6 +188,8 @@ class _AddOrderViewState extends State<AddOrderView> {
                       },
                     );
                   }),
+
+                  const SizedBox(height: 10),
 
                   // Car License Plate Input with Autocomplete
                   Consumer<CarsViewModel>(builder: (context, carsVM, child) {
@@ -201,10 +210,12 @@ class _AddOrderViewState extends State<AddOrderView> {
                         // Fetch the car details using the selected license plate
                         final car = carsVM.getCarByLicensePlate(selection);
                         setState(() {
-                          _order.carName = '${car.brand} ${car.model}'; // Update car name with brand and model
+                          _order.carName =
+                              '${car.brand} ${car.model}'; // Update car name with brand and model
                         });
                       },
-                      fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
+                      fieldViewBuilder:
+                          (context, controller, focusNode, onFieldSubmitted) {
                         return TextFormField(
                           controller: controller,
                           focusNode: focusNode,
@@ -214,7 +225,9 @@ class _AddOrderViewState extends State<AddOrderView> {
                           onSaved: (value) => _order.carLicensePlate = value,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return S.of(context).please_enter_car_license_plate;
+                              return S
+                                  .of(context)
+                                  .please_enter_car_license_plate;
                             }
                             return null;
                           },
@@ -222,6 +235,8 @@ class _AddOrderViewState extends State<AddOrderView> {
                       },
                     );
                   }),
+
+                  const SizedBox(height: 10),
 
                   // Car Name Input
                   TextFormField(
@@ -238,13 +253,16 @@ class _AddOrderViewState extends State<AddOrderView> {
                     },
                   ),
 
+                  const SizedBox(height: 10),
+
                   // Rental Days Input
                   TextFormField(
                     decoration: InputDecoration(
                       labelText: S.of(context).rental_days,
                     ),
                     keyboardType: TextInputType.number,
-                    onSaved: (value) => _order.rentalDays = int.tryParse(value ?? ''),
+                    onSaved: (value) =>
+                        _order.rentalDays = int.tryParse(value ?? ''),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return S.of(context).please_enter_rental_days;
@@ -253,13 +271,16 @@ class _AddOrderViewState extends State<AddOrderView> {
                     },
                   ),
 
+                  const SizedBox(height: 10),
+
                   // Rental Amount Input
                   TextFormField(
                     decoration: InputDecoration(
                       labelText: S.of(context).rental_amount,
                     ),
                     keyboardType: TextInputType.number,
-                    onSaved: (value) => _order.rentalAmount = int.tryParse(value ?? ''),
+                    onSaved: (value) =>
+                        _order.rentalAmount = int.tryParse(value ?? ''),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return S.of(context).please_enter_rental_amount;
@@ -268,13 +289,16 @@ class _AddOrderViewState extends State<AddOrderView> {
                     },
                   ),
 
+                  const SizedBox(height: 10),
+
                   // Rental Kilometers Input
                   TextFormField(
                     decoration: InputDecoration(
                       labelText: S.of(context).rental_kilometers,
                     ),
                     keyboardType: TextInputType.number,
-                    onSaved: (value) => _order.carKmAtRental = int.tryParse(value ?? ''),
+                    onSaved: (value) =>
+                        _order.carKmAtRental = int.tryParse(value ?? ''),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return S.of(context).please_enter_rental_kilometers;
@@ -283,8 +307,10 @@ class _AddOrderViewState extends State<AddOrderView> {
                     },
                   ),
 
+                  const SizedBox(height: 10),
+
                   // Rental Date Picker
-                       BuildTimePicker(
+                  BuildTimePicker(
                     onDateSelected: (selectedDate) {
                       setState(() {
                         _order.rentalDate =
@@ -293,27 +319,43 @@ class _AddOrderViewState extends State<AddOrderView> {
                     },
                   ),
 
+                  const SizedBox(height: 10),
 
                   // Image Picker
                   _selectedImage != null
                       ? Column(
                           children: [
                             Image.file(_selectedImage!),
+                            const SizedBox(height: 10),
                             ElevatedButton(
                               onPressed: _removeImage,
-                              child: Text(S.of(context).remove_image),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue,
+                              ),
+                              child: Text(S.of(context).remove_image,
+                                  style: const TextStyle(color: Colors.white)),
                             ),
                           ],
                         )
                       : ElevatedButton(
                           onPressed: () => _pickImage(ImageSource.gallery),
-                          child: Text(S.of(context).add_image),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                          ),
+                          child: Text(S.of(context).add_image,
+                              style: const TextStyle(color: Colors.white)),
                         ),
+
+                  const SizedBox(height: 10),
 
                   // Submit Button
                   ElevatedButton(
                     onPressed: _handleSubmit,
-                    child: Text(S.of(context).add_order),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                    ),
+                    child: Text(S.of(context).add_order,
+                        style: const TextStyle(color: Colors.white)),
                   ),
                 ],
               ),

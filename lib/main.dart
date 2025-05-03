@@ -53,6 +53,7 @@ void main() async {
     ),
   );
 }
+
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
   @override
@@ -64,14 +65,15 @@ class _MyAppState extends State<MyApp> {
 
   void toggleLanguage() {
     setState(() {
-      _locale = _locale.languageCode == 'en' ? const Locale('ar') : const Locale('en');
+      _locale = _locale.languageCode == 'en'
+          ? const Locale('ar')
+          : const Locale('en');
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final userViewModel = Provider.of<UserViewModel>(context);
-
     return MaterialApp(
       locale: _locale,
       localizationsDelegates: const [
@@ -85,8 +87,53 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Admin Panel',
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: MyColors.bgColor,
-        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme).apply(bodyColor: Colors.white),
+        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
+            .apply(bodyColor: Colors.white),
         canvasColor: MyColors.secondaryColor,
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+          backgroundColor: MyColors.secondaryColor,
+          centerTitle: true,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(16),
+            ),
+          ),
+        ),
+        cardTheme: const CardTheme(
+          elevation: 4,
+          margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(16)),
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            elevation: 2,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: MyColors.bgColor.withOpacity(0.8),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Colors.grey.shade800, width: 1),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: Colors.blue, width: 2),
+          ),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        ),
       ),
       home: userViewModel.token.isNotEmpty
           ? BottomNavScreen(toggleLanguage: toggleLanguage)
@@ -102,7 +149,7 @@ class _MyAppState extends State<MyApp> {
         '/expenses': (context) => const ExpensesDataView(),
         '/settings': (context) => SettingsPage(toggleLanguage: toggleLanguage),
         '/customers': (context) => const CustomerDataView(),
-        "/add_customer": (context) => AddCustomerView(),
+        "/add_customer": (context) => const AddCustomerView(),
         "/add_order": (context) => const AddOrderView(),
         "/add_expenses": (context) => const AddExpenseView(),
       },

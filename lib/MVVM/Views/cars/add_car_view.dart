@@ -4,12 +4,14 @@ import 'package:bookingcars/generated/l10n.dart';
 import 'package:bookingcars/widgets/myDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 class AddCarView extends StatefulWidget {
   const AddCarView({super.key});
   @override
   // ignore: library_private_types_in_public_api
   _AddCarViewState createState() => _AddCarViewState();
 }
+
 class _AddCarViewState extends State<AddCarView> {
   final _formKey = GlobalKey<FormState>();
   final _licensePlateController = TextEditingController();
@@ -112,6 +114,9 @@ class _AddCarViewState extends State<AddCarView> {
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                  ),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       CarsDataModel car = CarsDataModel(
@@ -135,7 +140,7 @@ class _AddCarViewState extends State<AddCarView> {
                       } else {
                         // ignore: use_build_context_synchronously
                         ScaffoldMessenger.of(context).showSnackBar(
-                           SnackBar(
+                          SnackBar(
                             // ignore: use_build_context_synchronously
                             content: Text(S.of(context).car_added_successfully),
                           ),
@@ -146,7 +151,10 @@ class _AddCarViewState extends State<AddCarView> {
                       }
                     }
                   },
-                  child: Text(S.of(context).add_car),
+                  child: Text(
+                    S.of(context).add_car,
+                    style: const TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
             ),

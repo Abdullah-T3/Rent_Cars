@@ -1,0 +1,2 @@
+C:/Users/T3MIA/Documents/GitHub/Rent_Cars/android/app/.cxx/Debug/1ka325t5/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/T3MIA/Documents/GitHub/Rent_Cars/android/app/.cxx/Debug/1ka325t5/x86_64/CMakeFiles/rebuild_cache.dir

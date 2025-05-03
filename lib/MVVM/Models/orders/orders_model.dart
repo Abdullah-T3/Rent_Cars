@@ -58,11 +58,15 @@ class OrdersModel {
         customerMobile: json["customer_mobile"],
         carLicensePlate: json["car_license_plate"],
         carName: json["car_name"],
-        rentalDate: json["rental_date"] == null ? null : DateTime.parse(json["rental_date"]),
+        rentalDate: json["rental_date"] == null
+            ? null
+            : DateTime.parse(json["rental_date"]),
         rentalDays: json["rental_days"],
         rentalAmount: json["rental_amount"],
         carKmAtRental: json["car_km_at_rental"],
-        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
         imageUrl: json["image_url"] as String?, // Typecast to String?
       );
 
@@ -82,8 +86,7 @@ class OrdersModel {
 }
 
 // Functions to parse JSON data
-List<OrdersModel> ordersModelFromJson(String str) =>
-    List<OrdersModel>.from(json.decode(str).map((x) => OrdersModel.fromJson(x)));
+List<OrdersModel> ordersModelFromJson(String str) => List<OrdersModel>.from(
+    json.decode(str).map((x) => OrdersModel.fromJson(x)));
 
-String ordersModelToJson(List<OrdersModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String ordersModelToJson(OrdersModel data) => json.encode(data.toJson());

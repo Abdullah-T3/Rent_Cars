@@ -34,30 +34,49 @@ class CustomerViewModel extends ChangeNotifier {
   Future<void> fetchCustomers() async {
     _setLoading(true);
     try {
-      var request = http.Request('GET', Uri.parse(_baseUrl));
-      request.headers.addAll(_headers());
-
-      http.StreamedResponse response = await request.send();
+      var request = http.get(
+        Uri.parse(_baseUrl),
+        headers: _headers(),
+      );
+      http.Response response = await request;
+      var data = customersDataModelFromJson(response.body);
+      print("data: $data");
       if (response.statusCode == 200) {
-        var strings = await response.stream.bytesToString();
-        List jsonData = json.decode(strings);
-
-        _customers = jsonData
-            .map<CustomersDataModel>(
-                (json) => CustomersDataModel.fromJson(json))
-            .toList();
-
+        _customers = data;
         // Cache the fetched data
         await _customersBox?.clear();
         for (var customer in _customers) {
           await _customersBox?.add(customer);
         }
-
         _errorMessage = '';
       } else {
-        _handleError(response as http.Response);
+        _errorMessage =
+            'Error: ${response.statusCode} - ${response.reasonPhrase}';
       }
-    } catch (e) {
+
+      // var request = http.Request('GET', Uri.parse(_baseUrl));
+      // request.headers.addAll(_headers());
+      // http.StreamedResponse response = await request.send();
+      // if (response.statusCode == 200) {
+
+      //   var strings = await response.stream.bytesToString();
+      //   List jsonData = json.decode(strings);
+      //   _customers = jsonData
+      //       .map<CustomersDataModel>(
+      //           (json) => CustomersDataModel.fromJson(json))
+      //       .toList();
+      //   // Cache the fetched data
+      //   await _customersBox?.clear();
+      //   for (var customer in _customers) {
+      //     await _customersBox?.add(customer);
+      //   }
+      //   _errorMessage = '';
+      // } else {
+      //   _errorMessage =
+      //       'Error: ${response.statusCode} - ${response.reasonPhrase}';
+      // }
+    } catch (e, t) {
+      print(t);
       _errorMessage = e.toString();
     } finally {
       _setLoading(false);
@@ -87,11 +106,12 @@ class CustomerViewModel extends ChangeNotifier {
     }
     notifyListeners();
   }
-   // Method to get a customer by their mobile number
+
+  // Method to get a customer by their mobile number
   CustomersDataModel getCustomerByMobile(String mobileNumber) {
     final customer = _customers.firstWhere(
       (customer) => customer.mobileNumber.toString() == mobileNumber,
-      orElse: () => throw Exception('Customer not found'), // Throw an exception if no customer is found
+      orElse: () => throw Exception('Customer not found'),
     );
 
     return customer;

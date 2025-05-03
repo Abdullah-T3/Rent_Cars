@@ -20,7 +20,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   late String isLoggedIn;
   bool isPressed = true;
-GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -45,29 +45,35 @@ GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   Widget buildHeader(context) {
     return Infowidget(builder: (context, deviceInfo) {
-      bool isDesktop = deviceInfo.deviceType == DeviceType.desktop?true:false;
+      bool isDesktop =
+          deviceInfo.deviceType == DeviceType.desktop ? true : false;
       return Container(
-        padding:isDesktop? EdgeInsets.symmetric(
-          horizontal: deviceInfo.screenWidth * 0.05,
-          vertical: deviceInfo.screenHeight * 0.02,
-        ):
-        EdgeInsets.symmetric(
-          horizontal: deviceInfo.screenWidth * 0.03,
-          vertical: deviceInfo.screenHeight * 0.01,
-        ),
+        padding: isDesktop
+            ? EdgeInsets.symmetric(
+                horizontal: deviceInfo.screenWidth * 0.05,
+                vertical: deviceInfo.screenHeight * 0.02,
+              )
+            : EdgeInsets.symmetric(
+                horizontal: deviceInfo.screenWidth * 0.03,
+                vertical: deviceInfo.screenHeight * 0.01,
+              ),
         child: Column(
           children: [
             Text(
               S.of(context).login,
               style: TextStyle(
-                fontSize:isDesktop? deviceInfo.screenWidth * 0.03: deviceInfo.screenWidth * 0.07, // Dynamic text size
+                fontSize: isDesktop
+                    ? deviceInfo.screenWidth * 0.03
+                    : deviceInfo.screenWidth * 0.07, // Dynamic text size
                 color: Colors.white,
               ),
             ),
             Text(
               S.of(context).Continue_to_login,
               style: TextStyle(
-                fontSize:isDesktop? deviceInfo.screenWidth * 0.02: deviceInfo.screenWidth * 0.05,
+                fontSize: isDesktop
+                    ? deviceInfo.screenWidth * 0.02
+                    : deviceInfo.screenWidth * 0.05,
                 color: Colors.white,
               ),
             ),
@@ -148,8 +154,9 @@ GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Widget build(BuildContext context) {
     final userViewModel = Provider.of<UserViewModel>(context);
     return Infowidget(builder: (context, deviceInfo) {
-          Locale currentLocale = Localizations.localeOf(context);
-          bool isDesktop = deviceInfo.deviceType == DeviceType.desktop?true:false;
+      Locale currentLocale = Localizations.localeOf(context);
+      bool isDesktop =
+          deviceInfo.deviceType == DeviceType.desktop ? true : false;
       return Scaffold(
         body: SafeArea(
           child: GestureDetector(
@@ -160,7 +167,7 @@ GlobalKey<FormState> formKey = GlobalKey<FormState>();
               height: deviceInfo.screenHeight,
               width: deviceInfo.screenWidth,
               child: SingleChildScrollView(
-                physics:const AlwaysScrollableScrollPhysics(),
+                physics: const AlwaysScrollableScrollPhysics(),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: deviceInfo.screenWidth * 0.05,
@@ -173,7 +180,9 @@ GlobalKey<FormState> formKey = GlobalKey<FormState>();
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          IconButton(onPressed: widget.toggleLanguage, icon:const Icon(Icons.language) ),
+                          IconButton(
+                              onPressed: widget.toggleLanguage,
+                              icon: const Icon(Icons.language)),
                           Text(currentLocale.toString())
                         ],
                       ),
@@ -184,8 +193,11 @@ GlobalKey<FormState> formKey = GlobalKey<FormState>();
                         child: buildTextField(),
                       ),
                       Padding(
-                        padding:
-                           isDesktop? EdgeInsets.only(left: deviceInfo.localWidth * 0.09):EdgeInsets.only(left: deviceInfo.localWidth * 0.15),
+                        padding: isDesktop
+                            ? EdgeInsets.only(
+                                left: deviceInfo.localWidth * 0.09)
+                            : EdgeInsets.only(
+                                left: deviceInfo.localWidth * 0.15),
                         child: Image.asset("assets/images/desk.png",
                             height: deviceInfo.screenHeight * 0.3),
                       ),
@@ -200,6 +212,7 @@ GlobalKey<FormState> formKey = GlobalKey<FormState>();
                               color: MyColors.primaryColor),
                           child: MaterialButton(
                             onPressed: () async {
+                              // Navigator.pushReplacementNamed(context, '/home');
                               await userViewModel.login(
                                 usernameController.text,
                                 passwordController.text,
@@ -210,7 +223,8 @@ GlobalKey<FormState> formKey = GlobalKey<FormState>();
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    content: Text(S.of(context)
+                                    content: Text(S
+                                        .of(context)
                                         .Invalid_username_or_password),
                                     backgroundColor: Colors.red,
                                   ),

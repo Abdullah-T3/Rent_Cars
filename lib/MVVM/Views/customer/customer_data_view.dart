@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 class CustomerDataView extends StatefulWidget {
   const CustomerDataView({super.key});
-  
+
   @override
   State<CustomerDataView> createState() => _CustomerDataViewState();
 }
@@ -35,7 +35,8 @@ class _CustomerDataViewState extends State<CustomerDataView> {
           child: SingleChildScrollView(
             controller: verticalScrollController,
             child: Scrollbar(
-              thumbVisibility: true, // Show scrollbar thumb for horizontal scrolling
+              thumbVisibility:
+                  true, // Show scrollbar thumb for horizontal scrolling
               controller: horizontalScrollController,
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -66,7 +67,8 @@ class _CustomerDataViewState extends State<CustomerDataView> {
                             IconButton(
                               icon: const Icon(Icons.edit),
                               onPressed: () {
-                                _showEditDialog(context, customer, customerViewModel);
+                                _showEditDialog(
+                                    context, customer, customerViewModel);
                               },
                             ),
                           ),
@@ -92,7 +94,7 @@ class _CustomerDataViewState extends State<CustomerDataView> {
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: () {
-              Navigator.of(context).pushNamed('/add_customer');              
+              Navigator.of(context).pushNamed('/add_customer');
             },
           ),
         ],
@@ -103,7 +105,6 @@ class _CustomerDataViewState extends State<CustomerDataView> {
             if (customerViewModel.isLoading) {
               return const CircularProgressIndicator();
             }
-
             return buildTable(customerViewModel);
           },
         ),
@@ -111,18 +112,21 @@ class _CustomerDataViewState extends State<CustomerDataView> {
     );
   }
 
-  void _showEditDialog(BuildContext context, CustomersDataModel customer, CustomerViewModel viewModel) {
+  void _showEditDialog(BuildContext context, CustomersDataModel customer,
+      CustomerViewModel viewModel) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Edit Customer'),
-          content: SingleChildScrollView( // Allow vertical scrolling in the dialog
+          content: SingleChildScrollView(
+            // Allow vertical scrolling in the dialog
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
-                  controller: TextEditingController(text: customer.customerName),
+                  controller:
+                      TextEditingController(text: customer.customerName),
                   onChanged: (value) {
                     customer.customerName = value;
                   },
@@ -150,11 +154,13 @@ class _CustomerDataViewState extends State<CustomerDataView> {
                   decoration: const InputDecoration(labelText: 'Landline'),
                 ),
                 TextField(
-                  controller: TextEditingController(text: customer.referenceNumber),
+                  controller:
+                      TextEditingController(text: customer.referenceNumber),
                   onChanged: (value) {
                     customer.referenceNumber = value;
                   },
-                  decoration: const InputDecoration(labelText: 'Reference Line'),
+                  decoration:
+                      const InputDecoration(labelText: 'Reference Line'),
                 ),
               ],
             ),

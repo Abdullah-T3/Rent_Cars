@@ -19,7 +19,7 @@ class CustomersDataModelAdapter extends TypeAdapter<CustomersDataModel> {
     return CustomersDataModel(
       customerId: fields[0] as int?,
       customerName: fields[1] as String?,
-      mobileNumber: fields[2] as int?,
+      mobileNumber: fields[2] as String?,
       idNumber: fields[3] as String?,
       address: fields[4] as String?,
       landline: fields[5] as String?,

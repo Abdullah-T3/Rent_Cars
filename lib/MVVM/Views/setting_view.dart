@@ -10,7 +10,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text(S.of(context).Settings),
+        title: Text(S.of(context).Settings),
       ),
       body: Center(
         child: Column(
@@ -23,7 +23,13 @@ class SettingsPage extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: toggleLanguage,
-              child: Text(S.of(context).Switch_to_Arabic),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+              ),
+              child: Text(
+                S.of(context).Switch_to_Arabic,
+                style: const TextStyle(color: Colors.white),
+              ),
             ),
           ],
         ),
